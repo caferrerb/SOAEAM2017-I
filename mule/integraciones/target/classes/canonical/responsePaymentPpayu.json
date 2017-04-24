@@ -1,0 +1,10 @@
+{  
+   "code":"200",
+   "status":"ok",
+   "response":{
+	   	"payment":{
+	   		"operacionId":"112",
+	   		"state":"sucess"
+	   	}
+   }
+}

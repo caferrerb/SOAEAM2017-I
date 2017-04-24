@@ -1,0 +1,16 @@
+{
+    "inputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "ResponseCreatePaymentPayu"
+        }
+    },
+    "outputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "ResponseCreatePaymentCanonical"
+        }
+    },
+    "id": "b3725282-55c6-46c6-8c2c-0a7d99bf2af4",
+    "version": "5.2.0.0"
+}

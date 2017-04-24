@@ -1,0 +1,9 @@
+<paymentResponse>
+    <code>SUCCESS</code>
+    <transactionResponse>
+        <orderId>840802049</orderId>
+        <transactionId>f7c873e2-7283-4008-b660-efee77f3196f</transactionId>
+        <state>DECLINED</state>
+        <responseCode>ANTIFRAUD_REJECTED</responseCode>
+    </transactionResponse>
+</paymentResponse>

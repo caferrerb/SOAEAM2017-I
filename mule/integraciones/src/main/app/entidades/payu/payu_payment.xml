@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd">
+    <http:request-config name="http_payu" protocol="HTTPS" host="sandbox.api.payulatam.com" port="443" doc:name="HTTP Request Configuration"/>
+    <flow name="payu_payment">
+        <json:validate-schema schemaLocation="schemas/payment.json" doc:name="Validate JSON Schema"/>
+        <set-variable variableName="json" value="#[payload]" mimeType="application/json" doc:name="json" encoding="UTF-8"/>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" mimeType="application/java" doc:name="JSON to Object"/>
+        <set-variable variableName="value" value="#[payload.payment.value.value]" mimeType="application/java" doc:name="value"/>
+        <component class="payu.ReferenceCode" doc:name="Java-ReferenceCode"/>
+        <set-variable variableName="referenceCode" value="#[payload.toString()]" mimeType="application/java" doc:name="referenceCode"/>
+        <dw:transform-message doc:name="trans.valores payu">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	merchantId:p('payu.merchantId'),
+	referenceCode:flowVars.referenceCode,
+	apiKey:p('payu.apiKey'),
+	accountId:p('payu.accountId'),
+	value:flowVars.value as :string,
+	coin:'COP'
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" mimeType="application/java" doc:name="Map"/>
+        <component class="payu.MD5Payu" doc:name="Java-MD5Payu"/>
+        <set-variable variableName="signature" value="#[payload.toString()]" mimeType="application/java" doc:name="Signature"/>
+        <set-payload value="#[flowVars.json]" encoding="UTF-8" mimeType="application/json" doc:name="payload json"/>
+        <dw:transform-message doc:name="json payu para peticion" metadata:id="5f7c3503-f1fa-4e02-bec2-83e778a254b9">
+            <dw:input-payload mimeType="application/json"/>
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	language: 'es',
+	command: 'SUBMIT_TRANSACTION',
+	merchant: {
+		apiKey: p('payu.apiKey'),
+		apiLogin: p('payu.apiLogin')
+	},
+	transaction: {
+		order: {
+			accountId: p('payu.accountId'),
+			referenceCode: flowVars.referenceCode,
+			description: 'Pago Factura',
+			language: 'es',
+			signature: flowVars.signature,
+			notifyUrl: 'http://www.tes.com/confirmation',
+			additionalValues: {
+				TX_VALUE: {
+					value: payload.payment.value.value as :string,
+					currency: 'COP'
+				}
+			},
+			buyer: {
+				merchantBuyerId: '1',
+				fullName: payload.payment.customer.personal.firstName ++ payload.payment.customer.personal.lastName,
+				emailAddress: payload.payment.customer.social.mail,
+				contactPhone: payload.payment.customer.social.cellNumber,
+				dniNumber: '5415668464654',
+				shippingAddress: {
+					street1: payload.payment.customer.localization.addressStreet,
+					street2: '5555487',
+					city: payload.payment.customer.localization.city,
+					state: payload.payment.customer.localization.state,
+					country: 'CO',
+					postalCode: '000000',
+					phone: payload.payment.customer.social.cellNumber
+				}
+			},
+			shippingAddress: {
+				street1: payload.payment.customer.localization.addressStreet,
+				street2: '5555487',
+				city: payload.payment.customer.localization.city,
+				state: payload.payment.customer.localization.state,
+				country: 'CO',
+				postalCode: '0000000',
+				phone: payload.payment.customer.social.cellNumber
+			}
+		},
+		payer: {
+			merchantPayerId: '1',
+			fullName: payload.payment.customer.personal.firstName ++ payload.payment.customer.personal.lastName,
+			emailAddress: payload.payment.customer.social.mail,
+			contactPhone: payload.payment.customer.social.cellNumber,
+			dniNumber: '5415668464654',
+			billingAddress: {
+				street1: payload.payment.customer.localization.addressStreet,
+				street2: '125544',
+				city: payload.payment.customer.localization.city,
+				state: payload.payment.customer.localization.state,
+				country: 'CO',
+				postalCode: '000000',
+				phone: payload.payment.customer.social.cellNumber
+			}
+		},
+		creditCard: {
+			number: payload.payment.card.number,
+			securityCode: payload.payment.card.securityCode,
+			expirationDate: payload.payment.card.expirationDate,
+			name: payload.payment.card.name
+		},
+		extraParameters: {
+			INSTALLMENTS_NUMBER: 1
+		},
+		type: 'AUTHORIZATION_AND_CAPTURE',
+		paymentMethod: payload.payment.card.paymentMethod,
+		paymentCountry: payload.payment.card.paymentCountry,
+		deviceSessionId: 'vghs6tvkcle931686k1900o6e1',
+		ipAddress: '127.0.0.1',
+		cookie: 'pt1t38347bs6jc9ruv2ecpv7o2',
+		userAgent: 'Mozilla/5.0 (Windows NT 5.1; rv:18.0) Gecko/20100101 Firefox/18.0'
+	},
+	test: false
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <http:request config-ref="http_payu" path="/payments-api/4.0/service.cgi" method="POST" doc:name="HTTP"/>
+        <dw:transform-message metadata:id="b3725282-55c6-46c6-8c2c-0a7d99bf2af4" doc:name="Transform Message">
+            <dw:input-payload mimeType="application/xml"/>
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	code: '200',
+	status: payload.paymentResponse.code,
+	response: {
+		payment: {
+			operacionId: payload.paymentResponse.transactionResponse.orderId as :string,
+			state: payload.paymentResponse.transactionResponse.state
+		}
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+    </flow>
+</mule>

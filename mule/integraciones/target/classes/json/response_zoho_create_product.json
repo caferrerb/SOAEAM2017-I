@@ -1,0 +1,29 @@
+{
+  "code": 0,
+  "message": "The item has been added.",
+  "item": {
+    "item_id": "590388000000095009",
+    "name": "Mouse Black",
+    "sku": "testN1",
+    "image_name": "",
+    "status": "active",
+    "source": "api",
+    "is_linked_with_zohocrm": false,
+    "zcrm_product_id": "",
+    "crm_owner_id": "",
+    "unit": "",
+    "description": "CZT",
+    "rate": 1200,
+    "tax_id": "",
+    "tax_name": "",
+    "tax_percentage": 0,
+    "tax_type": "",
+    "pricebook_rate": 1200,
+    "created_time": "2017-04-15T09:30:43-0500",
+    "last_modified_time": "2017-04-15T09:30:43-0500",
+    "product_type": "goods",
+    "custom_fields": [],
+    "custom_field_hash": {},
+    "image_id": ""
+  }
+}

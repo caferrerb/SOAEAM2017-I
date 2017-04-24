@@ -1,0 +1,10 @@
+{  
+   "name":"name",
+   "rate":"rate",
+   "description":"description",
+   "sku":"sku",
+   "product_type":"product_type",
+   "token":"token",
+   "organization":"idorg",
+   "action":"create"
+}

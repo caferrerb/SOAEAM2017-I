@@ -1,0 +1,11 @@
+{
+    "inputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "ZohoCustomer"
+        }
+    },
+    "outputMessageMetadata": {},
+    "id": "cc947fa8-5ed5-4a59-826c-b34eb7b2c34c",
+    "version": "5.2.0.0"
+}

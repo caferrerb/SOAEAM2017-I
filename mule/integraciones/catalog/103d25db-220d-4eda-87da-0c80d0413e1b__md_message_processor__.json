@@ -1,0 +1,16 @@
+{
+    "inputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "Product"
+        }
+    },
+    "outputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "createProductoZoho"
+        }
+    },
+    "id": "103d25db-220d-4eda-87da-0c80d0413e1b",
+    "version": "5.2.0.0"
+}

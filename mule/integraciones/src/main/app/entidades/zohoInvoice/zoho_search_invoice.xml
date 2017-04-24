@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
+    <flow name="zoho_search_invoice">
+        <set-variable variableName="invoice" value="#[message.inboundProperties['http.uri.params']['invoice']]" mimeType="application/java" doc:name="invoice"/>
+        <http:request config-ref="http_zoho" path="${zoho.pathInvoice}/#[flowVars.invoice]?authtoken=${zoho.token}&amp;organization_id=${zoho.idorg}" method="GET" doc:name="http zoho invoice search"/>
+        <set-payload value="#[payload]" encoding="UTF-8" mimeType="application/json" doc:name="payload formatter"/>
+        <dw:transform-message metadata:id="c5cf4f3c-1898-4d46-b294-f129dcb7e4c2" doc:name="Transform Message">
+            <dw:input-payload mimeType="application/json"/>
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	code: '200',
+	status: payload.message,
+	response: {
+		invoice: {
+			date: {
+				id: payload.invoice.invoice_id,
+				number: payload.invoice.invoice_number,
+				total: payload.invoice.total,
+				date: payload.invoice.date
+			},
+			customer: {
+				personal: {
+					firstName: payload.invoice.contact_persons_details.first_name,
+					lastName: payload.invoice.contact_persons_details.last_name
+				},
+				social: {
+					mail: payload.invoice.contact_persons_details.email,
+					cellNumber: payload.invoice.contact_persons_details.phone
+				},
+				localization: {
+					country: payload.invoice.billing_address.country,
+					state: payload.invoice.billing_address.state,
+					city: payload.invoice.billing_address.city,
+					addressStreet: payload.invoice.billing_address.address
+				},
+				ids: {
+					id: payload.invoice.contact_persons_details.contact_person_id
+				}
+			},
+			products: payload.invoice.line_items map ((lineitem , indexOfLineitem) -> {
+				product: {
+					description: {
+						name: lineitem.name,
+						description: lineitem.description
+					},
+					price: {
+						coin: p('zoho.coin'),
+						price: lineitem.rate as :string
+					},
+					ids: {
+						id: lineitem.item_id
+					}
+				}
+			})
+		}
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+    </flow>
+</mule>

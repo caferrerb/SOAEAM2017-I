@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+    <flow name="zoho_create_invoice">
+        <json:validate-schema schemaLocation="schemas/invoiceSchema.json" doc:name="Validate JSON Schema"/>
+        <dw:transform-message metadata:id="a4789a45-16db-4a8f-9985-3ea1683a4577" doc:name="Transform Message">
+            <dw:input-payload mimeType="application/json"/>
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	customer_id: payload.invoice.customer.ids.id as :number,
+	line_items: payload.invoice.products map ((product , indexOfProduct) -> {
+		item_id: product.product.ids.id as :number,
+		name: product.product.description.name,
+		description: product.product.description.description,
+		item_order: 1,
+		rate: product.product.price.price as :number,
+		quantity: 1,
+		discount: 0,
+		item_total: 1
+	})
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <object-to-string-transformer doc:name="Object to String"/>
+        <set-variable variableName="text" value="#[payload.toString()]" mimeType="application/java" doc:name="text"/>
+        <dw:transform-message doc:name="generar map json">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	token:p('zoho.token'),
+	organization:p('zoho.idorg'),
+   	action:p('zoho.create.customer'),
+   	value:flowVars.text
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" mimeType="application/java" doc:name="json to Object"/>
+        <component class="zohoInvoice.GenerarCadenaZoho" doc:name="Java"/>
+        <http:request config-ref="http_zoho" path="${zoho.pathInvoice}?#[payload]" method="POST" doc:name="http create zoho invoice"/>
+        <dw:transform-message metadata:id="30671d03-53b9-4e0c-b84d-86dafc09d729" doc:name="Transform Message">
+            <dw:input-payload mimeType="application/json"/>
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	code: '200',
+	status: payload.message,
+	response: {
+		invoice: {
+			date: {
+				id: payload.invoice.invoice_id,
+				number: payload.invoice.invoice_number,
+				total: payload.invoice.total
+			}
+		}
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+    </flow>
+</mule>

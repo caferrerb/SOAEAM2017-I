@@ -1,0 +1,16 @@
+{
+    "inputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "idProductAmazon"
+        }
+    },
+    "outputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "ResponseIdProduct"
+        }
+    },
+    "id": "c85aa24c-36e2-43d5-9982-bef7677dc62b",
+    "version": "5.2.0.0"
+}

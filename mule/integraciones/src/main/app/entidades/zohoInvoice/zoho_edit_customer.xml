@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:validation="http://www.mulesoft.org/schema/mule/validation" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
+    <flow name="zoho_edit_customer">
+        <json:validate-schema schemaLocation="schemas/customerEditSchema.json" doc:name="validate-customer-input"/>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" mimeType="application/java" doc:name="json to map"/>
+        <set-variable variableName="idCustomer" value="#[payload.customer.ids.id]" mimeType="application/java" doc:name="id customer"/>
+        <validation:all doc:name="Validation">
+            <validation:validations>
+                <validation:is-number value="#[payload.customer.personal.age]" minValue="1" numberType="INTEGER" message="${exception.age}"/>
+                <validation:is-number value="#[payload.customer.identification.number]" minValue="1" numberType="LONG" message="${exception.idNumber}"/>
+                <validation:matches-regex value="#[payload.customer.personal.sex]" regex="(M|F|m|f){1}" message="${exception.sex}"/>
+                <validation:matches-regex value="#[payload.customer.social.mail]" regex="(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|&quot;(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*&quot;)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])" message="${exception.mail}"/>
+                <validation:validate-size value="#[payload.customer.personal.sex]" min="1" max="1" message="${exception.sexSize}"/>
+            </validation:validations>
+        </validation:all>
+        <json:object-to-json-transformer encoding="UTF-8" mimeType="application/json" doc:name="object to JSON"/>
+        <dw:transform-message metadata:id="701124fd-a5e9-4350-a1be-987bcc7f6232" doc:name="canonical customer to zoho customer">
+            <dw:input-payload mimeType="application/json"/>
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	contact_name: payload.customer.personal.firstName
+++ ' ' ++ payload.customer.personal.lastName,
+	company_name: 'EAM',
+	payment_terms: 15,
+	currency_id: p('zoho.coinId'),
+	website: 'eam.edu.com',
+	custom_fields: [{
+		value: payload.customer.identification.number,
+		index: 1
+	}],
+	billing_address: {
+		street: payload.customer.localization.addressStreet,
+		city: payload.customer.localization.city,
+		state: payload.customer.localization.state,
+		zip: 94588,
+		country: payload.customer.localization.country
+	},
+	shipping_address: {
+		s_street: payload.customer.localization.addressStreet,
+		s_city: payload.customer.localization.city,
+		s_state: payload.customer.localization.state,
+		s_zip: 94588,
+		s_country: payload.customer.localization.country
+	},
+	contact_persons: [{
+		salutation: payload.customer.personal.sex,
+		first_name: payload.customer.personal.firstName,
+		last_name: payload.customer.personal.lastName,
+		email: payload.customer.social.mail,
+		phone: payload.customer.social.cellNumber,
+		mobile: payload.customer.social.cellNumber,
+		is_primary_contact: true
+	}],
+	language_code: 'es'
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <object-to-string-transformer doc:name="Object to String"/>
+        <set-variable variableName="text" value="#[payload.toString()]" mimeType="application/java" doc:name="text"/>
+        <dw:transform-message doc:name="json map java">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	token:p('zoho.token'),
+	organization:p('zoho.idorg'),
+   	action:p('zoho.create.customer'),
+   	value:flowVars.text
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" mimeType="application/java" doc:name="JSON to Object"/>
+        <component class="zohoInvoice.GenerarCadenaZoho" doc:name="Java"/>
+        <http:request config-ref="http_zoho" path="${zoho.pathContac}/#[flowVars.idCustomer]?#[payload]" method="PUT" doc:name="http zoho edit customer"/>
+        <dw:transform-message metadata:id="7f9a5408-d906-499f-9433-30d2b798847f" doc:name="Transform Message">
+            <dw:input-payload mimeType="application/json"/>
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	code: '200',
+	status: payload.message,
+	response: {
+		customer: {
+			identification: {
+				number: payload.contact.cf_sugarid
+			},
+			personal: {
+				firstName: payload.contact.contact_persons.first_name,
+				lastName: payload.contact.contact_persons.last_name,
+				sex: payload.contact.contact_persons.salutation
+			},
+			social: {
+				mail: payload.contact.contact_persons.email,
+				cellNumber: payload.contact.contact_persons.mobile
+			},
+			localization: {
+				country: payload.contact.billing_address.country,
+				state: payload.contact.billing_address.state,
+				city: payload.contact.billing_address.city
+			}
+		}
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+    </flow>
+</mule>

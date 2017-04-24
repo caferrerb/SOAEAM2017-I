@@ -1,0 +1,16 @@
+{
+    "inputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "Customer"
+        }
+    },
+    "outputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "CustomerEspoCRM"
+        }
+    },
+    "id": "820e49b9-5466-4255-85e1-323d43e52f60",
+    "version": "5.2.0.0"
+}

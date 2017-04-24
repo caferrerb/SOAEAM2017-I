@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:apikit="http://www.mulesoft.org/schema/mule/apikit" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-current.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/apikit http://www.mulesoft.org/schema/mule/apikit/current/mule-apikit.xsd">
+	
+	<context:property-placeholder location="mule-app.properties,mensajes.properties"/>
+    <http:listener-config name="configuracion_http_general" host="0.0.0.0" port="${port}" basePath="${root.general}" doc:name="HTTP Listener Configuration"/>
+    <apikit:config name="Router" raml="tienda.raml" consoleEnabled="false" consolePath="console" keepRamlBaseUri="false" doc:name="Router">
+        <apikit:flow-mapping resource="/espocrm/createCustomer" action="post" content-type="application/json" flow-ref="espo_create_customer"/>
+        <apikit:flow-mapping resource="/espocrm/searchCustomer/{id}" action="get" flow-ref="espo_search_customer"/>
+        <apikit:flow-mapping resource="/amazon/searchAll/{item}" action="get" flow-ref="amazon_search_all"/>
+        <apikit:flow-mapping resource="/amazon/searchProduct/{id}" action="get" flow-ref="amazon_item_look_up"/>
+        <apikit:flow-mapping resource="/zoho/createProduct" action="post" content-type="application/json" flow-ref="zoho_create_product"/>
+        <apikit:flow-mapping resource="/zoho/searchProduct/{sku}" action="get" flow-ref="zoho_search_procuct"/>
+        <apikit:flow-mapping resource="/zoho/createCustomer" action="post" content-type="application/json" flow-ref="zoho_create_customer"/>
+        <apikit:flow-mapping resource="/zoho/searchCustomer/{mail}" action="get" flow-ref="zoho_search_customer"/>
+        <apikit:flow-mapping resource="/zoho/editCustomer" action="post" content-type="application/json" flow-ref="zoho_edit_customer"/>
+        <apikit:flow-mapping resource="/zoho/createInvoice" action="post" content-type="application/json" flow-ref="zoho_create_invoice"/>
+        <apikit:flow-mapping resource="/zoho/searchInvoice/{invoice}" action="get" flow-ref="zoho_search_invoice"/>
+        <apikit:flow-mapping resource="/espocrm/editCustomer" action="post" content-type="application/json" flow-ref="espo_edit_customer"/>
+        <apikit:flow-mapping resource="/payu/payment" action="post" content-type="application/json" flow-ref="payu_payment"/>
+        <apikit:flow-mapping resource="/db/createCustomer" action="post" content-type="application/json" flow-ref="crearDB"/>
+        <apikit:flow-mapping resource="/db/editCurstomer" action="post" content-type="application/json" flow-ref="editDB"/>
+        <apikit:flow-mapping resource="/db/findCustomer" action="get" flow-ref="findCustomer"/>
+    </apikit:config>
+	
+    <flow name="principal">
+        <http:listener config-ref="configuracion_http_general" path="${root.start}" doc:name="HTTP Principal"/>
+        <apikit:router config-ref="Router" doc:name="APIkit Router"/>
+        <exception-strategy ref="caths_exception" doc:name="Reference Exception Strategy"/>
+    </flow>
+    <choice-exception-strategy name="caths_exception">
+        <catch-exception-strategy when="#[exception.causeMatches('*ResponseValidatorException')]" doc:name="ResponseValidatorException">
+            <set-property propertyName="http.status" value="#[400]" doc:name="Property"/>
+            <set-payload value="{&quot;code&quot;: &quot;-1&quot;,&quot;status&quot;:&quot;Error&quot;,&quot;response&quot;: {&quot;message&quot;:&quot;${exception.search}&quot;}}" doc:name="Set Payload" encoding="UTF-8" mimeType="application/json"/>
+        </catch-exception-strategy>
+        <catch-exception-strategy when="#[exception.causeMatches('*ValidationException')]" doc:name="ValidationException">
+            <set-property propertyName="htttp.status" value="#[500]" doc:name="Property"/>
+            <set-payload value="{&quot;code&quot;: &quot;-2&quot;,&quot;status&quot;:&quot;Error&quot;,&quot;response&quot;: {&quot;message&quot;:&quot;#[exception.message]&quot;}}" encoding="UTF-8" mimeType="application/json" doc:name="payload exception"/>
+        </catch-exception-strategy>
+        <catch-exception-strategy when="#[exception.causeMatches('*WeaveExecutionException')]" doc:name="WeaveExecutionException">
+            <set-property propertyName="http.status" value="#[400]" doc:name="Copy_of_Property"/>
+            <set-payload value="{&quot;code&quot;: &quot;-3&quot;,&quot;status&quot;:&quot;Error&quot;,&quot;response&quot;: {&quot;message&quot;:&quot;${exception.search}&quot;}}" doc:name="Set Payload" encoding="UTF-8" mimeType="application/json"/>
+        </catch-exception-strategy>
+    
+    </choice-exception-strategy>
+</mule>

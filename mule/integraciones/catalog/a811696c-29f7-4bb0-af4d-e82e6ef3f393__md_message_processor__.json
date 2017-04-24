@@ -1,0 +1,16 @@
+{
+    "inputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "Customer"
+        }
+    },
+    "outputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "_create_customer_crm"
+        }
+    },
+    "id": "a811696c-29f7-4bb0-af4d-e82e6ef3f393",
+    "version": "5.2.0.0"
+}

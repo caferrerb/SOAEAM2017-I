@@ -1,0 +1,41 @@
+{  
+   "name":"Cristian Camilo Zapata",
+   "deleted":false,
+   "salutationName":"Mr.",
+   "firstName":"Cristian Camilo",
+   "lastName":"Zapata",
+   "accountId":null,
+   "title":null,
+   "description":"Cliente.",
+   "doNotCall":false,
+   "addressStreet":"en la casita",
+   "addressCity":"Armenia",
+   "addressState":"Quindio",
+   "addressCountry":"Colombia",
+   "addressPostalCode":"634000",
+   "accountType":null,
+   "createdAt":"2017-04-03 23:33:00",
+   "modifiedAt":"2017-04-03 23:33:00",
+   "emailAddressData":[  
+      {  
+         "emailAddress":"cristianzapatat@gmail.com",
+         "primary":true
+      }
+   ],
+   "phoneNumberData":[  
+      {  
+         "phoneNumber":"573217837066",
+         "primary":true,
+         "type":"Mobile"
+      }
+   ],
+   "createdById":"1",
+   "assignedUserName":"Admin",
+   "isFollowed":true,
+   "followersIds":[  
+      "1"
+   ],
+   "followersNames":{  
+      "1":"Admin"
+   }
+}

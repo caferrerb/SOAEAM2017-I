@@ -1,0 +1,43 @@
+{
+  "code": 0,
+  "message": "success",
+  "items": [
+    {
+      "item_id": "590388000000097001",
+      "name": "Mouse Black h",
+      "item_name": "Mouse Black h",
+      "sku": "testN2",
+      "image_name": "",
+      "status": "active",
+      "source": "api",
+      "is_linked_with_zohocrm": false,
+      "zcrm_product_id": "",
+      "description": "CZT",
+      "rate": 1200,
+      "tax_id": "",
+      "reorder_level": "",
+      "tax_name": "",
+      "tax_percentage": 0,
+      "product_type": "goods",
+      "has_attachment": false,
+      "created_time": "2017-04-15T09:41:32-0500",
+      "last_modified_time": "2017-04-15T09:41:32-0500"
+    }
+  ],
+  "page_context": {
+    "page": 1,
+    "per_page": 200,
+    "has_more_page": false,
+    "report_name": "Items",
+    "applied_filter": "Status.All",
+    "sort_column": "name",
+    "sort_order": "A",
+    "search_criteria": [
+      {
+        "column_name": "sku",
+        "search_text": "testN2",
+        "comparator": "equal"
+      }
+    ]
+  }
+}

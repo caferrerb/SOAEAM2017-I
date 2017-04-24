@@ -1,0 +1,16 @@
+{
+    "inputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "ZohoResponseCreateInvoice"
+        }
+    },
+    "outputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "ResponseCreateInvoice"
+        }
+    },
+    "id": "30671d03-53b9-4e0c-b84d-86dafc09d729",
+    "version": "5.2.0.0"
+}

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+    <http:request-config name="http_amazon" host="${amazon.host}" port="${port.normal}" doc:name="HTTP Request Configuration"/>
+    <flow name="amazon_search_all" >
+        <set-variable variableName="item" value="#[message.inboundProperties['http.uri.params']['item']]" mimeType="application/java" doc:name="item"/>
+        <set-variable variableName="page" value="#[message.inboundProperties['http.query.params']['page']]" doc:name="page"/>
+        <set-payload value="#[flowVars.page]" mimeType="application/java" doc:name="Set Payload"/>
+        <component class="util.ValidateNumber" doc:name="validate number"/>
+        <set-variable variableName="page" value="#[payload]" doc:name="page"/>
+        <dw:transform-message doc:name="transformador para obtener json de amazon">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	operation:p('amazon.operation.all'),
+	item:flowVars.item,
+	page:flowVars.page as :string
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" mimeType="application/java" doc:name="JSON to Object"/>
+        <component class="amazon.Firmar" doc:name="Firmar"/>
+        <set-variable variableName="url" value="#[payload.url.toString()]" encoding="UTF-8" mimeType="application/java" doc:name="url"/>
+        <http:request config-ref="http_amazon" path="#[flowVars.url]" method="GET" doc:name="HTTP">
+            <http:request-builder>
+                <http:header headerName="${amazon.header}" value="${amazon.host}"/>
+
+            </http:request-builder>
+        </http:request>
+        <dw:transform-message metadata:id="f5720db2-9237-4bdd-9455-9e3c16fd11bf" doc:name="Transform Message">
+            <dw:input-payload mimeType="application/xml"/>
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+%namespace ns0 http://webservices.amazon.com/AWSECommerceService/2011-08-01
+---
+{
+	code: '200',
+	status: 'Ok',
+	response: {
+		products: payload.ns0#ItemSearchResponse.ns0#Items.*ns0#Item map ((item , indexOfItem) -> {
+			product: {
+				page: {
+					now: payload.ns0#ItemSearchResponse.ns0#Items.ns0#Request.ns0#ItemSearchRequest.ns0#ItemPage,
+					total: payload.ns0#ItemSearchResponse.ns0#Items.ns0#TotalPages
+				},
+				description: {
+					id: item.ns0#ASIN,
+					name: item.ns0#ItemAttributes.ns0#Label,
+					brand: item.ns0#ItemAttributes.ns0#Brand,
+					title: item.ns0#ItemAttributes.ns0#Title,
+					description: item.ns0#ItemAttributes.*ns0#Feature[0]
+				},
+				image: {
+					small: item.ns0#SmallImage.ns0#URL as :string,
+					medium: item.ns0#MediumImage.ns0#URL as :string,
+					large: item.ns0#LargeImage.ns0#URL as :string
+				},
+				price: {
+					coin: item.ns0#ItemAttributes.ns0#ListPrice.ns0#CurrencyCode,
+					price: item.ns0#ItemAttributes.ns0#ListPrice.ns0#FormattedPrice
+				}
+			}
+		})
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+    </flow>
+</mule>

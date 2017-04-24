@@ -1,0 +1,763 @@
+#%RAML 0.8
+title: Sample API
+baseUri: http://localhost:8081/tienda
+version: 1.0
+schemas:
+  - customer: !include canonical/customerCanonical.json
+
+#Servicio para buscar un item en el inventario de Amazon
+/amazon/searchAll/{item}:
+  GET:
+    queryParameters:
+      page:
+    responses:
+      200:
+        body:
+         application/json:
+          example: |
+                    {  
+                       "code":"200",
+                       "status":"Ok",
+                       "response":{  
+                          "products":[  
+                             {  
+                                "product":{  
+                                   "page":{  
+                                      "now":"1",
+                                      "total":"1462703"
+                                   },
+                                   "description":{  
+                                      "id":"B01L0JGRSI",
+                                      "name":"Cyber Power",
+                                      "brand":"CyberpowerPC",
+                                      "title":"CYBERPOWERPC Gamer Ultra GUA3120A w/ AMD FX-4300 3.8GHz CPU, 8GB DDR3, AMD R7 250 2GB, 1TB HDD, 24X DVD+-RW & Win 10 Home 64-Bit Desktop Gaming PC",
+                                      "description":"System: AMD FX-4300 3.8GHz Quad-Core | AMD 760 chipset | 8GB DDR3 | 1TB HDD | genuine Windows 10 home 64-bit"
+                                   },
+                                   "image":{  
+                                      "small":"https://images-na.ssl-images-amazon.com/images/I/51yABuliQKL._SL75_.jpg",
+                                      "medium":"https://images-na.ssl-images-amazon.com/images/I/51yABuliQKL._SL160_.jpg",
+                                      "large":"https://images-na.ssl-images-amazon.com/images/I/51yABuliQKL.jpg"
+                                   },
+                                   "price":{  
+                                      "coin":"USD",
+                                      "price":"$509.99"
+                                   }
+                                }
+                             },
+                             {  
+                                "product":{  
+                                   "page":{  
+                                      "now":"1",
+                                      "total":"1462703"
+                                   },
+                                   "description":{  
+                                      "id":"B00NGCS7YA",
+                                      "name":"Deepcool",
+                                      "brand":"DEEPCOOL",
+                                      "title":"DeepCool TX Mid Tower TESSERACT SW",
+                                      "description":"Case Type: ATX Mid Tower"
+                                   },
+                                   "image":{  
+                                      "small":"https://images-na.ssl-images-amazon.com/images/I/41%2BSbB4mkgL._SL75_.jpg",
+                                      "medium":"https://images-na.ssl-images-amazon.com/images/I/41%2BSbB4mkgL._SL160_.jpg",
+                                      "large":"https://images-na.ssl-images-amazon.com/images/I/41%2BSbB4mkgL.jpg"
+                                   },
+                                   "price":{  
+                                      "coin":"USD",
+                                      "price":"$43.99"
+                                   }
+                                }
+                             }
+                          ]
+                       }
+                    }
+
+#Servicio para buscar un producto en especial en el inventario de Amazon por su ID         
+/amazon/searchProduct/{id}:
+  GET:    
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+                      {
+                        "code": "200",
+                        "status": "Ok",
+                        "response": {
+                          "product": {
+                            "description": {
+                              "id": "B017B1ALMC",
+                              "name": "LEGO",
+                              "brand": "LEGO",
+                              "title": "LEGO CITY Fire Starter Set 60106",
+                              "description": "Features a fire hovercraft with turning propeller and accessories, and a pier with engine and fire elements"
+                            },
+                            "image": {
+                              "small": "https://images-na.ssl-images-amazon.com/images/I/61gUT3fRb2L._SL75_.jpg",
+                              "medium": "https://images-na.ssl-images-amazon.com/images/I/61gUT3fRb2L._SL160_.jpg",
+                              "large": "https://images-na.ssl-images-amazon.com/images/I/61gUT3fRb2L.jpg"
+                            },
+                            "price": {
+                              "coin": "USD",
+                              "price": "$6.99"
+                            }
+                          }
+                        }
+                      }
+          
+#Servicio para realizar un pago por el sistema de PAYU         
+/payu/payment:
+  POST:
+    body:
+      application/json:
+        example: |
+                  {
+                    "payment":{
+                      "value":{
+                        "value":2000  
+                      },
+                      "card":{
+                        "number": "4097440000000004",
+                            "securityCode": "321",
+                            "expirationDate": "2017/12",
+                            "name": "REJECTED",
+                            "paymentMethod": "VISA",
+                            "paymentCountry": "CO"
+                      },
+                      "customer":{
+                        "identification":{
+                          "type":"CC",
+                          "number":"1096038301"
+                        },
+                        "personal":{
+                        "firstName":"Cristian Camilo",
+                          "lastName":"Zapata Torres",
+                          "sex":"M",
+                          "age":"20"
+                        },
+                        "social":{
+                        "mail":"cristianzapatat@gmail.com",
+                        "cellNumber":"3217837066"
+                        },
+                        "localization":{
+                          "country":"Colombia",
+                          "state":"Quindio",
+                          "city":"La Tebaida",
+                          "addressStreet":"Calle 15 Numero 8-70"
+                        },
+                        "ids":{
+                          "id":"112222"
+                        }
+                      }
+                    }
+                  }              
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+                        {
+                          "code": "200",
+                          "status": "SUCCESS",
+                          "response": {
+                            "payment": {
+                              "operacionId": "840802050",
+                              "state": "DECLINED"
+                            }
+                          }
+                        }
+
+#Servicio para crear un cliente en Zoho Invoice        
+/zoho/createCustomer:
+  POST:
+    body:
+      application/json:
+        example: |
+                  {
+                    "customer":{
+                      "identification":{
+                        "type":"CC",
+                        "number":"1096038302221"
+                      },
+                      "personal":{
+                        "firstName":"Cristian Camilo",
+                        "lastName":"Zapata Torres",
+                        "sex":"M",
+                        "age":"20"
+                      },
+                      "social":{
+                        "mail":"cristianzapatattttt@gmail.com",
+                        "cellNumber":"3217837066"
+                      },
+                      "localization":{
+                        "country":"Colombia",
+                        "state":"Quindio",
+                        "city":"La Tebaida",
+                        "addressStreet":"Calle 15 Numero 8-70"
+                      }
+                    }
+                  }
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+                      {
+                        "code": "200",
+                        "status": "The contact has been added.",
+                        "response": {
+                          "customer": {
+                            "identification": {
+                              "number": "1096038302221"
+                            },
+                            "personal": {
+                              "firstName": [
+                                "Cristian Camilo"
+                              ],
+                              "lastName": [
+                                "Zapata Torres"
+                              ],
+                              "sex": [
+                                "M"
+                              ]
+                            },
+                            "social": {
+                              "mail": [
+                                "cristianzapatattttt@gmail.com"
+                              ],
+                              "cellNumber": [
+                                "3217837066"
+                              ]
+                            },
+                            "localization": {
+                              "country": "Colombia",
+                              "state": "Quindio",
+                              "city": "La Tebaida"
+                            }
+                          }
+                        }
+                      }
+
+#Servicio para buscar un cliente por medio de su mail en Zoho Invoice
+/zoho/searchCustomer/{mail}:
+  GET:
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+                      {
+                        "code": "200",
+                        "status": "Ok",
+                        "response": {
+                          "customers": {
+                            "customer": {
+                              "identification": {
+                                "number": [
+                                  "1096038302221"
+                                ]
+                              },
+                              "personal": {
+                                "firstName": [
+                                  "Cristian Camilo"
+                                ],
+                                "lastName": [
+                                  "Zapata Torres"
+                                ]
+                              },
+                              "social": {
+                                "mail": [
+                                  "cristianzapatat@gmail.com"
+                                ],
+                                "cellNumber": [
+                                  "3217837066"
+                                ]
+                              }
+                            }
+                          }
+                        }
+
+#servicio para editar un cliente en zoho invoice.
+/zoho/editCustomer:
+  POST:
+    body:
+      application/json:
+        example: |
+                  {
+                    "customer":{
+                      "identification":{
+                        "type":"CC",
+                        "number":"1096038301"
+                      },
+                      "personal":{
+                        "firstName":"Cristian Camilo",
+                        "lastName":"Zapata Torres",
+                        "sex":"M",
+                        "age":"20"
+                      },
+                      "social":{
+                        "mail":"cristianzapatat@gmail.com",
+                        "cellNumber":"3217837066"
+                      },
+                      "localization":{
+                        "country":"Colombia",
+                        "state":"Quindio",
+                        "city":"La Tebaida",
+                        "addressStreet":"Calle 15 Numero 8-70"
+                      },
+                      "ids":{
+                        "id":"112222",
+                      }
+                    }
+                  }
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+                      {
+                        "code": "200",
+                        "status": "Contact information has been saved.",
+                        "response": {
+                          "customer": {
+                            "identification": {
+                              "number": "1096038302221"
+                            },
+                            "personal": {
+                              "firstName": [
+                                "Cristian"
+                              ],
+                              "lastName": [
+                                "Zapata"
+                              ],
+                              "sex": [
+                                "M"
+                              ]
+                            },
+                            "social": {
+                              "mail": [
+                                "cristianzapatat@gmai.com"
+                              ],
+                              "cellNumber": [
+                                "3217837066"
+                              ]
+                            },
+                            "localization": {
+                              "country": "Colombia",
+                              "state": "Quindio",
+                              "city": "La Tebaida"
+                            }
+                          }
+                        }
+                      }
+
+#Servicio para crear un producto en Zoho Invoice          
+/zoho/createProduct:
+  POST:
+    body:
+      application/json:
+        example: |                  
+                  {
+                    "product": {
+                        "description": {
+                            "id": "sku",
+                            "name": "name",
+                            "description":"description"
+                        },
+                        "price": {
+                            "price": "price"
+                        }
+                    }
+                  }       
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+                       {
+                          "code": "200",
+                          "status": "The item has been added.",
+                          "response": {
+                            "product": {
+                              "description": {
+                                "id": "testN2",
+                                "name": "Mouse Black h",
+                                "brand": "goods",
+                                "description": "CZT"
+                              },
+                              "price": {
+                                "coin": "COP",
+                                "price": "1200.00"
+                              }
+                            }
+                          }
+                        }
+
+#Servicio para buscar un producto en el inventario de Zoho Invoice
+/zoho/searchProduct/{sku}:
+  GET:
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+                      {
+                        "code": "200",
+                        "status": "Ok",
+                        "response": {
+                          "products": [
+                            {
+                              "product": {
+                                "description": {
+                                  "id": "testN2",
+                                  "name": "Mouse Black h",
+                                  "brand": "goods",
+                                  "description": "CZT"
+                                },
+                                "price": {
+                                  "coin": "COP",
+                                  "price": "1200.00"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+
+#Servicio para crear una factura.
+/zoho/createInvoice:
+  POST:
+    body:
+      application/json:
+        example: |
+                  {  
+                     "invoice":{  
+                        "customer":{  
+                           "ids":{  
+                              "id":"590388000000096039"
+                           }
+                        },
+                        "products":[  
+                           {  
+                              "product":{  
+                                 "description":{  
+                                    "id":"testN2",
+                                    "name":"Mouse Black h",
+                                    "title":"title",
+                                    "description":"CZT"
+                                 },
+                                 "price":{  
+                                    "price":"1200.00"
+                                 },
+                                 "ids":{  
+                                    "id":"590388000000097001"
+                                 }
+                              }
+                           }
+                        ]
+                     }
+                  }
+    responses:
+      200:
+        body:
+          application/json:
+
+#Servicio para buscar una factura en el servidor zoho invoice
+/zoho/searchInvoice/{invoice}:
+  GET:
+    responses:
+      200:
+        body:
+          application/json:
+
+#Servicio para buscar un cliente en el ESPO CRM
+/espocrm/searchCustomer/{id}:
+  GET:
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+                      {
+                        "code":"200",
+                        "status":"ok",
+                        "response":{
+                          "customer":{
+                            "identification":{
+                              "type":"CC",
+                              "number":"1096038301"
+                            },
+                            "personal":{
+                              "firstName":"Cristian Camilo",
+                              "lastName":"Zapata Torres",
+                              "sex":"M",
+                              "age":"20"
+                            },
+                            "social":{
+                              "mail":"cristianzapatat@gmail.com",
+                              "cellNumber":"3217837066"
+                            },
+                            "localization":{
+                              "country":"Colombia",
+                              "state":"Quindio",
+                              "city":"La Tebaida",
+                              "addressStreet":"Calle 15 Numero 8-70"
+                            }
+                          }
+                        }
+                      }
+         
+#Servicio para crear un cliente en el ESPO CRM.         
+/espocrm/createCustomer:
+  POST:
+    body:           
+      application/json:
+        schema : customer
+        example: |
+                  {
+                    "customer":{
+                      "identification":{
+                        "type":"CC",
+                        "number":"1096038301"
+                      },
+                      "personal":{
+                        "firstName":"Cristian Camilo",
+                        "lastName":"Zapata Torres",
+                        "sex":"M",
+                        "age":"20"
+                      },
+                      "social":{
+                        "mail":"cristianzapatat@gmail.com",
+                        "cellNumber":"3217837066"
+                      },
+                      "localization":{
+                        "country":"Colombia",
+                        "state":"Quindio",
+                        "city":"La Tebaida",
+                        "addressStreet":"Calle 15 Numero 8-70"
+                      }
+                    }
+                  }
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+                      {
+                        "code": "200",
+                        "status": "Ok",
+                        "response": {
+                          "customer": {
+                            "personal": {
+                              "firstName": "Cristian2 fCamilo2",
+                              "lastName": "Zapata2 fTorres 2",
+                              "sex": "M"
+                            },
+                            "social": {
+                              "mail": [
+                                "cristianzapaftat@gmail.com.coo"
+                              ],
+                              "cellNumber": [
+                                "3217837046642"
+                              ]
+                            },
+                            "localization": {
+                              "country": "Colombia",
+                              "state": "Quindio",
+                              "city": "La Tebaida",
+                              "addressStreet": "Calle 15 Numero 8-70"
+                            },
+                            "ids": {
+                              "id": "58f3c0f03bd4b83f1"
+                            }
+                          }
+                        }
+                      }
+
+#Servicio para editar un cliente en el ESPO CRM.         
+/espocrm/editCustomer:
+  POST:
+    body:           
+      application/json:
+        example: |
+                  {
+                    "customer":{
+                      "identification":{
+                        "type":"CC",
+                        "number":"109603999983031"
+                      },
+                      "personal":{
+                        "firstName":"Cristian2 fCamilo2",
+                        "lastName":"Zapata2 fTorres 2",
+                        "sex":"M",
+                        "age":"20"
+                      },
+                      "social":{
+                        "mail":"cristianzapaftat@gmail.com.coo",
+                        "cellNumber":"3217837046642"
+                      },
+                      "localization":{
+                        "country":"Colombia",
+                        "state":"Quindio",
+                        "city":"La Tebaida",
+                        "addressStreet":"Calle 15 Numero 8-70"
+                      },
+                      "ids":{
+                        "id":"id"
+                      }
+                    }
+                  }
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+                      {
+                        "code": "200",
+                        "status": "Ok",
+                        "response": {
+                          "customer": {
+                            "personal": {
+                              "firstName": "Andres segundo",
+                              "lastName": "Zapata2 mate 2",
+                              "sex": "M"
+                            },
+                            "social": {
+                              "mail": [
+                                "mateo@gmail.com.coo"
+                              ],
+                              "cellNumber": [
+                                "32178370246642"
+                              ]
+                            },
+                            "localization": {
+                              "country": "Colombia",
+                              "state": "Quindio",
+                              "city": "La Tebaida",
+                              "addressStreet": "Calle 15 Numero 8-70"
+                            },
+                            "ids": {
+                              "id": "58f3c0f03bd4b83f1"
+                            }
+                          }
+                        }
+                      }
+#Servicio para crear un cliente en base de dataos         
+/db/createCustomer:
+  POST:
+    body:
+      application/json:
+        example: |
+                  {
+                    "customer":{
+                      "identification":{
+                        "type":"CC",
+                        "number":"1096038302221"
+                      },
+                      "aplicacion":{
+      
+                                "user":"8429038423",
+                                "password":"209284302"
+                              
+                       },
+                      "personal":{
+                        "firstName":"Cristian Camilo",
+                        "lastName":"Zapata Torres"
+                       },
+                     
+                     
+                    },
+                    "idcrm":"242342",
+                    "idinvoice":"132123"
+                  }
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+                      {
+                        "code": "200",
+                        "status": "The contact has been added.",
+                        "response": {}
+                        }
+                      
+#Servicio para editar un cliente en base de datos        
+/db/editCurstomer:
+  POST:
+    body:
+      application/json:
+        example: |
+                  {
+                    "customer":{
+                      "identification":{
+                        "type":"CC",
+                        "number":"1096038302221"
+                      },
+                      "aplicacion":{
+      
+                                "user":"8429038423",
+                                "password":"209284302"
+                              
+                       },
+                      "personal":{
+                        "firstName":"Cristian Camilo",
+                        "lastName":"Zapata Torres",
+                       },
+                     
+                     
+                    },
+                    "idcrm":"242342",
+                    "idinvoice":"132123"
+                  }
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+                      {
+                        "code": "200",
+                        "status": "The contact has been edited.",
+                        "response": {}
+                        }
+#Servicio para editar un cliente en base de datos        
+/db/findCustomer:
+  GET:
+    queryParameters: 
+      number:
+        description: numero de documento
+      type:
+        description: tupo de documento  
+       
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+                      {
+                        "code": "200",
+                        "status": "The contact has been edited.",
+                        "response": {
+                        {
+                              "customer":{
+                                "identification":{
+                                  "type":"CC",
+                                  "number":"1096038302221"
+                                },
+                                "aplicacion":{
+                
+                                          "user":"8429038423",
+                                          "password":"209284302"
+                                        
+                                 },
+                                "personal":{
+                                  "firstName":"Cristian Camilo",
+                                  "lastName":"Zapata Torres",
+                                 },
+                               
+                               
+                              },
+                              "idcrm":"242342",
+                              "idinvoice":"132123"
+                            }}
+                        }
+                                                                                

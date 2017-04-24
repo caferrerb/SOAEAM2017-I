@@ -1,0 +1,16 @@
+{
+    "inputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "ZohoResponseCreateCustomer"
+        }
+    },
+    "outputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "ResponseCustomer"
+        }
+    },
+    "id": "56a9cb86-9a6c-40e1-b8e3-0ce668d01a5e",
+    "version": "5.2.0.0"
+}

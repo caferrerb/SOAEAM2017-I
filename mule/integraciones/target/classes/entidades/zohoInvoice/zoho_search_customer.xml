@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
+    <flow name="zoho_search_customer">
+        <set-variable variableName="mail" value="#[message.inboundProperties['http.uri.params']['mail']]" mimeType="application/java" doc:name="Mail"/>
+        <http:request config-ref="http_zoho" path="${zoho.pathContac}?authtoken=${zoho.token}&amp;organization_id=${zoho.idorg}&amp;email=#[flowVars.mail]" method="GET" doc:name="http seacrh zoho mail"/>
+        <set-payload value="#[payload]" encoding="UTF-8" mimeType="application/json" doc:name="payload response search"/>
+        <dw:transform-message metadata:id="e1278fa6-bc46-46a2-a444-45b599acff4c" doc:name="response search customer zoho">
+            <dw:input-payload mimeType="application/json"/>
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	code: '200',
+	status: 'Ok',
+	response: {
+		customers: {
+			customer: {
+				identification: {
+					number: payload.contacts.cf_sugarid
+				},
+				personal: {
+					firstName: payload.contacts.first_name,
+					lastName: payload.contacts.last_name
+				},
+				social: {
+					mail: payload.contacts.email,
+					cellNumber: payload.contacts.mobile
+				},
+				ids:{
+					id: payload.contacts.contact_id
+				}
+			}
+		}
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+    </flow>
+</mule>

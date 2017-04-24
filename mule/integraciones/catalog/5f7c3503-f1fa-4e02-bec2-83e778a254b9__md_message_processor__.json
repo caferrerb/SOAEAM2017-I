@@ -1,0 +1,16 @@
+{
+    "inputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "paymentCanonical"
+        }
+    },
+    "outputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "PayuPaymentCreate"
+        }
+    },
+    "id": "5f7c3503-f1fa-4e02-bec2-83e778a254b9",
+    "version": "5.2.0.0"
+}

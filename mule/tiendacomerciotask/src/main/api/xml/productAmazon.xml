@@ -1,0 +1,1244 @@
+<?xml version="1.0" ?>
+<ItemSearchResponse xmlns="http://webservices.amazon.com/AWSECommerceService/2011-08-01">
+    <OperationRequest>
+        <HTTPHeaders>
+            <Header Name="UserAgent" Value="AHC/1.0"></Header>
+        </HTTPHeaders>
+        <RequestId>9b4bc2c5-2883-4ac3-bc40-39593795ce15</RequestId>
+        <Arguments>
+            <Argument Name="AWSAccessKeyId" Value="AKIAJ3D74NAIO57LJRNA"></Argument>
+            <Argument Name="AssociateTag" Value="cloudeam-21"></Argument>
+            <Argument Name="ItemPage" Value="3"></Argument>
+            <Argument Name="Keywords" Value="lego"></Argument>
+            <Argument Name="Operation" Value="ItemSearch"></Argument>
+            <Argument Name="ResponseGroup" Value="Images,ItemAttributes"></Argument>
+            <Argument Name="SearchIndex" Value="All"></Argument>
+            <Argument Name="Timestamp" Value="2017-04-14T22:52:34Z"></Argument>
+            <Argument Name="Signature" Value="UfbFKurtVce8E3TOqikeF4OHQ7lxNTsz0Q3HMPkA5uo="></Argument>
+            <Argument Name="Service" Value="AWSECommerceService"></Argument>
+        </Arguments>
+        <RequestProcessingTime>0.1642608030000000</RequestProcessingTime>
+    </OperationRequest>
+    <Items>
+        <Request>
+            <IsValid>True</IsValid>
+            <ItemSearchRequest>
+                <ItemPage>3</ItemPage>
+                <Keywords>lego</Keywords>
+                <ResponseGroup>Images</ResponseGroup>
+                <ResponseGroup>ItemAttributes</ResponseGroup>
+                <SearchIndex>All</SearchIndex>
+            </ItemSearchRequest>
+        </Request>
+        <TotalResults>111110</TotalResults>
+        <TotalPages>11111</TotalPages>
+        <MoreSearchResultsUrl>https://www.amazon.com/gp/search?linkCode=xm2&amp;SubscriptionId=AKIAJ3D74NAIO57LJRNA&amp;keywords=lego&amp;tag=cloudeam-21&amp;creative=386001&amp;url=search-alias%3Daws-amazon-aps&amp;camp=2025</MoreSearchResultsUrl>
+        <Item>
+            <ASIN>B017B1ALMC</ASIN>
+            <DetailPageURL>https://www.amazon.com/LEGO-CITY-Fire-Starter-60106/dp/B017B1ALMC?SubscriptionId=AKIAJ3D74NAIO57LJRNA&amp;tag=cloudeam-21&amp;linkCode=xm2&amp;camp=2025&amp;creative=165953&amp;creativeASIN=B017B1ALMC</DetailPageURL>
+            <ItemLinks>
+                <ItemLink>
+                    <Description>Technical Details</Description>
+                    <URL>https://www.amazon.com/LEGO-CITY-Fire-Starter-60106/dp/tech-data/B017B1ALMC?SubscriptionId=AKIAJ3D74NAIO57LJRNA&amp;tag=cloudeam-21&amp;linkCode=xm2&amp;camp=2025&amp;creative=386001&amp;creativeASIN=B017B1ALMC</URL>
+                </ItemLink>
+                <ItemLink>
+                    <Description>Add To Baby Registry</Description>
+                    <URL>https://www.amazon.com/gp/registry/baby/add-item.html?asin.0=B017B1ALMC&amp;SubscriptionId=AKIAJ3D74NAIO57LJRNA&amp;tag=cloudeam-21&amp;linkCode=xm2&amp;camp=2025&amp;creative=386001&amp;creativeASIN=B017B1ALMC</URL>
+                </ItemLink>
+                <ItemLink>
+                    <Description>Add To Wedding Registry</Description>
+                    <URL>https://www.amazon.com/gp/registry/wedding/add-item.html?asin.0=B017B1ALMC&amp;SubscriptionId=AKIAJ3D74NAIO57LJRNA&amp;tag=cloudeam-21&amp;linkCode=xm2&amp;camp=2025&amp;creative=386001&amp;creativeASIN=B017B1ALMC</URL>
+                </ItemLink>
+                <ItemLink>
+                    <Description>Add To Wishlist</Description>
+                    <URL>https://www.amazon.com/gp/registry/wishlist/add-item.html?asin.0=B017B1ALMC&amp;SubscriptionId=AKIAJ3D74NAIO57LJRNA&amp;tag=cloudeam-21&amp;linkCode=xm2&amp;camp=2025&amp;creative=386001&amp;creativeASIN=B017B1ALMC</URL>
+                </ItemLink>
+                <ItemLink>
+                    <Description>Tell A Friend</Description>
+                    <URL>https://www.amazon.com/gp/pdp/taf/B017B1ALMC?SubscriptionId=AKIAJ3D74NAIO57LJRNA&amp;tag=cloudeam-21&amp;linkCode=xm2&amp;camp=2025&amp;creative=386001&amp;creativeASIN=B017B1ALMC</URL>
+                </ItemLink>
+                <ItemLink>
+                    <Description>All Customer Reviews</Description>
+                    <URL>https://www.amazon.com/review/product/B017B1ALMC?SubscriptionId=AKIAJ3D74NAIO57LJRNA&amp;tag=cloudeam-21&amp;linkCode=xm2&amp;camp=2025&amp;creative=386001&amp;creativeASIN=B017B1ALMC</URL>
+                </ItemLink>
+                <ItemLink>
+                    <Description>All Offers</Description>
+                    <URL>https://www.amazon.com/gp/offer-listing/B017B1ALMC?SubscriptionId=AKIAJ3D74NAIO57LJRNA&amp;tag=cloudeam-21&amp;linkCode=xm2&amp;camp=2025&amp;creative=386001&amp;creativeASIN=B017B1ALMC</URL>
+                </ItemLink>
+            </ItemLinks>
+            <SmallImage>
+                <URL>https://images-na.ssl-images-amazon.com/images/I/61gUT3fRb2L._SL75_.jpg</URL>
+                <Height Units="pixels">75</Height>
+                <Width Units="pixels">75</Width>
+            </SmallImage>
+            <MediumImage>
+                <URL>https://images-na.ssl-images-amazon.com/images/I/61gUT3fRb2L._SL160_.jpg</URL>
+                <Height Units="pixels">160</Height>
+                <Width Units="pixels">160</Width>
+            </MediumImage>
+            <LargeImage>
+                <URL>https://images-na.ssl-images-amazon.com/images/I/61gUT3fRb2L.jpg</URL>
+                <Height Units="pixels">500</Height>
+                <Width Units="pixels">500</Width>
+            </LargeImage>
+            <ImageSets>
+                <ImageSet Category="variant">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/61Q12c-hHQL._SL30_.jpg</URL>
+                        <Height Units="pixels">27</Height>
+                        <Width Units="pixels">30</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/61Q12c-hHQL._SL75_.jpg</URL>
+                        <Height Units="pixels">67</Height>
+                        <Width Units="pixels">75</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/61Q12c-hHQL._SL75_.jpg</URL>
+                        <Height Units="pixels">67</Height>
+                        <Width Units="pixels">75</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/61Q12c-hHQL._SL110_.jpg</URL>
+                        <Height Units="pixels">99</Height>
+                        <Width Units="pixels">110</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/61Q12c-hHQL._SL160_.jpg</URL>
+                        <Height Units="pixels">143</Height>
+                        <Width Units="pixels">160</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/61Q12c-hHQL.jpg</URL>
+                        <Height Units="pixels">448</Height>
+                        <Width Units="pixels">500</Width>
+                    </LargeImage>
+                </ImageSet>
+                <ImageSet Category="variant">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/612r2r1d3FL._SL30_.jpg</URL>
+                        <Height Units="pixels">30</Height>
+                        <Width Units="pixels">30</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/612r2r1d3FL._SL75_.jpg</URL>
+                        <Height Units="pixels">75</Height>
+                        <Width Units="pixels">75</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/612r2r1d3FL._SL75_.jpg</URL>
+                        <Height Units="pixels">75</Height>
+                        <Width Units="pixels">75</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/612r2r1d3FL._SL110_.jpg</URL>
+                        <Height Units="pixels">110</Height>
+                        <Width Units="pixels">110</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/612r2r1d3FL._SL160_.jpg</URL>
+                        <Height Units="pixels">160</Height>
+                        <Width Units="pixels">160</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/612r2r1d3FL.jpg</URL>
+                        <Height Units="pixels">500</Height>
+                        <Width Units="pixels">500</Width>
+                    </LargeImage>
+                </ImageSet>
+                <ImageSet Category="variant">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41FqmCr6quL._SL30_.jpg</URL>
+                        <Height Units="pixels">16</Height>
+                        <Width Units="pixels">30</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41FqmCr6quL._SL75_.jpg</URL>
+                        <Height Units="pixels">40</Height>
+                        <Width Units="pixels">75</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41FqmCr6quL._SL75_.jpg</URL>
+                        <Height Units="pixels">40</Height>
+                        <Width Units="pixels">75</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41FqmCr6quL._SL110_.jpg</URL>
+                        <Height Units="pixels">59</Height>
+                        <Width Units="pixels">110</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41FqmCr6quL._SL160_.jpg</URL>
+                        <Height Units="pixels">86</Height>
+                        <Width Units="pixels">160</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41FqmCr6quL.jpg</URL>
+                        <Height Units="pixels">269</Height>
+                        <Width Units="pixels">500</Width>
+                    </LargeImage>
+                </ImageSet>
+                <ImageSet Category="variant">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51EmWTQNpuL._SL30_.jpg</URL>
+                        <Height Units="pixels">29</Height>
+                        <Width Units="pixels">30</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51EmWTQNpuL._SL75_.jpg</URL>
+                        <Height Units="pixels">72</Height>
+                        <Width Units="pixels">75</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51EmWTQNpuL._SL75_.jpg</URL>
+                        <Height Units="pixels">72</Height>
+                        <Width Units="pixels">75</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51EmWTQNpuL._SL110_.jpg</URL>
+                        <Height Units="pixels">106</Height>
+                        <Width Units="pixels">110</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51EmWTQNpuL._SL160_.jpg</URL>
+                        <Height Units="pixels">154</Height>
+                        <Width Units="pixels">160</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51EmWTQNpuL.jpg</URL>
+                        <Height Units="pixels">481</Height>
+                        <Width Units="pixels">500</Width>
+                    </LargeImage>
+                </ImageSet>
+                <ImageSet Category="variant">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41Evu-IFOFL._SL30_.jpg</URL>
+                        <Height Units="pixels">30</Height>
+                        <Width Units="pixels">29</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41Evu-IFOFL._SL75_.jpg</URL>
+                        <Height Units="pixels">75</Height>
+                        <Width Units="pixels">72</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41Evu-IFOFL._SL75_.jpg</URL>
+                        <Height Units="pixels">75</Height>
+                        <Width Units="pixels">72</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41Evu-IFOFL._SL110_.jpg</URL>
+                        <Height Units="pixels">110</Height>
+                        <Width Units="pixels">105</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41Evu-IFOFL._SL160_.jpg</URL>
+                        <Height Units="pixels">160</Height>
+                        <Width Units="pixels">153</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41Evu-IFOFL.jpg</URL>
+                        <Height Units="pixels">500</Height>
+                        <Width Units="pixels">477</Width>
+                    </LargeImage>
+                </ImageSet>
+                <ImageSet Category="variant">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41Ra4gXeWKL._SL30_.jpg</URL>
+                        <Height Units="pixels">23</Height>
+                        <Width Units="pixels">30</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41Ra4gXeWKL._SL75_.jpg</URL>
+                        <Height Units="pixels">59</Height>
+                        <Width Units="pixels">75</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41Ra4gXeWKL._SL75_.jpg</URL>
+                        <Height Units="pixels">59</Height>
+                        <Width Units="pixels">75</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41Ra4gXeWKL._SL110_.jpg</URL>
+                        <Height Units="pixels">86</Height>
+                        <Width Units="pixels">110</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41Ra4gXeWKL._SL160_.jpg</URL>
+                        <Height Units="pixels">125</Height>
+                        <Width Units="pixels">160</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41Ra4gXeWKL.jpg</URL>
+                        <Height Units="pixels">391</Height>
+                        <Width Units="pixels">500</Width>
+                    </LargeImage>
+                </ImageSet>
+                <ImageSet Category="variant">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/514fA8Jh8rL._SL30_.jpg</URL>
+                        <Height Units="pixels">27</Height>
+                        <Width Units="pixels">30</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/514fA8Jh8rL._SL75_.jpg</URL>
+                        <Height Units="pixels">68</Height>
+                        <Width Units="pixels">75</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/514fA8Jh8rL._SL75_.jpg</URL>
+                        <Height Units="pixels">68</Height>
+                        <Width Units="pixels">75</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/514fA8Jh8rL._SL110_.jpg</URL>
+                        <Height Units="pixels">100</Height>
+                        <Width Units="pixels">110</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/514fA8Jh8rL._SL160_.jpg</URL>
+                        <Height Units="pixels">146</Height>
+                        <Width Units="pixels">160</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/514fA8Jh8rL.jpg</URL>
+                        <Height Units="pixels">455</Height>
+                        <Width Units="pixels">500</Width>
+                    </LargeImage>
+                </ImageSet>
+                <ImageSet Category="variant">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41G38nB6%2B4L._SL30_.jpg</URL>
+                        <Height Units="pixels">21</Height>
+                        <Width Units="pixels">30</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41G38nB6%2B4L._SL75_.jpg</URL>
+                        <Height Units="pixels">53</Height>
+                        <Width Units="pixels">75</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41G38nB6%2B4L._SL75_.jpg</URL>
+                        <Height Units="pixels">53</Height>
+                        <Width Units="pixels">75</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41G38nB6%2B4L._SL110_.jpg</URL>
+                        <Height Units="pixels">77</Height>
+                        <Width Units="pixels">110</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41G38nB6%2B4L._SL160_.jpg</URL>
+                        <Height Units="pixels">113</Height>
+                        <Width Units="pixels">160</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41G38nB6%2B4L.jpg</URL>
+                        <Height Units="pixels">352</Height>
+                        <Width Units="pixels">500</Width>
+                    </LargeImage>
+                </ImageSet>
+                <ImageSet Category="primary">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/61gUT3fRb2L._SL30_.jpg</URL>
+                        <Height Units="pixels">30</Height>
+                        <Width Units="pixels">30</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/61gUT3fRb2L._SL75_.jpg</URL>
+                        <Height Units="pixels">75</Height>
+                        <Width Units="pixels">75</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/61gUT3fRb2L._SL75_.jpg</URL>
+                        <Height Units="pixels">75</Height>
+                        <Width Units="pixels">75</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/61gUT3fRb2L._SL110_.jpg</URL>
+                        <Height Units="pixels">110</Height>
+                        <Width Units="pixels">110</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/61gUT3fRb2L._SL160_.jpg</URL>
+                        <Height Units="pixels">160</Height>
+                        <Width Units="pixels">160</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/61gUT3fRb2L.jpg</URL>
+                        <Height Units="pixels">500</Height>
+                        <Width Units="pixels">500</Width>
+                    </LargeImage>
+                </ImageSet>
+            </ImageSets>
+            <ItemAttributes>
+                <Binding>Toy</Binding>
+                <Brand>LEGO</Brand>
+                <CatalogNumberList>
+                    <CatalogNumberListElement>60106B</CatalogNumberListElement>
+                    <CatalogNumberListElement>GM-B017B1ALMC</CatalogNumberListElement>
+                    <CatalogNumberListElement>LG-1330</CatalogNumberListElement>
+                </CatalogNumberList>
+                <EAN>0673419247443</EAN>
+                <EANList>
+                    <EANListElement>0673419247443</EANListElement>
+                    <EANListElement>5194521409390</EANListElement>
+                    <EANListElement>5702015591744</EANListElement>
+                </EANList>
+                <Edition>2016</Edition>
+                <Feature>Features a fire hovercraft with turning propeller and accessories, and a pier with engine and fire elements</Feature>
+                <Feature>Send the diver off the hovercraft into the water to rescue the stricken dockworker</Feature>
+                <Feature>Accessory elements include a wrench, fire extinguisher and a life preserver</Feature>
+                <Feature>Fire hovercraft measures over 1" (4cm) high, 3" (10cm) long and 1" (4cm) wide</Feature>
+                <Feature>Pier measures over 3" (8cm) wide, 1" (4cm) deep and 1" (4cm) high</Feature>
+                <Genre>strategy</Genre>
+                <IsAdultProduct>0</IsAdultProduct>
+                <ItemDimensions>
+                    <Height Units="hundredths-inches">177</Height>
+                    <Length Units="hundredths-inches">618</Length>
+                    <Weight Units="hundredths-pounds">0</Weight>
+                    <Width Units="hundredths-inches">555</Width>
+                </ItemDimensions>
+                <ItemPartNumber>6135811</ItemPartNumber>
+                <Label>LEGO</Label>
+                <ListPrice>
+                    <Amount>699</Amount>
+                    <CurrencyCode>USD</CurrencyCode>
+                    <FormattedPrice>$6.99</FormattedPrice>
+                </ListPrice>
+                <Manufacturer>LEGO</Manufacturer>
+                <ManufacturerMaximumAge Units="months">144</ManufacturerMaximumAge>
+                <ManufacturerMinimumAge Units="months">60</ManufacturerMinimumAge>
+                <Model>6135811</Model>
+                <MPN>6135811</MPN>
+                <NumberOfItems>1</NumberOfItems>
+                <PackageDimensions>
+                    <Height Units="hundredths-inches">189</Height>
+                    <Length Units="hundredths-inches">622</Length>
+                    <Weight Units="hundredths-pounds">31</Weight>
+                    <Width Units="hundredths-inches">551</Width>
+                </PackageDimensions>
+                <PackageQuantity>1</PackageQuantity>
+                <PartNumber>6135811</PartNumber>
+                <ProductGroup>Toy</ProductGroup>
+                <ProductTypeName>TOYS_AND_GAMES</ProductTypeName>
+                <Publisher>LEGO</Publisher>
+                <ReleaseDate>2016-01-01</ReleaseDate>
+                <Studio>LEGO</Studio>
+                <Title>LEGO CITY Fire Starter Set 60106</Title>
+                <UPC>673419247443</UPC>
+                <UPCList>
+                    <UPCListElement>673419247443</UPCListElement>
+                </UPCList>
+                <Warranty>No Warranty</Warranty>
+            </ItemAttributes>
+        </Item>
+        <Item>
+            <ASIN>0756686067</ASIN>
+            <DetailPageURL>https://www.amazon.com/Lego-Ideas-Book-Unlock-Imagination/dp/0756686067?SubscriptionId=AKIAJ3D74NAIO57LJRNA&amp;tag=cloudeam-21&amp;linkCode=xm2&amp;camp=2025&amp;creative=165953&amp;creativeASIN=0756686067</DetailPageURL>
+            <ItemLinks>
+                <ItemLink>
+                    <Description>Technical Details</Description>
+                    <URL>https://www.amazon.com/Lego-Ideas-Book-Unlock-Imagination/dp/tech-data/0756686067?SubscriptionId=AKIAJ3D74NAIO57LJRNA&amp;tag=cloudeam-21&amp;linkCode=xm2&amp;camp=2025&amp;creative=386001&amp;creativeASIN=0756686067</URL>
+                </ItemLink>
+                <ItemLink>
+                    <Description>Add To Baby Registry</Description>
+                    <URL>https://www.amazon.com/gp/registry/baby/add-item.html?asin.0=0756686067&amp;SubscriptionId=AKIAJ3D74NAIO57LJRNA&amp;tag=cloudeam-21&amp;linkCode=xm2&amp;camp=2025&amp;creative=386001&amp;creativeASIN=0756686067</URL>
+                </ItemLink>
+                <ItemLink>
+                    <Description>Add To Wedding Registry</Description>
+                    <URL>https://www.amazon.com/gp/registry/wedding/add-item.html?asin.0=0756686067&amp;SubscriptionId=AKIAJ3D74NAIO57LJRNA&amp;tag=cloudeam-21&amp;linkCode=xm2&amp;camp=2025&amp;creative=386001&amp;creativeASIN=0756686067</URL>
+                </ItemLink>
+                <ItemLink>
+                    <Description>Add To Wishlist</Description>
+                    <URL>https://www.amazon.com/gp/registry/wishlist/add-item.html?asin.0=0756686067&amp;SubscriptionId=AKIAJ3D74NAIO57LJRNA&amp;tag=cloudeam-21&amp;linkCode=xm2&amp;camp=2025&amp;creative=386001&amp;creativeASIN=0756686067</URL>
+                </ItemLink>
+                <ItemLink>
+                    <Description>Tell A Friend</Description>
+                    <URL>https://www.amazon.com/gp/pdp/taf/0756686067?SubscriptionId=AKIAJ3D74NAIO57LJRNA&amp;tag=cloudeam-21&amp;linkCode=xm2&amp;camp=2025&amp;creative=386001&amp;creativeASIN=0756686067</URL>
+                </ItemLink>
+                <ItemLink>
+                    <Description>All Customer Reviews</Description>
+                    <URL>https://www.amazon.com/review/product/0756686067?SubscriptionId=AKIAJ3D74NAIO57LJRNA&amp;tag=cloudeam-21&amp;linkCode=xm2&amp;camp=2025&amp;creative=386001&amp;creativeASIN=0756686067</URL>
+                </ItemLink>
+                <ItemLink>
+                    <Description>All Offers</Description>
+                    <URL>https://www.amazon.com/gp/offer-listing/0756686067?SubscriptionId=AKIAJ3D74NAIO57LJRNA&amp;tag=cloudeam-21&amp;linkCode=xm2&amp;camp=2025&amp;creative=386001&amp;creativeASIN=0756686067</URL>
+                </ItemLink>
+            </ItemLinks>
+            <SmallImage>
+                <URL>https://images-na.ssl-images-amazon.com/images/I/51CzQbjJhCL._SL75_.jpg</URL>
+                <Height Units="pixels">75</Height>
+                <Width Units="pixels">63</Width>
+            </SmallImage>
+            <MediumImage>
+                <URL>https://images-na.ssl-images-amazon.com/images/I/51CzQbjJhCL._SL160_.jpg</URL>
+                <Height Units="pixels">160</Height>
+                <Width Units="pixels">134</Width>
+            </MediumImage>
+            <LargeImage>
+                <URL>https://images-na.ssl-images-amazon.com/images/I/51CzQbjJhCL.jpg</URL>
+                <Height Units="pixels">500</Height>
+                <Width Units="pixels">419</Width>
+            </LargeImage>
+            <ImageSets>
+                <ImageSet Category="variant">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51HYE9HUdVL._SL30_.jpg</URL>
+                        <Height Units="pixels">30</Height>
+                        <Width Units="pixels">25</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51HYE9HUdVL._SL75_.jpg</URL>
+                        <Height Units="pixels">75</Height>
+                        <Width Units="pixels">63</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51HYE9HUdVL._SL75_.jpg</URL>
+                        <Height Units="pixels">75</Height>
+                        <Width Units="pixels">63</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51HYE9HUdVL._SL110_.jpg</URL>
+                        <Height Units="pixels">110</Height>
+                        <Width Units="pixels">93</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51HYE9HUdVL._SL160_.jpg</URL>
+                        <Height Units="pixels">160</Height>
+                        <Width Units="pixels">135</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51HYE9HUdVL.jpg</URL>
+                        <Height Units="pixels">500</Height>
+                        <Width Units="pixels">421</Width>
+                    </LargeImage>
+                </ImageSet>
+                <ImageSet Category="variant">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51Ge2tRdITL._SL30_.jpg</URL>
+                        <Height Units="pixels">18</Height>
+                        <Width Units="pixels">30</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51Ge2tRdITL._SL75_.jpg</URL>
+                        <Height Units="pixels">45</Height>
+                        <Width Units="pixels">75</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51Ge2tRdITL._SL75_.jpg</URL>
+                        <Height Units="pixels">45</Height>
+                        <Width Units="pixels">75</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51Ge2tRdITL._SL110_.jpg</URL>
+                        <Height Units="pixels">66</Height>
+                        <Width Units="pixels">110</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51Ge2tRdITL._SL160_.jpg</URL>
+                        <Height Units="pixels">96</Height>
+                        <Width Units="pixels">160</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51Ge2tRdITL.jpg</URL>
+                        <Height Units="pixels">301</Height>
+                        <Width Units="pixels">500</Width>
+                    </LargeImage>
+                </ImageSet>
+                <ImageSet Category="variant">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51s0Y4NWjYL._SL30_.jpg</URL>
+                        <Height Units="pixels">18</Height>
+                        <Width Units="pixels">30</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51s0Y4NWjYL._SL75_.jpg</URL>
+                        <Height Units="pixels">45</Height>
+                        <Width Units="pixels">75</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51s0Y4NWjYL._SL75_.jpg</URL>
+                        <Height Units="pixels">45</Height>
+                        <Width Units="pixels">75</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51s0Y4NWjYL._SL110_.jpg</URL>
+                        <Height Units="pixels">66</Height>
+                        <Width Units="pixels">110</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51s0Y4NWjYL._SL160_.jpg</URL>
+                        <Height Units="pixels">96</Height>
+                        <Width Units="pixels">160</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51s0Y4NWjYL.jpg</URL>
+                        <Height Units="pixels">301</Height>
+                        <Width Units="pixels">500</Width>
+                    </LargeImage>
+                </ImageSet>
+                <ImageSet Category="variant">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/510Tpd9zUBL._SL30_.jpg</URL>
+                        <Height Units="pixels">18</Height>
+                        <Width Units="pixels">30</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/510Tpd9zUBL._SL75_.jpg</URL>
+                        <Height Units="pixels">45</Height>
+                        <Width Units="pixels">75</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/510Tpd9zUBL._SL75_.jpg</URL>
+                        <Height Units="pixels">45</Height>
+                        <Width Units="pixels">75</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/510Tpd9zUBL._SL110_.jpg</URL>
+                        <Height Units="pixels">66</Height>
+                        <Width Units="pixels">110</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/510Tpd9zUBL._SL160_.jpg</URL>
+                        <Height Units="pixels">96</Height>
+                        <Width Units="pixels">160</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/510Tpd9zUBL.jpg</URL>
+                        <Height Units="pixels">301</Height>
+                        <Width Units="pixels">500</Width>
+                    </LargeImage>
+                </ImageSet>
+                <ImageSet Category="variant">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51hriXnpDhL._SL30_.jpg</URL>
+                        <Height Units="pixels">18</Height>
+                        <Width Units="pixels">30</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51hriXnpDhL._SL75_.jpg</URL>
+                        <Height Units="pixels">45</Height>
+                        <Width Units="pixels">75</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51hriXnpDhL._SL75_.jpg</URL>
+                        <Height Units="pixels">45</Height>
+                        <Width Units="pixels">75</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51hriXnpDhL._SL110_.jpg</URL>
+                        <Height Units="pixels">66</Height>
+                        <Width Units="pixels">110</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51hriXnpDhL._SL160_.jpg</URL>
+                        <Height Units="pixels">96</Height>
+                        <Width Units="pixels">160</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51hriXnpDhL.jpg</URL>
+                        <Height Units="pixels">301</Height>
+                        <Width Units="pixels">500</Width>
+                    </LargeImage>
+                </ImageSet>
+                <ImageSet Category="variant">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41lZDYUTihL._SL30_.jpg</URL>
+                        <Height Units="pixels">18</Height>
+                        <Width Units="pixels">30</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41lZDYUTihL._SL75_.jpg</URL>
+                        <Height Units="pixels">45</Height>
+                        <Width Units="pixels">75</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41lZDYUTihL._SL75_.jpg</URL>
+                        <Height Units="pixels">45</Height>
+                        <Width Units="pixels">75</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41lZDYUTihL._SL110_.jpg</URL>
+                        <Height Units="pixels">66</Height>
+                        <Width Units="pixels">110</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41lZDYUTihL._SL160_.jpg</URL>
+                        <Height Units="pixels">96</Height>
+                        <Width Units="pixels">160</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41lZDYUTihL.jpg</URL>
+                        <Height Units="pixels">301</Height>
+                        <Width Units="pixels">500</Width>
+                    </LargeImage>
+                </ImageSet>
+                <ImageSet Category="variant">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51LTKwkQBjL._SL30_.jpg</URL>
+                        <Height Units="pixels">18</Height>
+                        <Width Units="pixels">30</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51LTKwkQBjL._SL75_.jpg</URL>
+                        <Height Units="pixels">45</Height>
+                        <Width Units="pixels">75</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51LTKwkQBjL._SL75_.jpg</URL>
+                        <Height Units="pixels">45</Height>
+                        <Width Units="pixels">75</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51LTKwkQBjL._SL110_.jpg</URL>
+                        <Height Units="pixels">66</Height>
+                        <Width Units="pixels">110</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51LTKwkQBjL._SL160_.jpg</URL>
+                        <Height Units="pixels">96</Height>
+                        <Width Units="pixels">160</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51LTKwkQBjL.jpg</URL>
+                        <Height Units="pixels">301</Height>
+                        <Width Units="pixels">500</Width>
+                    </LargeImage>
+                </ImageSet>
+                <ImageSet Category="variant">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41So3bnH1KL._SL30_.jpg</URL>
+                        <Height Units="pixels">30</Height>
+                        <Width Units="pixels">22</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41So3bnH1KL._SL75_.jpg</URL>
+                        <Height Units="pixels">75</Height>
+                        <Width Units="pixels">56</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41So3bnH1KL._SL75_.jpg</URL>
+                        <Height Units="pixels">75</Height>
+                        <Width Units="pixels">56</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41So3bnH1KL._SL110_.jpg</URL>
+                        <Height Units="pixels">110</Height>
+                        <Width Units="pixels">82</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41So3bnH1KL._SL160_.jpg</URL>
+                        <Height Units="pixels">160</Height>
+                        <Width Units="pixels">120</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41So3bnH1KL.jpg</URL>
+                        <Height Units="pixels">500</Height>
+                        <Width Units="pixels">375</Width>
+                    </LargeImage>
+                </ImageSet>
+                <ImageSet Category="variant">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/21tb3ky2vKL._SL30_.jpg</URL>
+                        <Height Units="pixels">30</Height>
+                        <Width Units="pixels">2</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/21tb3ky2vKL._SL75_.jpg</URL>
+                        <Height Units="pixels">75</Height>
+                        <Width Units="pixels">5</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/21tb3ky2vKL._SL75_.jpg</URL>
+                        <Height Units="pixels">75</Height>
+                        <Width Units="pixels">5</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/21tb3ky2vKL._SL110_.jpg</URL>
+                        <Height Units="pixels">110</Height>
+                        <Width Units="pixels">7</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/21tb3ky2vKL._SL160_.jpg</URL>
+                        <Height Units="pixels">160</Height>
+                        <Width Units="pixels">11</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/21tb3ky2vKL.jpg</URL>
+                        <Height Units="pixels">500</Height>
+                        <Width Units="pixels">33</Width>
+                    </LargeImage>
+                </ImageSet>
+                <ImageSet Category="primary">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51CzQbjJhCL._SL30_.jpg</URL>
+                        <Height Units="pixels">30</Height>
+                        <Width Units="pixels">25</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51CzQbjJhCL._SL75_.jpg</URL>
+                        <Height Units="pixels">75</Height>
+                        <Width Units="pixels">63</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51CzQbjJhCL._SL75_.jpg</URL>
+                        <Height Units="pixels">75</Height>
+                        <Width Units="pixels">63</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51CzQbjJhCL._SL110_.jpg</URL>
+                        <Height Units="pixels">110</Height>
+                        <Width Units="pixels">92</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51CzQbjJhCL._SL160_.jpg</URL>
+                        <Height Units="pixels">160</Height>
+                        <Width Units="pixels">134</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51CzQbjJhCL.jpg</URL>
+                        <Height Units="pixels">500</Height>
+                        <Width Units="pixels">419</Width>
+                    </LargeImage>
+                </ImageSet>
+            </ImageSets>
+            <ItemAttributes>
+                <Author>Daniel Lipkowitz</Author>
+                <Binding>Hardcover</Binding>
+                <Brand>DK CHILDREN</Brand>
+                <CatalogNumberList>
+                    <CatalogNumberListElement>TM-0756686067</CatalogNumberListElement>
+                    <CatalogNumberListElement>POTM-0756686067</CatalogNumberListElement>
+                    <CatalogNumberListElement>DK-098</CatalogNumberListElement>
+                </CatalogNumberList>
+                <EAN>9780756686062</EAN>
+                <EANList>
+                    <EANListElement>0690472086062</EANListElement>
+                    <EANListElement>8937485907475</EANListElement>
+                    <EANListElement>9780756686062</EANListElement>
+                    <EANListElement>0610373598228</EANListElement>
+                </EANList>
+                <Feature>Hints and tips from Master Builders</Feature>
+                <Feature>Featuring all-new LEGO? building projects&amp; tips to supplement your creations</Feature>
+                <Feature>divided into six themed chapters</Feature>
+                <Feature>transportation, buildings, space, kingdoms, adventure, and useful makes</Feature>
+                <IsAdultProduct>0</IsAdultProduct>
+                <ISBN>0756686067</ISBN>
+                <ItemDimensions>
+                    <Height Units="hundredths-inches">1106</Height>
+                    <Length Units="hundredths-inches">938</Length>
+                    <Weight Units="hundredths-pounds">250</Weight>
+                    <Width Units="hundredths-inches">76</Width>
+                </ItemDimensions>
+                <Label>DK Children</Label>
+                <Languages>
+                    <Language>
+                        <Name>English</Name>
+                        <Type>Published</Type>
+                    </Language>
+                    <Language>
+                        <Name>English</Name>
+                        <Type>Original Language</Type>
+                    </Language>
+                    <Language>
+                        <Name>English</Name>
+                        <Type>Unknown</Type>
+                    </Language>
+                </Languages>
+                <ListPrice>
+                    <Amount>2499</Amount>
+                    <CurrencyCode>USD</CurrencyCode>
+                    <FormattedPrice>$24.99</FormattedPrice>
+                </ListPrice>
+                <Manufacturer>DK Children</Manufacturer>
+                <ManufacturerMaximumAge Units="months">72</ManufacturerMaximumAge>
+                <ManufacturerMinimumAge Units="months">84</ManufacturerMinimumAge>
+                <Model>9780756686062</Model>
+                <MPN>9780756686062</MPN>
+                <NumberOfItems>1</NumberOfItems>
+                <NumberOfPages>200</NumberOfPages>
+                <PackageDimensions>
+                    <Height Units="hundredths-inches">98</Height>
+                    <Length Units="hundredths-inches">1091</Length>
+                    <Weight Units="hundredths-pounds">247</Weight>
+                    <Width Units="hundredths-inches">921</Width>
+                </PackageDimensions>
+                <PackageQuantity>1</PackageQuantity>
+                <PartNumber>9780756686062</PartNumber>
+                <ProductGroup>Book</ProductGroup>
+                <ProductTypeName>ABIS_BOOK</ProductTypeName>
+                <PublicationDate>2011-09-19</PublicationDate>
+                <Publisher>DK Children</Publisher>
+                <Studio>DK Children</Studio>
+                <Title>The Lego Ideas Book: Unlock Your Imagination</Title>
+                <UPC>610373598228</UPC>
+                <UPCList>
+                    <UPCListElement>610373598228</UPCListElement>
+                    <UPCListElement>690472086062</UPCListElement>
+                </UPCList>
+            </ItemAttributes>
+        </Item>
+        <Item>
+            <ASIN>B01KKTNBAG</ASIN>
+            <DetailPageURL>https://www.amazon.com/LEGO-Vehicles-Sweeper-Excavator-Building/dp/B01KKTNBAG?SubscriptionId=AKIAJ3D74NAIO57LJRNA&amp;tag=cloudeam-21&amp;linkCode=xm2&amp;camp=2025&amp;creative=165953&amp;creativeASIN=B01KKTNBAG</DetailPageURL>
+            <ItemLinks>
+                <ItemLink>
+                    <Description>Technical Details</Description>
+                    <URL>https://www.amazon.com/LEGO-Vehicles-Sweeper-Excavator-Building/dp/tech-data/B01KKTNBAG?SubscriptionId=AKIAJ3D74NAIO57LJRNA&amp;tag=cloudeam-21&amp;linkCode=xm2&amp;camp=2025&amp;creative=386001&amp;creativeASIN=B01KKTNBAG</URL>
+                </ItemLink>
+                <ItemLink>
+                    <Description>Add To Baby Registry</Description>
+                    <URL>https://www.amazon.com/gp/registry/baby/add-item.html?asin.0=B01KKTNBAG&amp;SubscriptionId=AKIAJ3D74NAIO57LJRNA&amp;tag=cloudeam-21&amp;linkCode=xm2&amp;camp=2025&amp;creative=386001&amp;creativeASIN=B01KKTNBAG</URL>
+                </ItemLink>
+                <ItemLink>
+                    <Description>Add To Wedding Registry</Description>
+                    <URL>https://www.amazon.com/gp/registry/wedding/add-item.html?asin.0=B01KKTNBAG&amp;SubscriptionId=AKIAJ3D74NAIO57LJRNA&amp;tag=cloudeam-21&amp;linkCode=xm2&amp;camp=2025&amp;creative=386001&amp;creativeASIN=B01KKTNBAG</URL>
+                </ItemLink>
+                <ItemLink>
+                    <Description>Add To Wishlist</Description>
+                    <URL>https://www.amazon.com/gp/registry/wishlist/add-item.html?asin.0=B01KKTNBAG&amp;SubscriptionId=AKIAJ3D74NAIO57LJRNA&amp;tag=cloudeam-21&amp;linkCode=xm2&amp;camp=2025&amp;creative=386001&amp;creativeASIN=B01KKTNBAG</URL>
+                </ItemLink>
+                <ItemLink>
+                    <Description>Tell A Friend</Description>
+                    <URL>https://www.amazon.com/gp/pdp/taf/B01KKTNBAG?SubscriptionId=AKIAJ3D74NAIO57LJRNA&amp;tag=cloudeam-21&amp;linkCode=xm2&amp;camp=2025&amp;creative=386001&amp;creativeASIN=B01KKTNBAG</URL>
+                </ItemLink>
+                <ItemLink>
+                    <Description>All Customer Reviews</Description>
+                    <URL>https://www.amazon.com/review/product/B01KKTNBAG?SubscriptionId=AKIAJ3D74NAIO57LJRNA&amp;tag=cloudeam-21&amp;linkCode=xm2&amp;camp=2025&amp;creative=386001&amp;creativeASIN=B01KKTNBAG</URL>
+                </ItemLink>
+                <ItemLink>
+                    <Description>All Offers</Description>
+                    <URL>https://www.amazon.com/gp/offer-listing/B01KKTNBAG?SubscriptionId=AKIAJ3D74NAIO57LJRNA&amp;tag=cloudeam-21&amp;linkCode=xm2&amp;camp=2025&amp;creative=386001&amp;creativeASIN=B01KKTNBAG</URL>
+                </ItemLink>
+            </ItemLinks>
+            <SmallImage>
+                <URL>https://images-na.ssl-images-amazon.com/images/I/51xQBuhsIaL._SL75_.jpg</URL>
+                <Height Units="pixels">75</Height>
+                <Width Units="pixels">75</Width>
+            </SmallImage>
+            <MediumImage>
+                <URL>https://images-na.ssl-images-amazon.com/images/I/51xQBuhsIaL._SL160_.jpg</URL>
+                <Height Units="pixels">160</Height>
+                <Width Units="pixels">160</Width>
+            </MediumImage>
+            <LargeImage>
+                <URL>https://images-na.ssl-images-amazon.com/images/I/51xQBuhsIaL.jpg</URL>
+                <Height Units="pixels">500</Height>
+                <Width Units="pixels">500</Width>
+            </LargeImage>
+            <ImageSets>
+                <ImageSet Category="variant">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51-pmXEbSRL._SL30_.jpg</URL>
+                        <Height Units="pixels">16</Height>
+                        <Width Units="pixels">30</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51-pmXEbSRL._SL75_.jpg</URL>
+                        <Height Units="pixels">40</Height>
+                        <Width Units="pixels">75</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51-pmXEbSRL._SL75_.jpg</URL>
+                        <Height Units="pixels">40</Height>
+                        <Width Units="pixels">75</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51-pmXEbSRL._SL110_.jpg</URL>
+                        <Height Units="pixels">59</Height>
+                        <Width Units="pixels">110</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51-pmXEbSRL._SL160_.jpg</URL>
+                        <Height Units="pixels">86</Height>
+                        <Width Units="pixels">160</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51-pmXEbSRL.jpg</URL>
+                        <Height Units="pixels">268</Height>
+                        <Width Units="pixels">500</Width>
+                    </LargeImage>
+                </ImageSet>
+                <ImageSet Category="variant">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51fGiOX5suL._SL30_.jpg</URL>
+                        <Height Units="pixels">30</Height>
+                        <Width Units="pixels">30</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51fGiOX5suL._SL75_.jpg</URL>
+                        <Height Units="pixels">75</Height>
+                        <Width Units="pixels">75</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51fGiOX5suL._SL75_.jpg</URL>
+                        <Height Units="pixels">75</Height>
+                        <Width Units="pixels">75</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51fGiOX5suL._SL110_.jpg</URL>
+                        <Height Units="pixels">110</Height>
+                        <Width Units="pixels">110</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51fGiOX5suL._SL160_.jpg</URL>
+                        <Height Units="pixels">160</Height>
+                        <Width Units="pixels">160</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51fGiOX5suL.jpg</URL>
+                        <Height Units="pixels">500</Height>
+                        <Width Units="pixels">500</Width>
+                    </LargeImage>
+                </ImageSet>
+                <ImageSet Category="variant">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51UIs8rbCrL._SL30_.jpg</URL>
+                        <Height Units="pixels">23</Height>
+                        <Width Units="pixels">30</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51UIs8rbCrL._SL75_.jpg</URL>
+                        <Height Units="pixels">56</Height>
+                        <Width Units="pixels">75</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51UIs8rbCrL._SL75_.jpg</URL>
+                        <Height Units="pixels">56</Height>
+                        <Width Units="pixels">75</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51UIs8rbCrL._SL110_.jpg</URL>
+                        <Height Units="pixels">83</Height>
+                        <Width Units="pixels">110</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51UIs8rbCrL._SL160_.jpg</URL>
+                        <Height Units="pixels">120</Height>
+                        <Width Units="pixels">160</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51UIs8rbCrL.jpg</URL>
+                        <Height Units="pixels">376</Height>
+                        <Width Units="pixels">500</Width>
+                    </LargeImage>
+                </ImageSet>
+                <ImageSet Category="variant">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41pgr4HQBUL._SL30_.jpg</URL>
+                        <Height Units="pixels">30</Height>
+                        <Width Units="pixels">19</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41pgr4HQBUL._SL75_.jpg</URL>
+                        <Height Units="pixels">75</Height>
+                        <Width Units="pixels">48</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41pgr4HQBUL._SL75_.jpg</URL>
+                        <Height Units="pixels">75</Height>
+                        <Width Units="pixels">48</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41pgr4HQBUL._SL110_.jpg</URL>
+                        <Height Units="pixels">110</Height>
+                        <Width Units="pixels">70</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41pgr4HQBUL._SL160_.jpg</URL>
+                        <Height Units="pixels">160</Height>
+                        <Width Units="pixels">102</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/41pgr4HQBUL.jpg</URL>
+                        <Height Units="pixels">500</Height>
+                        <Width Units="pixels">319</Width>
+                    </LargeImage>
+                </ImageSet>
+                <ImageSet Category="variant">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51kdBFdVjFL._SL30_.jpg</URL>
+                        <Height Units="pixels">30</Height>
+                        <Width Units="pixels">27</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51kdBFdVjFL._SL75_.jpg</URL>
+                        <Height Units="pixels">75</Height>
+                        <Width Units="pixels">68</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51kdBFdVjFL._SL75_.jpg</URL>
+                        <Height Units="pixels">75</Height>
+                        <Width Units="pixels">68</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51kdBFdVjFL._SL110_.jpg</URL>
+                        <Height Units="pixels">110</Height>
+                        <Width Units="pixels">100</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51kdBFdVjFL._SL160_.jpg</URL>
+                        <Height Units="pixels">160</Height>
+                        <Width Units="pixels">146</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51kdBFdVjFL.jpg</URL>
+                        <Height Units="pixels">500</Height>
+                        <Width Units="pixels">456</Width>
+                    </LargeImage>
+                </ImageSet>
+                <ImageSet Category="variant">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/412ajCdO3-L._SL30_.jpg</URL>
+                        <Height Units="pixels">9</Height>
+                        <Width Units="pixels">30</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/412ajCdO3-L._SL75_.jpg</URL>
+                        <Height Units="pixels">23</Height>
+                        <Width Units="pixels">75</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/412ajCdO3-L._SL75_.jpg</URL>
+                        <Height Units="pixels">23</Height>
+                        <Width Units="pixels">75</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/412ajCdO3-L._SL110_.jpg</URL>
+                        <Height Units="pixels">34</Height>
+                        <Width Units="pixels">110</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/412ajCdO3-L._SL160_.jpg</URL>
+                        <Height Units="pixels">50</Height>
+                        <Width Units="pixels">160</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/412ajCdO3-L.jpg</URL>
+                        <Height Units="pixels">155</Height>
+                        <Width Units="pixels">500</Width>
+                    </LargeImage>
+                </ImageSet>
+                <ImageSet Category="variant">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/410tQHaUnRL._SL30_.jpg</URL>
+                        <Height Units="pixels">20</Height>
+                        <Width Units="pixels">30</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/410tQHaUnRL._SL75_.jpg</URL>
+                        <Height Units="pixels">49</Height>
+                        <Width Units="pixels">75</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/410tQHaUnRL._SL75_.jpg</URL>
+                        <Height Units="pixels">49</Height>
+                        <Width Units="pixels">75</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/410tQHaUnRL._SL110_.jpg</URL>
+                        <Height Units="pixels">72</Height>
+                        <Width Units="pixels">110</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/410tQHaUnRL._SL160_.jpg</URL>
+                        <Height Units="pixels">105</Height>
+                        <Width Units="pixels">160</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/410tQHaUnRL.jpg</URL>
+                        <Height Units="pixels">329</Height>
+                        <Width Units="pixels">500</Width>
+                    </LargeImage>
+                </ImageSet>
+                <ImageSet Category="primary">
+                    <SwatchImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51xQBuhsIaL._SL30_.jpg</URL>
+                        <Height Units="pixels">30</Height>
+                        <Width Units="pixels">30</Width>
+                    </SwatchImage>
+                    <SmallImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51xQBuhsIaL._SL75_.jpg</URL>
+                        <Height Units="pixels">75</Height>
+                        <Width Units="pixels">75</Width>
+                    </SmallImage>
+                    <ThumbnailImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51xQBuhsIaL._SL75_.jpg</URL>
+                        <Height Units="pixels">75</Height>
+                        <Width Units="pixels">75</Width>
+                    </ThumbnailImage>
+                    <TinyImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51xQBuhsIaL._SL110_.jpg</URL>
+                        <Height Units="pixels">110</Height>
+                        <Width Units="pixels">110</Width>
+                    </TinyImage>
+                    <MediumImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51xQBuhsIaL._SL160_.jpg</URL>
+                        <Height Units="pixels">160</Height>
+                        <Width Units="pixels">160</Width>
+                    </MediumImage>
+                    <LargeImage>
+                        <URL>https://images-na.ssl-images-amazon.com/images/I/51xQBuhsIaL.jpg</URL>
+                        <Height Units="pixels">500</Height>
+                        <Width Units="pixels">500</Width>
+                    </LargeImage>
+                </ImageSet>
+            </ImageSets>
+            <ItemAttributes>
+                <Binding>Toy</Binding>
+                <Brand>LEGO</Brand>
+                <CatalogNumberList>
+                    <CatalogNumberListElement>119446</CatalogNumberListElement>
+                    <CatalogNumberListElement>GM-B01KKTNBAG</CatalogNumberListElement>
+                </CatalogNumberList>
+                <EAN>0673419264303</EAN>
+                <EANList>
+                    <EANListElement>0673419264303</EANListElement>
+                </EANList>
+                <Feature>Truck with trailer features spinning Sweeper brushes and a truck bed with tool hooks, excavator features a movable arm with shovel bucket, rotating body and an opening cage</Feature>
+                <Feature>Accessory elements include wall bricks, broom, shovel, Jackhammer, wrench, and a buildable sign and two cones</Feature>
+                <Feature>Includes two city worker minifigures</Feature>
+                <Feature>Truck with Sweeper measures over 3" (9cm) high, 6" (16cm) long and 3" (9cm) wide, trailer measures over 1" (3cm) high, 6" (17cm) long and 3" (8cm) wide</Feature>
+                <Feature>Excavator measures over 3" (8cm) high, 5" (13cm) long and 2" (6cm) wide</Feature>
+                <IsAdultProduct>0</IsAdultProduct>
+                <ItemDimensions>
+                    <Height Units="hundredths-inches">276</Height>
+                    <Length Units="hundredths-inches">1394</Length>
+                    <Weight Units="hundredths-pounds">0</Weight>
+                    <Width Units="hundredths-inches">752</Width>
+                </ItemDimensions>
+                <Label>LEGO</Label>
+                <ListPrice>
+                    <Amount>2999</Amount>
+                    <CurrencyCode>USD</CurrencyCode>
+                    <FormattedPrice>$29.99</FormattedPrice>
+                </ListPrice>
+                <Manufacturer>LEGO</Manufacturer>
+                <ManufacturerMaximumAge Units="months">144</ManufacturerMaximumAge>
+                <ManufacturerMinimumAge Units="months">60</ManufacturerMinimumAge>
+                <Model>6174561</Model>
+                <MPN>6174561</MPN>
+                <PackageDimensions>
+                    <Height Units="hundredths-inches">270</Height>
+                    <Length Units="hundredths-inches">1390</Length>
+                    <Weight Units="hundredths-pounds">140</Weight>
+                    <Width Units="hundredths-inches">750</Width>
+                </PackageDimensions>
+                <PackageQuantity>1</PackageQuantity>
+                <PartNumber>6174561</PartNumber>
+                <ProductGroup>Toy</ProductGroup>
+                <ProductTypeName>TOYS_AND_GAMES</ProductTypeName>
+                <Publisher>LEGO</Publisher>
+                <ReleaseDate>2017-01-01</ReleaseDate>
+                <Studio>LEGO</Studio>
+                <Title>LEGO City Great Vehicles Sweeper &amp; Excavator 60152 Building Kit</Title>
+                <UPC>673419264303</UPC>
+                <UPCList>
+                    <UPCListElement>673419264303</UPCListElement>
+                </UPCList>
+                <Warranty>No Warranty</Warranty>
+            </ItemAttributes>
+        </Item>
+    </Items>
+</ItemSearchResponse>

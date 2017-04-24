@@ -1,0 +1,16 @@
+{
+    "customer_id": 982000000567001,
+    "line_items": [
+        {
+            "item_id": 982000000030049,
+            "name": "Hard Drive",
+            "description": "500GB, USB 2.0 interface 1400 rpm, protective hard case.",
+            "item_order": 1,
+            "rate": 120,
+            "quantity": 1,
+            "unit": " ",
+            "discount": 0,
+            "item_total": 120
+        }
+    ]
+}

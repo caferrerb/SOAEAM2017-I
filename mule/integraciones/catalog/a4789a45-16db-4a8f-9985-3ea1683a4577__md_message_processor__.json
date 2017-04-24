@@ -1,0 +1,16 @@
+{
+    "inputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "invoiceCanonical"
+        }
+    },
+    "outputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "ZohoInvoice"
+        }
+    },
+    "id": "a4789a45-16db-4a8f-9985-3ea1683a4577",
+    "version": "5.2.0.0"
+}

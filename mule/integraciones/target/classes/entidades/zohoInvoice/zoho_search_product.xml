@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
+    <flow name="zoho_search_procuct">
+        <set-variable variableName="sku" value="#[message.inboundProperties['http.uri.params']['sku']]" mimeType="application/java" doc:name="sku"/>
+        <http:request config-ref="http_zoho" path="${zoho.pathItem}authtoken=${zoho.token}&amp;organization_id=${zoho.idorg}&amp;sku=#[flowVars.sku]" method="GET" doc:name="http zoho sku"/>
+        <set-payload value="#[payload]" encoding="UTF-8" mimeType="application/json" doc:name="Set Payload"/>
+        <dw:transform-message metadata:id="9c22de56-9a12-431a-8e0e-aa4a480fdc5c" doc:name="Transform Message">
+            <dw:input-payload mimeType="application/json"/>
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	code: '200',
+	status: 'Ok',
+	response: {
+		products: payload.items map ((item , indexOfItem) -> {
+			product: {
+				description: {
+					id: item.sku,
+					name: item.name,
+					brand: item.product_type,
+					description: item.description
+				},
+				price: {
+					coin: p('zoho.coin'),
+					price: item.rate as :string
+				},
+				ids:{
+					id:item.item_id
+				}
+			}
+		})
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+    </flow>
+</mule>

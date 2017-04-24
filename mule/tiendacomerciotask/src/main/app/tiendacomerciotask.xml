@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:context="http://www.springframework.org/schema/context" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:apikit="http://www.mulesoft.org/schema/mule/apikit" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/apikit http://www.mulesoft.org/schema/mule/apikit/current/mule-apikit.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-current.xsd">
+    <apikit:config name="Router" raml="tiendacomercioapi.raml" consoleEnabled="true" consolePath="console" doc:name="Router">
+        <apikit:flow-mapping resource="/cliente/create" action="post" content-type="application/json" flow-ref="clientecreateFlow"/>
+        <apikit:flow-mapping resource="/cliente/edit" action="post" content-type="application/json" flow-ref="clienteeditFlow"/>
+        <apikit:flow-mapping resource="/cliente/find/{user}" action="get" flow-ref="clientefindUserFlow"/>
+        <apikit:flow-mapping resource="/cliente/find" action="post" content-type="application/json" flow-ref="clienteloginFlow"/>
+        <apikit:flow-mapping resource="/producto/search/{item}" action="get" flow-ref="productosearchFlow"/>
+        <apikit:flow-mapping resource="/producto/find/{id}" action="get" flow-ref="productofindFlow"/>
+        <apikit:flow-mapping resource="/buy/buy" action="post" content-type="application/json" flow-ref="compraFlow"/>
+    </apikit:config>
+    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="${http.port}" doc:name="HTTP Listener Configuration"/>
+    <context:property-placeholder location="mule-app.properties,mensajes.properties"/>
+    <flow name="tiendacomerciotaskFlow">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="${root.start}" doc:name="HTTP"/>
+        <apikit:router config-ref="Router" doc:name="APIkit Router"/>
+    </flow>
+    <choice-exception-strategy name="Copy_of_caths_exception">
+        <catch-exception-strategy when="#[exception.causeMatches('*ResponseValidatorException')]" doc:name="Copy_of_ResponseValidatorException">
+            <set-property propertyName="http.status" value="#[400]" doc:name="Copy_of_Property"/>
+            <set-payload value="{&quot;code&quot;: &quot;-1&quot;,&quot;status&quot;:&quot;Error&quot;,&quot;response&quot;: {&quot;message&quot;:&quot;${exception.search}&quot;}}" encoding="UTF-8" mimeType="application/json" doc:name="Copy_of_Set Payload"/>
+        </catch-exception-strategy>
+        <catch-exception-strategy when="#[exception.causeMatches('*ValidationException')]" doc:name="Copy_of_ValidationException">
+            <set-property propertyName="htttp.status" value="#[500]" doc:name="Copy_of_Property"/>
+            <set-payload value="{&quot;code&quot;: &quot;-2&quot;,&quot;status&quot;:&quot;Error&quot;,&quot;response&quot;: {&quot;message&quot;:&quot;#[exception.message]&quot;}}" encoding="UTF-8" mimeType="application/json" doc:name="Copy_of_payload exception"/>
+        </catch-exception-strategy>
+        <catch-exception-strategy when="#[exception.causeMatches('*WeaveExecutionException')]" doc:name="Copy_of_WeaveExecutionException">
+            <set-property propertyName="http.status" value="#[400]" doc:name="Copy_of_Copy_of_Property"/>
+            <set-payload value="{&quot;code&quot;: &quot;-3&quot;,&quot;status&quot;:&quot;Error&quot;,&quot;response&quot;: {&quot;message&quot;:&quot;${exception.search}&quot;}}" encoding="UTF-8" mimeType="application/json" doc:name="Copy_of_Set Payload"/>
+        </catch-exception-strategy>
+        <catch-exception-strategy when="#[exception.causeMatches('java.lang.Exception')]" doc:name="excepciongeneral">
+            <set-property propertyName="http.status" value="#[500]" doc:name="Copy_of_Copy_of_Copy_of_Property"/>
+            <set-payload value="{&quot;code&quot;: &quot;-3&quot;,&quot;status&quot;:&quot;Error&quot;,&quot;response&quot;: {&quot;message&quot;:&quot;#[payload.message]&quot;}}" encoding="UTF-8" mimeType="application/json" doc:name="Copy_of_Copy_of_Set Payload"/>
+        </catch-exception-strategy>
+    </choice-exception-strategy>
+</mule>

@@ -1,0 +1,30 @@
+{
+  "customer":{
+    "identification":{
+      "type":"CC",
+      "number":"1096038301"
+    },
+    "aplicacion":{
+    	
+    	"user":"8429038423",
+    	"password":"209284302"
+    
+    },
+    "personal":{
+      "firstName":"Cristian Camilo",
+      "lastName":"Zapata Torres",
+      "sex":"M",
+      "age":"20"
+    },
+    "social":{
+      "mail":"cristianzapatat@gmail.com",
+      "cellNumber":"3217837066"
+    },
+    "localization":{
+      "country":"Colombia",
+      "state":"Quindio",
+      "city":"La Tebaida",
+      "addressStreet":"Calle 15 Numero 8-70"
+    }
+  }
+}

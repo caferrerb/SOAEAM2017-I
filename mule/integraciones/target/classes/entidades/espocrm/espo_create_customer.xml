@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:validation="http://www.mulesoft.org/schema/mule/validation" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
+    <http:request-config name="newEspo" responseTimeout="10000" doc:name="HTTP Request Configuration"/>
+    <flow name="espo_create_customer">
+        <json:validate-schema schemaLocation="schemas/customerSchema.json" doc:name="validate-customer-input"/>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" mimeType="application/java" doc:name="json to map"/>
+        <validation:all doc:name="Validation">
+            <validation:validations>
+                <validation:is-number value="#[payload.customer.personal.age]" minValue="1" numberType="INTEGER" message="${exception.age}"/>
+                <validation:is-number value="#[payload.customer.identification.number]" minValue="1" numberType="LONG" message="${exception.idNumber}"/>
+                <validation:matches-regex value="#[payload.customer.personal.sex]" regex="(M|F|m|f){1}" message="${exception.sex}"/>
+                <validation:matches-regex value="#[payload.customer.social.mail]" regex="(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|&quot;(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*&quot;)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])" message="${exception.mail}"/>
+                <validation:validate-size value="#[payload.customer.personal.sex]" min="1" max="1" message="${exception.sexSize}"/>
+            </validation:validations>
+        </validation:all>
+        <json:object-to-json-transformer encoding="UTF-8" mimeType="application/json" doc:name="Object to JSON"/>
+        <dw:transform-message metadata:id="a811696c-29f7-4bb0-af4d-e82e6ef3f393" doc:name="Transform Message">
+            <dw:input-payload mimeType="application/json"/>
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	salutationName: payload.customer.personal.sex,
+	firstName: payload.customer.personal.firstName,
+	lastName: payload.customer.personal.lastName,
+	description: 'Cliente',
+	doNotCall: true,
+	addressStreet: payload.customer.localization.addressStreet,
+	addressCity: payload.customer.localization.city,
+	addressState: payload.customer.localization.state,
+	addressCountry: payload.customer.localization.country,
+	addressPostalCode: '000000',
+	emailAddressData: [{
+		emailAddress: payload.customer.social.mail,
+		primary: true
+	}],
+	phoneNumberData: [{
+		phoneNumber: payload.customer.social.cellNumber,
+		primary: true,
+		type: 'Mobile'
+	}]
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <set-variable variableName="customer" value="#[payload]" encoding="UTF-8" mimeType="application/json" doc:name="Customer"/>
+        <dw:transform-message doc:name="Transform Message">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	user:p('espo.user'),
+	password:p('espo.password')
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" mimeType="application/java" doc:name="Map of Authorization"/>
+        <component class="espocrm.EspoAuthozation" doc:name="Get Header Authorization"/>
+        <set-variable variableName="authorization" value="#[payload]" mimeType="application/java" doc:name="authorization"/>
+        <set-payload value="#[flowVars.customer]" encoding="UTF-8" mimeType="application/json" doc:name="payload"/>
+        <object-to-string-transformer doc:name="Object to String"/>
+        <http:request config-ref="newEspo" path="espocrm/api/v1/Contact" method="POST" doc:name="http_espo_create_customer" host="${espo.url}" port="${port.normal}">
+            <http:request-builder>
+                <http:header headerName="${espo.header}" value="#[flowVars.authorization]"/>
+                <http:header headerName="Content-Type" value="application/json"/>
+            </http:request-builder>
+        </http:request>
+        <dw:transform-message doc:name="transform response service" metadata:id="5018344c-55c9-4ffb-8f2c-4529a40ee19b">
+            <dw:input-payload mimeType="application/json"/>
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	code: '200',
+	status: 'Ok',
+	response: {
+		customer: {
+			personal: {
+				firstName: payload.firstName,
+				lastName: payload.lastName,
+				sex: payload.salutationName
+			},
+			social: {
+				mail: payload.emailAddressData.emailAddress,
+				cellNumber: payload.phoneNumberData.phoneNumber
+			},
+			localization: {
+				country: payload.addressCountry,
+				state: payload.addressState,
+				city: payload.addressCity,
+				addressStreet: payload.addressStreet
+			},
+			ids:{
+				id:payload.id
+			}
+		}
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+    </flow>
+</mule>

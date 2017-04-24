@@ -1,0 +1,357 @@
+#%RAML 0.8
+title: Sample API
+baseUri: http://localhost:8081/tienda
+version: 1.0
+
+
+/cliente:
+  /create:
+    POST:
+      body: 
+        application/json: 
+          example: |
+                    {
+                      "customer":{
+                        "identification":{
+                          "type":"CC",
+                          "number":"1096038301"
+                        },
+                       "application":{
+                          
+                          "user":"8429038423",
+                          "password":"209284302"
+                        
+                        },
+                        "personal":{
+                          "firstName":"Cristian Camilo",
+                          "lastName":"Zapata Torres",
+                          "sex":"M",
+                          "age":"20"
+                        },
+                        "social":{
+                          "mail":"cristianzapatat@gmail.com",
+                          "cellNumber":"3217837066"
+                        },
+                        "localization":{
+                          "country":"Colombia",
+                          "state":"Quindio",
+                          "city":"La Tebaida",
+                          "addressStreet":"Calle 15 Numero 8-70"
+                        }
+                      }
+                    }
+           
+      responses: 
+        200:
+          body: 
+            application/json: 
+              example: |
+                        {
+                          "code":"200",
+                          "status":"ok",
+                          "response":{}
+                        }  
+  /edit:
+     POST:
+      body: 
+        application/json: 
+          example: |
+                    {
+                      "customer":{
+                        "identification":{
+                          "type":"CC",
+                          "number":"1096038301"
+                        },
+                        "application":{
+                          
+                          "user":"8429038423",
+                          "password":"209284302"
+                        
+                        },
+                        "personal":{
+                          "firstName":"Cristian Camilo",
+                          "lastName":"Zapata Torres",
+                          "sex":"M",
+                          "age":"20"
+                        },
+                        "social":{
+                          "mail":"cristianzapatat@gmail.com",
+                          "cellNumber":"3217837066"
+                        },
+                        "localization":{
+                          "country":"Colombia",
+                          "state":"Quindio",
+                          "city":"La Tebaida",
+                          "addressStreet":"Calle 15 Numero 8-70"
+                        }
+                      }
+                    }
+           
+      responses: 
+        200:
+          body: 
+            application/json: 
+              example: |
+                        {
+                          "code":"200",
+                          "status":"ok",
+                          "response":{
+                          }
+                        } 
+                   
+  /find/{user}:
+    GET:
+      responses: 
+        200: 
+          body: 
+            application/json: 
+              example: |
+                        {
+                          "code":"200",
+                          "status":"ok",
+                          "response":{
+                                        "customer":{
+                                                    "identification":{
+                                                      "type":"CC",
+                                                      "number":"1096038301"
+                                                    },
+                                                    "application":{
+                                                      
+                                                      "user":"8429038423",
+                                                      "password":"209284302"
+                                                    
+                                                    },
+                                                    "personal":{
+                                                      "firstName":"Cristian Camilo",
+                                                      "lastName":"Zapata Torres",
+                                                      "sex":"M",
+                                                      "age":"20"
+                                                    },
+                                                    "social":{
+                                                      "mail":"cristianzapatat@gmail.com",
+                                                      "cellNumber":"3217837066"
+                                                    },
+                                                    "localization":{
+                                                      "country":"Colombia",
+                                                      "state":"Quindio",
+                                                      "city":"La Tebaida",
+                                                      "addressStreet":"Calle 15 Numero 8-70"
+                                                    }
+                                                  }
+                                      }
+                        }      
+
+  /find:
+    description: buscar por nombre de usuario y contraseña
+    POST:
+      body: 
+        application/json: 
+          example: |
+                   {
+                    "customer":{
+                              
+                              "aplicacion":{
+                                
+                                "user":"8429038423",
+                                "password":"209284302"
+                              
+                              }
+                      }
+                   } 
+          
+      responses: 
+          200: 
+            body: 
+              application/json: 
+                example: |
+                          {
+                            "code":"200",
+                            "status":"ok",
+                            "response":{
+                                          "customer":{
+                                                      "identification":{
+                                                        "type":"CC",
+                                                        "number":"1096038301"
+                                                      },
+                                                      "application":{
+                                                        
+                                                        "user":"8429038423"
+                                                       
+                                                      
+                                                      },
+                                                      "personal":{
+                                                        "firstName":"Cristian Camilo",
+                                                        "lastName":"Zapata Torres",
+                                                        "sex":"M",
+                                                        "age":"20"
+                                                      },
+                                                      "social":{
+                                                        "mail":"cristianzapatat@gmail.com",
+                                                        "cellNumber":"3217837066"
+                                                      },
+                                                      "localization":{
+                                                        "country":"Colombia",
+                                                        "state":"Quindio",
+                                                        "city":"La Tebaida",
+                                                        "addressStreet":"Calle 15 Numero 8-70"
+                                                      }
+                                                    }
+                                        }
+                          }
+              
+  
+  
+/producto:
+  /search/{item}:
+    GET:
+      queryParameters:
+        page:
+      responses:
+        200:
+          body:
+           application/json:
+            example: |
+                      {  
+                         "code":"200",
+                         "status":"Ok",
+                         "response":{  
+                            "products":[  
+                               {  
+                                  "product":{  
+                                     "page":{  
+                                        "now":"1",
+                                        "total":"1462703"
+                                     },
+                                     "description":{  
+                                        "id":"B01L0JGRSI",
+                                        "name":"Cyber Power",
+                                        "brand":"CyberpowerPC",
+                                        "title":"CYBERPOWERPC Gamer Ultra GUA3120A w/ AMD FX-4300 3.8GHz CPU, 8GB DDR3, AMD R7 250 2GB, 1TB HDD, 24X DVD+-RW & Win 10 Home 64-Bit Desktop Gaming PC",
+                                        "description":"System: AMD FX-4300 3.8GHz Quad-Core | AMD 760 chipset | 8GB DDR3 | 1TB HDD | genuine Windows 10 home 64-bit"
+                                     },
+                                     "image":{  
+                                        "small":"https://images-na.ssl-images-amazon.com/images/I/51yABuliQKL._SL75_.jpg",
+                                        "medium":"https://images-na.ssl-images-amazon.com/images/I/51yABuliQKL._SL160_.jpg",
+                                        "large":"https://images-na.ssl-images-amazon.com/images/I/51yABuliQKL.jpg"
+                                     },
+                                     "price":{  
+                                        "coin":"COP",
+                                        "price":"1500000"
+                                     }
+                                  }
+                               },
+                               {  
+                                  "product":{  
+                                     "page":{  
+                                        "now":"1",
+                                        "total":"1462703"
+                                     },
+                                     "description":{  
+                                        "id":"B00NGCS7YA",
+                                        "name":"Deepcool",
+                                        "brand":"DEEPCOOL",
+                                        "title":"DeepCool TX Mid Tower TESSERACT SW",
+                                        "description":"Case Type: ATX Mid Tower"
+                                     },
+                                     "image":{  
+                                        "small":"https://images-na.ssl-images-amazon.com/images/I/41%2BSbB4mkgL._SL75_.jpg",
+                                        "medium":"https://images-na.ssl-images-amazon.com/images/I/41%2BSbB4mkgL._SL160_.jpg",
+                                        "large":"https://images-na.ssl-images-amazon.com/images/I/41%2BSbB4mkgL.jpg"
+                                     },
+                                     "price":{  
+                                        "coin":"COP",
+                                        "price":"120000"
+                                     }
+                                  }
+                               }
+                            ]
+                         }
+                      }
+
+#Servicio para buscar un producto en especial en el inventario de Amazon por su ID. retorna el precio en pesos        
+  /find/{id}:
+    GET:    
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                        {
+                          "code": "200",
+                          "status": "Ok",
+                          "response": {
+                            "product": {
+                              "description": {
+                                "id": "B017B1ALMC",
+                                "name": "LEGO",
+                                "brand": "LEGO",
+                                "title": "LEGO CITY Fire Starter Set 60106",
+                                "description": "Features a fire hovercraft with turning propeller and accessories, and a pier with engine and fire elements"
+                              },
+                              "image": {
+                                "small": "https://images-na.ssl-images-amazon.com/images/I/61gUT3fRb2L._SL75_.jpg",
+                                "medium": "https://images-na.ssl-images-amazon.com/images/I/61gUT3fRb2L._SL160_.jpg",
+                                "large": "https://images-na.ssl-images-amazon.com/images/I/61gUT3fRb2L.jpg"
+                              },
+                              "price": {
+                                "coin": "COP",
+                                "price": "24000"
+                              }
+                            }
+                          }
+                        }
+            
+#Servicio para realizar un pago por el sistema de PAYU         
+  
+  
+                    
+/buy:
+  /buy:
+    description: servicio para crar una compra.
+    POST:
+      body: 
+        application/json: 
+          example: |
+                    {
+                      "buy":{
+                              "items":[
+                              
+                                      {
+                                            "product": {
+                                                        "description": {
+                                                        "id": "1"
+                                                        }
+                                             },
+                                             "qty":"1"
+                                      },
+                                      {
+                                            "product": {
+                                                        "description": {
+                                                        "id": "2"
+                                                        }
+                                             },
+                                             "qty":"3"
+                                      },
+                                
+                              ],
+                              "customer":{
+                                        "application":{
+                                                      "user":"8429038423"
+                                                      
+                                                     },
+                                }
+                              
+                      }
+                    } 
+   
+      responses: 
+        200: 
+          body: 
+            application/json: 
+              example: |
+                         {
+                          "code": "200",
+                          "status": "SUCCESS",
+                          "response": {}
+                          }
+                                                                                       

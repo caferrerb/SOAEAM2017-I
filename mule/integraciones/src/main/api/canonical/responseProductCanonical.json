@@ -1,0 +1,28 @@
+{
+    "code": "200",
+    "status": "ok",
+    "response": {
+        "product": {
+            "page": {
+                "now": 3,
+                "total": 2
+            },
+            "description": {
+                "id": "id",
+                "name": "name",
+                "brand": "brand",
+                "title": "title",
+                "description": "description"
+            },
+            "image": {
+                "small": "url",
+                "medium": "url",
+                "large": "url"
+            },
+            "price": {
+                "coin": "coin",
+                "price": "price"
+            }
+        }
+    }
+}

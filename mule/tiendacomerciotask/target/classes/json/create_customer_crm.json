@@ -1,0 +1,39 @@
+{  
+  "salutationName": "Mr.",
+  "firstName": "Claudia Patricia",
+  "lastName": "Fernandez Quitian",
+  "description": "Cliente.",
+  "doNotCall": false,
+  "addressStreet": "donde nadie encuenta la direccion",
+  "addressCity": "bogota",
+  "addressState": "Bogota",
+  "addressCountry": "Colombia",
+  "addressPostalCode": "12312",
+  "emailAddressData": [
+    {
+      "emailAddress": "claudia@gmail.com",
+      "primary": true
+    
+    }
+  ],
+  "phoneNumberData": [
+    {
+      "phoneNumber": "573007862979",
+      "primary": true,
+      "type": "Mobile"
+    }
+  ],
+  
+  "createdById": "1",
+  "createdByName": "Admin",
+  
+  "assignedUserName": "Admin",
+  
+  "isFollowed": true,
+  "followersIds": [
+    "1"
+  ],
+  "followersNames": {
+    "1": "Admin"
+  }
+}

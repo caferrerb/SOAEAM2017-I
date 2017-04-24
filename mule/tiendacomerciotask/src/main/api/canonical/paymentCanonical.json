@@ -1,0 +1,40 @@
+{
+	"payment":{
+		"value":{
+			"value":2000	
+		},
+		"card":{
+			"number": "4097440000000004",
+	        "securityCode": "321",
+	        "expirationDate": "2017/12",
+	        "name": "REJECTED",
+	        "paymentMethod": "VISA",
+      		"paymentCountry": "CO"
+		},
+		"customer":{
+		  "identification":{
+		    "type":"CC",
+		    "number":"1096038301"
+		  },
+		  "personal":{
+			"firstName":"Cristian Camilo",
+		    "lastName":"Zapata Torres",
+		    "sex":"M",
+		    "age":"20"
+		  },
+		  "social":{
+			"mail":"cristianzapatat@gmail.com",
+			"cellNumber":"3217837066"
+		  },
+		  "localization":{
+		    "country":"Colombia",
+		    "state":"Quindio",
+		    "city":"La Tebaida",
+		    "addressStreet":"Calle 15 Numero 8-70"
+		  },
+		  "ids":{
+		  	"id":"112222"
+		  }
+		}
+	}
+}

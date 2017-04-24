@@ -1,0 +1,39 @@
+{  
+   "contact_name":"Bowman and Co",
+   "company_name":"Bowman and Co",
+   "payment_terms":15,
+   "currency_id":590388000000057018,
+   "website":"www.bowmanfurniture.com",
+   "custom_fields":[  
+      {  
+         "value":"GBGD078",
+         "index":1
+      }
+   ],
+   "billing_address":{  
+      "street":"Harrington Bay Street",
+      "city":"Pleasanton",
+      "state":"CA",
+      "zip":94588,
+      "country":"U.S.A"
+   },
+   "shipping_address":{  
+      "s_street":"Suite 125, McMillan Avenue",
+      "s_city":"San Francisco",
+      "s_state":"CA",
+      "s_zip":94134,
+      "s_country":"U.S.A"
+   },
+   "contact_persons":[  
+      {  
+         "salutation":"Mr",
+         "first_name":"Will",
+         "last_name":"Smith",
+         "email":"willsmith@bowmanfurniture.com",
+         "phone":"+1-925-921-9201",
+         "mobile":"+1-4054439562",
+         "is_primary_contact":true
+      }
+   ],
+   "language_code":"en"
+}

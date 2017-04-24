@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:validation="http://www.mulesoft.org/schema/mule/validation" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd">
+    <http:request-config name="http_zoho" protocol="HTTPS" host="${zoho.host}" port="${port.secure}"  doc:name="HTTP Request Configuration"/>
+    <flow name="zoho_create_product">
+        <json:validate-schema schemaLocation="schemas/productSchema.json" doc:name="Validate JSON Schema"/>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" mimeType="application/java" doc:name="JSON to Object"/>
+        <validation:all doc:name="Validation">
+            <validation:validations>
+                <validation:matches-regex value="#[payload.product.price.price]" regex="[0-9]*" message="${exception.price}"/>
+                <validation:validate-size value="#[payload.product.price.price]" min="0" message="${exception.price}"/>
+            </validation:validations>
+        </validation:all>
+        <json:object-to-json-transformer encoding="UTF-8" mimeType="application/json" doc:name="Object to JSON"/>
+        <dw:transform-message doc:name="Transform Message" metadata:id="103d25db-220d-4eda-87da-0c80d0413e1b">
+            <dw:input-payload mimeType="application/json"/>
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	name: payload.product.description.name,
+	rate: payload.product.price.price,
+	description: payload.product.description.description,
+	sku: payload.product.description.id,
+	product_type:p('zoho.product_type'),
+   	token:p('zoho.token'),
+	organization:p('zoho.idorg'),
+   	action:p('zoho.create')
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" mimeType="application/java" doc:name="json to map"/>
+        <component class="zohoInvoice.GenerarCadenaZoho" doc:name="Java"/>
+        <http:request config-ref="http_zoho" path="${zoho.pathItem}#[payload]" method="POST" doc:name="htto zoho create">
+        </http:request>
+        <dw:transform-message metadata:id="aad3c6dc-e391-475d-89a3-18bbc5f3333e" doc:name="Transform Message">
+            <dw:input-payload mimeType="application/json"/>
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	code: '200',
+	status: payload.message,
+	response: {
+		product: {
+			description: {
+				id: payload.item.sku,
+				name: payload.item.name,
+				brand: payload.item.product_type,
+				description: payload.item.description
+			},
+			price: {
+				coin: p('zoho.coin'),
+				price: payload.item.rate as :string
+			}
+		}
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+    </flow>
+</mule>
