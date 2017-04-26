@@ -26,6 +26,7 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
         <http:request config-ref="http_amazon" path="#[flowVars.url]" method="GET" doc:name="http amazon">
             <http:request-builder>
                 <http:header headerName="${amazon.header}" value="${amazon.host}"/>
+
             </http:request-builder>
         </http:request>
         <dw:transform-message metadata:id="c85aa24c-36e2-43d5-9982-bef7677dc62b" doc:name="response product">
