@@ -1,11 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
-http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
+    <http:request-config name="defaultZoho" doc:name="HTTP Request Configuration"/>
     <flow name="clientecreateFlow">
-        <set-payload value="crear cliente" doc:name="Set Payload"/>
+        <json:validate-schema schemaLocation="schemas/customerSchema.json" doc:name="Validate JSON Schema"/>
+        <set-variable variableName="objeto" value="#[payload]" encoding="UTF-8" mimeType="application/json" doc:name="guardar objeto"/>
+        <set-payload value="#[payload]" encoding="UTF-8" mimeType="application/json" doc:name="Set Payload"/>
+        <http:request config-ref="defaultZoho" path="/tienda/zoho/createCustomer" method="POST" host="104.155.149.197" port="8090" doc:name="invocar servicio zoho"/>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" mimeType="application/java" doc:name="JSON to Object"/>
+        <choice doc:name="Choice">
+            <when expression="#[payload.code==200]">
+                <set-variable variableName="idZoho" value="#[payload.response.customer.identification.number]" encoding="UTF-8" mimeType="application/java" doc:name="guardar id zoho"/>
+                <set-payload value="#[flowVars.objeto]" encoding="UTF-8" mimeType="application/json" doc:name="Set Payload"/>
+                <http:request config-ref="defaultZoho" path="/tienda/espocrm/createCustomer" method="POST" host="104.155.149.197" port="8090" doc:name="registrar en crm"/>
+                <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" mimeType="application/java" doc:name="JSON to Object"/>
+                <set-variable variableName="idCrm" value="#[payload.response.customer.ids.id]" encoding="UTF-8" mimeType="application/java" doc:name="guardar id crm"/>
+                <set-payload value="#[flowVars.objeto]" encoding="UTF-8" mimeType="application/json" doc:name="Set Payload"/>
+                <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" mimeType="application/java" doc:name="JSON to Object"/>
+                <dw:transform-message doc:name="Transform Message">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+                    customer:{
+                      identification:{
+                        type:payload.customer.identification.type,
+                        number:payload.customer.identification.number
+                      },
+                      aplicacion:{
+      
+                                user:payload.customer.application.user,
+                                password:payload.customer.application.password
+                              
+                       },
+                      personal:{
+                        firstName:payload.customer.personal.firstName,
+                        lastName:payload.customer.personal.lastName
+                       }
+                     
+                     
+                    },
+                    idcrm:flowVars.idCrm,
+                    idinvoice:flowVars.idZoho
+                  }]]></dw:set-payload>
+                </dw:transform-message>
+                <http:request config-ref="defaultZoho" path="tienda/db/createCustomer" method="POST" host="104.155.149.197" port="8090" doc:name="insertar en db"/>
+                <set-payload value="#[payload]" encoding="UTF-8" mimeType="application/json" doc:name="Set Payload"/>
+            </when>
+            <otherwise>
+                <set-payload value="{
+	&quot;code&quot;:&quot;-1&quot;,
+	&quot;status&quot;:&quot;Error&quot;,
+	&quot;response&quot;:{
+	&quot;message&quot;:&quot;Error al registrar en zoho invoice&quot;
+	}
+}" encoding="UTF-8" mimeType="application/json" doc:name="Set Payload"/>
+            </otherwise>
+        </choice>
+        <catch-exception-strategy doc:name="Catch Exception Strategy">
+            <set-payload value="#[payload]" doc:name="Set Payload"/>
+        </catch-exception-strategy>
+
     </flow>
 </mule>
