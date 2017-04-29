@@ -799,4 +799,33 @@ schemas:
                               "idinvoice":"132123"
                             }}
                         }                       
-                                                                                
+
+#Servicio para enviar una notificación
+/notification/send:
+  POST:
+    body:
+      application/json:
+        example: |
+                  {  
+                     "notification":{  
+                        "customer":{  
+                           "social":{  
+                              "mail":"mail",
+                              "cellNumber":"+1223433"
+                           },
+                           "message":{  
+                              "sender":"sender",
+                              "text":"message text"
+                           }
+                        }
+                     }
+                  }
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+                      {
+                        "code":"200",
+                        "status":"ok"
+                      }                                                                                
