@@ -73,4 +73,41 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
 }}]]></dw:set-payload>
         </dw:transform-message>
     </flow>
+    
+    <flow name="findCustomerUser">
+        <db:select config-ref="Generic_Database_Configuration" doc:name="Database">
+            <db:parameterized-query><![CDATA[SELECT documento, tipodoc, nombre, apellido, "user", password, idcrm, idfacturacion
+	FROM public.cliente
+	 WHERE "user"=#[message.inboundProperties.'http.query.params'.user];]]></db:parameterized-query>
+        </db:select>
+        <dw:transform-message doc:name="Transform Message">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	code: "200",
+    status: "The contact has been found.",
+	response:{
+	customer: {
+		identification: {
+			type: payload[0].tipodoc,
+			number: payload[0].documento
+		},
+		aplicacion:{
+    	
+    	user:payload[0].user,
+    	password:payload[0].password
+    
+    },
+		personal: {
+			firstName: payload[0].nombre,
+			lastName: payload[0].apellido
+		}
+	},
+	idcrm:payload[0].idcrm,
+	idinvoice:payload[0].idfacturacion
+}}]]></dw:set-payload>
+        </dw:transform-message>
+    </flow>
+    
 </mule>

@@ -760,4 +760,43 @@ schemas:
                               "idinvoice":"132123"
                             }}
                         }
+
+#Método de base ded dato para buscar usuario por user                       
+/db/findCustomerUser:
+  GET:
+    queryParameters: 
+      user:
+        description: usuario
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+                      {
+                        "code": "200",
+                        "status": "The contact has been edited.",
+                        "response": {
+                        {
+                              "customer":{
+                                "identification":{
+                                  "type":"CC",
+                                  "number":"1096038302221"
+                                },
+                                "aplicacion":{
+                
+                                          "user":"8429038423",
+                                          "password":"209284302"
+                                        
+                                 },
+                                "personal":{
+                                  "firstName":"Cristian Camilo",
+                                  "lastName":"Zapata Torres",
+                                 },
+                               
+                               
+                              },
+                              "idcrm":"242342",
+                              "idinvoice":"132123"
+                            }}
+                        }                       
                                                                                 
