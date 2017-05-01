@@ -1,13 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+<mule xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:validation="http://www.mulesoft.org/schema/mule/validation" xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
-http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd">
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/current/mule-smtp.xsd
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd">
+    <jms:activemq-connector name="Active_MQ" username="${queue.user}" password="admin" brokerURL="${queue.host}" validateConnections="true" doc:name="Active MQ"/>
+    <http:request-config name="http_sms" host="${notification.host}" port="${notification.port}" doc:name="HTTP Request Configuration"/>
+    <smtp:gmail-connector name="Gmail" validateConnections="true" doc:name="Gmail"/>
     <flow name="notification_in">
         <json:validate-schema schemaLocation="schemas/notificationSchema.json" doc:name="Validate JSON Schema"/>
+        <set-variable variableName="in" value="#[payload]" doc:name="in"/>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" mimeType="application/java" doc:name="JSON to Object"/>
+        <validation:all doc:name="Validation">
+            <validation:validations>
+                <validation:matches-regex value="#[payload.notification.customer.social.cellNumber]" regex="\+\d{2}\d+" message="${exception.indicative}"/>
+                <validation:matches-regex value="#[payload.notification.customer.social.mail]" regex="(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|&quot;(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*&quot;)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])" message="${exception.mail}"/>
+            </validation:validations>
+        </validation:all>
+        <set-payload value="#[flowVars.in]" encoding="UTF-8" mimeType="application/json" doc:name="Set Payload"/>
+        <object-to-string-transformer doc:name="Se convierte JSON a  Cadena"/>
+        <jms:outbound-endpoint queue="${queue.notification}" connector-ref="Active_MQ" doc:name="JMS_IN"/>
+        <dw:transform-message doc:name="Respuesta la cual indica que la notificaci&#243;n fue encolada">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	code:'200',
+	status:'Ok'
+}]]></dw:set-payload>
+        </dw:transform-message>
+    </flow>
+    <flow name="notification_out">
+        <jms:inbound-endpoint queue="${queue.notification}" connector-ref="Active_MQ" doc:name="JMS_OUT"/>
+        <json:object-to-json-transformer doc:name="Se obtiene la respuesta de la cola en JSON"/>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" mimeType="application/java" doc:name="JSON to Object"/>
+        <set-variable variableName="body" value="#[payload]" encoding="UTF-8" mimeType="application/java" doc:name="body"/>
+        <dw:transform-message metadata:id="4031a0b6-ddd4-48eb-85e1-230d6c95c457" doc:name="message for sms">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	authentication:{
+		username:p('notification.user'),
+		password:p('notification.pass')
+	},
+	messages:[{
+		sender:flowVars.body.notification.message.sender,
+		text:flowVars.body.notification.message.text,
+		recipients:[{
+			gsm:flowVars.body.notification.customer.social.cellNumber
+		}]
+	}]
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <http:request config-ref="http_sms" path="${notification.path}" method="POST" host="api.contactomasivo.com" port="80" doc:name="send sms"/>
+        <logger message="Se envio SMS\n #[payload]" level="INFO" doc:name="Logger SMS"/>
+        <set-payload value="#[flowVars.body.notification.message.text]" encoding="UTF-8" mimeType="application/java" doc:name="body mail"/>
+        <smtp:outbound-endpoint host="${notification.mail.host}" port="${notification.mail.port}" user="${notification.mail.user}" password="soaeam1234" connector-ref="Gmail" to="#[flowVars.body.notification.customer.social.mail]" from="${notification.mail.user}" subject="#[flowVars.body.notification.message.sender]"  responseTimeout="10000" doc:name="SMTP"/>
+        <logger message="Send Mail \n #[payload]" level="INFO" doc:name="Logger Mail"/>
     </flow>
 </mule>

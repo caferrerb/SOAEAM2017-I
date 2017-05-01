@@ -1,59 +1,47 @@
 {  
-   "$schema":"http://json-schema.org/draft-04/schema#",
-   "definitions":{  
-
-   },
-   "id":"http://example.com/example.json",
+   "type":"object",
+   "$schema":"http://json-schema.org/draft-03/schema",
+   "required":true,
    "properties":{  
       "notification":{  
-         "id":"/properties/notification",
+         "type":"object",
+         "required":true,
          "properties":{  
             "customer":{  
-               "id":"/properties/notification/properties/customer",
-               "properties":{  
-                  "message":{  
-                     "id":"/properties/notification/properties/customer/properties/message",
-                     "properties":{  
-                        "sender":{  
-                           "id":"/properties/notification/properties/customer/properties/message/properties/sender",
-                           "type":"string",
-                           "required":true
-                        },
-                        "text":{  
-                           "id":"/properties/notification/properties/customer/properties/message/properties/text",
-                           "type":"string",
-                           "required":true
-                        }
-                     },
-                     "type":"object",
-                     "required":true
-                  },
-                  "social":{  
-                     "id":"/properties/notification/properties/customer/properties/social",
-                     "properties":{  
-                        "cellNumber":{  
-                           "id":"/properties/notification/properties/customer/properties/social/properties/cellNumber",
-                           "type":"string",
-                           "required":true
-                        },
-                        "mail":{  
-                           "id":"/properties/notification/properties/customer/properties/social/properties/mail",
-                           "type":"string",
-                           "required":true
-                        }
-                     },
-                     "type":"object",
-                     "required":true
-                  }
-               },
                "type":"object",
-               "required":true
+               "required":true,
+               "properties":{  
+                  "social":{  
+                     "type":"object",
+                     "required":true,
+                     "properties":{  
+	                  "mail":{  
+	                     "type":"string",
+	                     "required":true
+	                  },
+	                  "cellNumber":{
+	                  	 "type":"string",
+	                     "required":true
+	                  }
+	               	}
+                  }
+               }
+            },
+            "message":{  
+               "type":"object",
+               "required":true,
+               "properties":{  
+                  "sender":{  
+                     "type":"string",
+                     "required":true                     
+	              },
+	              "text":{
+	              	 "type":"string",
+                     "required":true 
+	              }                  
+               }
             }
-         },
-         "type":"object",
-         "required":true
+         }
       }
-   },
-   "type":"object",
-   "required":true
+   }
 }
