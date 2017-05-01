@@ -64,7 +64,7 @@ http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mu
         <http:request config-ref="http_sms" path="${notification.path}" method="POST" host="api.contactomasivo.com" port="80" doc:name="send sms"/>
         <logger message="Se envio SMS\n #[payload]" level="INFO" doc:name="Logger SMS"/>
         <set-payload value="#[flowVars.body.notification.message.text]" encoding="UTF-8" mimeType="application/java" doc:name="body mail"/>
-        <smtp:outbound-endpoint host="${notification.mail.host}" port="${notification.mail.port}" user="${notification.mail.user}" password="soaeam1234" connector-ref="Gmail" to="#[flowVars.body.notification.customer.social.mail]" from="${notification.mail.user}" subject="#[flowVars.body.notification.message.sender]"  responseTimeout="10000" doc:name="SMTP"/>
+        <smtp:outbound-endpoint host="${notification.mail.host.remoto}" port="${notification.mail.port.remoto}" user="${notification.mail.user.remoto}" password="mailereamquindio1234" connector-ref="Gmail" to="#[flowVars.body.notification.customer.social.mail]" from="${notification.mail.user.remoto}" subject="#[flowVars.body.notification.message.sender]"  responseTimeout="10000" doc:name="SMTP"/>
         <logger message="Send Mail \n #[payload]" level="INFO" doc:name="Logger Mail"/>
     </flow>
 </mule>
