@@ -354,4 +354,21 @@ version: 1.0
                           "status": "SUCCESS",
                           "response": {}
                           }
-                                                                                       
+     
+# Servicio para convertir dolares a pesos colombianos
+/moneda:
+  /convertir:
+    description: Servicio para convertir dolares a pesos colombianos
+    GET:    
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                        {
+                          "code": "200",
+                          "status": "Ok",
+                          "valor": 2000  
+                        }
+    
+                                                            
