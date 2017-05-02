@@ -1,11 +1,139 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
-http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
     <flow name="productosearchFlow">
-        <set-payload value="product search" doc:name="Copy_of_Set Payload"/>
+        <http:request config-ref="defaultZoho" path="tienda/amazon/searchAll/#[message.inboundProperties.'http.uri.params'.item]" method="GET" host="104.155.149.197" port="8090" doc:name="HTTP"/>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" mimeType="application/java" doc:name="JSON to Object"/>
+        <set-variable variableName="response" value="#[payload]" doc:name="Variable"/>
+        <set-variable variableName="productos" value="#[new java.util.HashMap()]" doc:name="Variable"/>
+        <foreach collection="#[flowVars.response.response.products]" doc:name="For Each">
+            <set-variable variableName="producto" value="#[payload.product]" doc:name="Producto"/>
+            <choice doc:name="Choice">
+                <when expression="#[flowVars.producto.price.price!=null]">
+                    <http:request config-ref="defaultZoho" path="tienda/moneda/convertir" method="GET" host="localhost" port="8090" doc:name="HTTP">
+                        <http:request-builder>
+                            <http:query-param paramName="dolares" value="#[flowVars.producto.price.price]"/>
+                        </http:request-builder>
+                    </http:request>
+                    <dw:transform-message doc:name="Transform Message">
+                        <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+			product: {
+				page: {
+					now: flowVars.producto.page.now,
+					total: flowVars.producto.page.total
+				},
+				description: {
+					id: flowVars.producto.description.id,
+					name: flowVars.producto.description.name,
+					brand: flowVars.producto.description.brand,
+					title: flowVars.producto.description.title,
+					description: flowVars.producto.description.description
+				},
+				image: {
+					small: flowVars.producto.image.small,
+					medium: flowVars.producto.image.medium,
+					large: flowVars.producto.image.large
+				},
+				price: {
+					coin: "COP",
+					price: payload.valor
+				}
+			}
+		}
+	
+]]></dw:set-payload>
+                    </dw:transform-message>
+                    <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" mimeType="application/java" doc:name="JSON to Object"/>
+                    <expression-component doc:name="Expression"><![CDATA[#[
+Object item=payload; 
+flowVars.productos.put(item,item)
+]]]></expression-component>
+                </when>
+                <otherwise>
+                    <logger level="INFO" doc:name="Logger"/>
+                    <dw:transform-message doc:name="Transform Message">
+                        <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+			product: {
+				page: {
+					now: flowVars.producto.page.now,
+					total: flowVars.producto.page.total
+				},
+				description: {
+					id: flowVars.producto.description.id,
+					name: flowVars.producto.description.name,
+					brand: flowVars.producto.description.brand,
+					title: flowVars.producto.description.title,
+					description: flowVars.producto.description.description
+				},
+				image: {
+					small: flowVars.producto.image.small,
+					medium: flowVars.producto.image.medium,
+					large: flowVars.producto.image.large
+				},
+				price: {
+					coin: flowVars.producto.price.coin,
+					price: flowVars.producto.price.price
+				}
+			}
+		}]]></dw:set-payload>
+                    </dw:transform-message>
+                    <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" mimeType="application/java" doc:name="JSON to Object"/>
+                    <expression-component doc:name="Expression"><![CDATA[#[
+Object item=payload; 
+flowVars.productos.put(item,item)
+]]]></expression-component>
+                </otherwise>
+            </choice>
+        </foreach>
+        <dw:transform-message doc:name="Transform Message">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+%namespace ns0 http://webservices.amazon.com/AWSECommerceService/2011-08-01
+---
+{
+	code: '200',
+	status: 'Ok',
+	response: {
+		products: flowVars.productos map {
+			product: {
+				page: {
+					now: $.product.page.now,
+					total:$.product.page.total
+				},
+				description: {
+					id: $.product.description.id,
+					name: $.product.description.name,
+					brand: $.product.description.brand,
+					title: $.product.description.title,
+					description: $.product.description.description
+				},
+				image: {
+					small: $.product.image.small,
+					medium: $.product.image.medium,
+					large: $.product.image.large
+				},
+				price: {
+					coin: "COP",
+					price: $.product.price.price
+				}
+			}
+		}
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
     </flow>
 </mule>
