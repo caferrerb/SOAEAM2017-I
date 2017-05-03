@@ -32,6 +32,7 @@ http://www.mulesoft.org/schema/mule/apikit http://www.mulesoft.org/schema/mule/a
         <apikit:flow-mapping resource="/db/findCustomer" action="get" flow-ref="findCustomer"/>
         <apikit:flow-mapping resource="/db/findCustomerUser" action="get" flow-ref="findCustomerUser"/>
         <apikit:flow-mapping resource="/notification/send" action="post" content-type="application/json" flow-ref="notification_in"/>
+        <apikit:flow-mapping resource="/db/findCustomerByUserPassword" action="get" flow-ref="findCustomerbyUserPassword"/>
 
 
     </apikit:config>
