@@ -1,11 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+<mule xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
-http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
+    <http:request-config name="http_services_store" host="104.155.149.197" port="8090" basePath="tienda/" doc:name="HTTP Request Configuration"/>
     <flow name="clientefindUserFlow">
-        <set-payload value="find por user" doc:name="Copy_of_Set Payload"/>
+        <set-variable variableName="user" value="#[message.inboundProperties['http.uri.params']['user']]" doc:name="user"/>
+        <http:request config-ref="http_services_store" path="db/findCustomerUser?user=#[flowVars.user]" method="GET" doc:name="HTTP"/>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" doc:name="JSON to Object" mimeType="application/java"/>
+        <choice doc:name="Choice">
+            <when expression="#[payload.response.idcrm!=null]">
+                <http:request config-ref="http_services_store" path="espocrm/searchCustomer/{id}" method="GET" doc:name="HTTP">
+                    <http:request-builder>
+                        <http:uri-param paramName="id" value="#[payload.response.idcrm]"/>
+                    </http:request-builder>
+                </http:request>
+                <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" mimeType="application/java" doc:name="JSON to Object"/>
+                <logger message="#[payload.response.customer.social.mail[0]]" level="INFO" doc:name="Logger"/>
+                <http:request config-ref="http_services_store" path="zoho/searchCustomer/{mail}" method="GET" doc:name="HTTP">
+                    <http:request-builder>
+                        <http:uri-param paramName="mail" value="#[payload.response.customer.social.mail[0]]"/>
+                    </http:request-builder>
+                </http:request>
+                <set-payload value="#[payload]" doc:name="Set Payload"/>
+            </when>
+            <otherwise>
+                <set-payload value="{&quot;code&quot;: &quot;user no encontrado&quot;, &quot;descripcion&quot;: &quot;error al consultar el usuario&quot;}" doc:name="Set Payload"/>
+            </otherwise>
+        </choice>
+
     </flow>
 </mule>
