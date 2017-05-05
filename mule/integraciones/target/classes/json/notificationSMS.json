@@ -1,0 +1,13 @@
+{
+	"authentication":{
+		"username":"p('sms.user')",
+		"password":"p('sms.pass')"
+	},
+	"messages":[{
+		"sender":"'Procesador Pedidos'",
+		"text":"flowVars.request.notificacion.sms.text",
+		"recipients":[{
+			"gsm":"flowVars.request.notificacion.sms.cellnumber"
+		}]
+	}]
+}

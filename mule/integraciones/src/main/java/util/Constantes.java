@@ -25,7 +25,7 @@ public class Constantes {
 	 */
 	public static final String IGUAL = "=";
 	/**
-	 * Simbolo de la operación MAS
+	 * Simbolo de la operaciï¿½n MAS
 	 */
 	public static final String SIM_MAS = "+";
 	/**
@@ -57,11 +57,11 @@ public class Constantes {
 	 */
 	public static final String LABEL_SIGNATURE = "Signature";
 	/**
-	 * Constante que almacena el valor de codificación web utf-8.
+	 * Constante que almacena el valor de codificaciï¿½n web utf-8.
 	 */
 	public static String UTF8 = "UTF-8";
 	/**
-	 * constante que almacena el nombre del algoritmo de codificación para
+	 * constante que almacena el nombre del algoritmo de codificaciï¿½n para
 	 * Amazon.
 	 */
 	public static String ALGORITMO_HMAC_SHA = "HmacSHA256";
@@ -70,11 +70,11 @@ public class Constantes {
 	 */
 	public static final String REQUEST_URI = "/onca/xml";
 	/**
-	 * Constante para almacenar el método GET
+	 * Constante para almacenar el mï¿½todo GET
 	 */
 	public static final String GET = "GET";
 	/**
-	 * Constante para almacenar el método POST
+	 * Constante para almacenar el mï¿½todo POST
 	 */
 	public static final String POST = "POST";
 	/**
@@ -84,7 +84,7 @@ public class Constantes {
 	/**
 	 * id llave de amazon
 	 */
-	public static final String AWS_ACCESS_KEY_ID_AMAZON = "AKIAIUCVHPWUAZL3QQEA";
+	public static final String AWS_ACCESS_KEY_ID_AMAZON = "AKIAIR3WZWZYHXIEZEAQ";
 	/**
 	 * Label del id de la llave amazon
 	 */
@@ -92,7 +92,7 @@ public class Constantes {
 	/**
 	 * llave secreto amazon
 	 */
-	public static final String AWS_SECRET_KEY = "YUQtPZO6oUgh2JFmC8i4Bgcdd1cHlbVIUcriSFRb";
+	public static final String AWS_SECRET_KEY = "soeR7qQJ7KkQ+JwQ8/lI73/lJ5W+DJ2vue5Ms62e";
 	/**
 	 * Constantes del label TimesStamp
 	 */
@@ -131,7 +131,7 @@ public class Constantes {
 	 */
 	public static final String URL = "url";
 	/**
-	 * Variable para almacenar la llave la asociación de amazon
+	 * Variable para almacenar la llave la asociaciï¿½n de amazon
 	 */
 	public static final String ASSOCIATETAG = "AssociateTag";
 	/**
@@ -147,7 +147,7 @@ public class Constantes {
 	 */
 	public static final String ITEM = "item";
 	/**
-	 * Llave para amazon para indicar la información a cargar del item	
+	 * Llave para amazon para indicar la informaciï¿½n a cargar del item	
 	 */
 	public static final String RESPONSEGROUP= "ResponseGroup";
 	/**
@@ -167,7 +167,7 @@ public class Constantes {
 	 */
 	public static final String ITEM_PAGE = "ItemPage";
 	/**
-	 * Variable que almacena la página.
+	 * Variable que almacena la pï¿½gina.
 	 */
 	public static final String PAGE = "page";
 	/**

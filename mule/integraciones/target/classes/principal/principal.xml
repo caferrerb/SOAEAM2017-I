@@ -13,7 +13,7 @@ http://www.mulesoft.org/schema/mule/apikit http://www.mulesoft.org/schema/mule/a
 	
 	<context:property-placeholder location="mule-app.properties,mensajes.properties"/>
     <http:listener-config name="configuracion_http_general" host="0.0.0.0" port="${port}" basePath="${root.general}" doc:name="HTTP Listener Configuration"/>
-    <apikit:config name="Router" raml="tienda.raml" consoleEnabled="false" consolePath="console" keepRamlBaseUri="false" doc:name="Router">
+    <apikit:config name="Router" raml="tienda.raml" consoleEnabled="false" consolePath="console"  doc:name="Router" keepRamlBaseUri="false">
         <apikit:flow-mapping resource="/espocrm/createCustomer" action="post" content-type="application/json" flow-ref="espo_create_customer"/>
         <apikit:flow-mapping resource="/espocrm/searchCustomer/{id}" action="get" flow-ref="espo_search_customer"/>
         <apikit:flow-mapping resource="/amazon/searchAll/{item}" action="get" flow-ref="amazon_search_all"/>
@@ -30,6 +30,11 @@ http://www.mulesoft.org/schema/mule/apikit http://www.mulesoft.org/schema/mule/a
         <apikit:flow-mapping resource="/db/createCustomer" action="post" content-type="application/json" flow-ref="crearDB"/>
         <apikit:flow-mapping resource="/db/editCurstomer" action="post" content-type="application/json" flow-ref="editDB"/>
         <apikit:flow-mapping resource="/db/findCustomer" action="get" flow-ref="findCustomer"/>
+        <apikit:flow-mapping resource="/db/findCustomerUser" action="get" flow-ref="findCustomerUser"/>
+        <apikit:flow-mapping resource="/notification/send" action="post" content-type="application/json" flow-ref="notification_in"/>
+        <apikit:flow-mapping resource="/db/findCustomerByUserPassword" action="get" flow-ref="findCustomerbyUserPassword"/>
+
+
     </apikit:config>
 	
     <flow name="principal">

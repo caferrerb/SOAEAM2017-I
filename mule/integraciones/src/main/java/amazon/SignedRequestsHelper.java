@@ -42,6 +42,7 @@ public class SignedRequestsHelper {
 		String sig = percentEncodeRfc3986(hmac);
 		String url = Constantes.REQUEST_URI + Constantes.INTERROGANTE + canonicalQS + Constantes.Y_ENLACE
 				+ Constantes.LABEL_SIGNATURE + Constantes.IGUAL + sig;
+		System.err.println(url);
 		return url;
 	}
 
