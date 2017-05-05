@@ -60,6 +60,9 @@ http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mu
 			price: {
 				coin: p('zoho.coin'),
 				price: payload.item.rate as :string
+			},
+			ids:{
+				idzoho: payload.item.item_id
 			}
 		}
 	}

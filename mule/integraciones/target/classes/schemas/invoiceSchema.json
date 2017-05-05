@@ -74,6 +74,16 @@
                                     "required":true
                                  }
                               }
+                           },
+                           "qty":{
+                           		"type":"object",
+                           		"required":true,
+                           		"properties":{
+                           			"qty":{
+                           				"type":"string",
+                           				"required":true
+                           			}
+                           		}
                            }
                         }
                      }

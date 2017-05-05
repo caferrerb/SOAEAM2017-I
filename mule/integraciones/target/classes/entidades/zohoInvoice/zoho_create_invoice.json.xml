@@ -24,7 +24,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		description: product.product.description.description,
 		item_order: 1,
 		rate: product.product.price.price as :number,
-		quantity: 1,
+		quantity: product.product.qty.qty as :number,
 		discount: 0,
 		item_total: 1
 	})
