@@ -107,6 +107,9 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 				country: payload.contact.billing_address.country,
 				state: payload.contact.billing_address.state,
 				city: payload.contact.billing_address.city
+			},
+			ids: {
+				idzoho: payload.contact.contact_id
 			}
 		}
 	}
