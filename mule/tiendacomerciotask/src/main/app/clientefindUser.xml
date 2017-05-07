@@ -45,6 +45,10 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
 	status: 'Ok',
 	response: {
 		customer: {
+			identification:{
+				type:flowVars.db.response.customer.identification.type,
+				number:flowVars.db.response.customer.identification.number
+			},
 			personal: {
 				firstName: flowVars.crm.response.customer.personal.firstName,
 				lastName: flowVars.crm.response.customer.personal.lastName
