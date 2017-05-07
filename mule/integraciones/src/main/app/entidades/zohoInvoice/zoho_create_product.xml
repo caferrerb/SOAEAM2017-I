@@ -31,7 +31,7 @@ http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mu
 	rate: payload.product.price.price,
 	description: payload.product.description.description,
 	sku: payload.product.description.id,
-	product_type:p('zoho.product_type'),
+	product_type: p('zoho.product_type'),
    	token:p('zoho.token'),
 	organization:p('zoho.idorg'),
    	action:p('zoho.create')
