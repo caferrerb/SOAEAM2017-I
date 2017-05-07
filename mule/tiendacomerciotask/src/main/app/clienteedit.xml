@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+<mule xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
-http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
     <flow name="clienteeditFlow">
-        <set-payload value="editarcliente" doc:name="Set Payload"/>
+        <set-payload value="#[payload]" encoding="UTF-8" mimeType="application/json" doc:name="Set Payload"/>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" doc:name="parametersToObject"/>
+        <set-variable variableName="parameters" value="#[payload]" encoding="UTF-8" doc:name="parametersVariable"/>
+        <http:request config-ref="http_services_store" path="zoho/editCustomer" method="POST" doc:name="zohoEditCustomer"/>
+        <set-payload value="#[flowVars.parameters]" doc:name="payloadBackToParameters"/>
+        <http:request config-ref="http_services_store" path="espocrm/editCustomer" method="POST" doc:name="espoEditCustomer"/>
+        <set-payload value="#[flowVars.parameters]" doc:name="preparationToEditInBD"/>
+        <http:request config-ref="http_services_store" path="db/editCustomer" method="POST" doc:name="HTTP"/>
     </flow>
 </mule>
