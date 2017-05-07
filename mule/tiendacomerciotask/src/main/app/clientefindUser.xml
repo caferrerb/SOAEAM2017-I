@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+<mule xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
@@ -8,32 +8,92 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
 http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
-http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
     <http:request-config name="http_services_store" host="104.155.149.197" port="8090" basePath="tienda/" doc:name="HTTP Request Configuration"/>
     <flow name="clientefindUserFlow">
         <set-variable variableName="user" value="#[message.inboundProperties['http.uri.params']['user']]" doc:name="user"/>
         <http:request config-ref="http_services_store" path="db/findCustomerUser?user=#[flowVars.user]" method="GET" doc:name="HTTP"/>
         <json:json-to-object-transformer returnClass="java.util.HashMap" doc:name="JSON to Object" mimeType="application/java"/>
+        <set-variable variableName="db" value="#[payload]" doc:name="db"/>
+
         <choice doc:name="Choice">
             <when expression="#[payload.response.idcrm!=null]">
                 <http:request config-ref="http_services_store" path="espocrm/searchCustomer/{id}" method="GET" doc:name="HTTP">
                     <http:request-builder>
                         <http:uri-param paramName="id" value="#[payload.response.idcrm]"/>
+
                     </http:request-builder>
                 </http:request>
                 <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" mimeType="application/java" doc:name="JSON to Object"/>
-                <logger message="#[payload.response.customer.social.mail[0]]" level="INFO" doc:name="Logger"/>
+                <set-variable variableName="crm" value="#[payload]" doc:name="payload_Crm"/>
+
                 <http:request config-ref="http_services_store" path="zoho/searchCustomer/{mail}" method="GET" doc:name="HTTP">
                     <http:request-builder>
                         <http:uri-param paramName="mail" value="#[payload.response.customer.social.mail[0]]"/>
+
                     </http:request-builder>
                 </http:request>
-                <set-payload value="#[payload]" doc:name="Set Payload"/>
+                <json:json-to-object-transformer returnClass="java.util.HashMap" doc:name="JSON to Object"/>
+                <set-variable variableName="zoho" value="#[payload]" doc:name="payload_Zoho"/>
+                <dw:transform-message doc:name="Transform Message" metadata:id="7ee639f1-530c-43c4-83d0-9721fde65596">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	code: '200',
+	status: 'Ok',
+	response: {
+		customer: {
+			identification:{
+				type:flowVars.db.response.customer.identification.type,
+				number:flowVars.db.response.customer.identification.number
+			},
+			personal: {
+				firstName: flowVars.crm.response.customer.personal.firstName,
+				lastName: flowVars.crm.response.customer.personal.lastName
+			},
+			social: {
+				mail: flowVars.crm.response.customer.social.mail,
+				cellNumber: flowVars.crm.response.customer.social.cellNumber
+			},
+			localization: {
+				country: flowVars.crm.response.customer.localization.country,
+				state: flowVars.crm.response.customer.localization.state,
+				city: flowVars.crm.response.customer.localization.city,
+				addressStreet: flowVars.crm.response.customer.localization.addressStreet
+			},
+			ids:{
+				idcrm:flowVars.db.response.idcrm,
+				idinvoice:flowVars.db.response.idinvoice
+			},
+			aplicacion:{
+				user: flowVars.db.response.customer.aplicacion.user,
+				password: flowVars.db.response.customer.aplicacion.password
+			}
+		}
+	}
+}
+]]></dw:set-payload>
+                </dw:transform-message>
             </when>
             <otherwise>
-                <set-payload value="{&quot;code&quot;: &quot;user no encontrado&quot;, &quot;descripcion&quot;: &quot;error al consultar el usuario&quot;}" doc:name="Set Payload"/>
+                <dw:transform-message metadata:id="0590e11f-738b-4c2f-9ab6-7f4bdc2e7473" doc:name="Transform Message">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	code: '404',
+	status: 'Customer not found',
+	response: {}
+}]]></dw:set-payload>
+                </dw:transform-message>
+
             </otherwise>
         </choice>
+        <catch-exception-strategy doc:name="Catch Exception Strategy">
+            <set-payload value="#[payload]" mimeType="application/json" doc:name="Set Payload"/>
+        </catch-exception-strategy>
 
     </flow>
 </mule>

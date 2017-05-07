@@ -1,7 +1,7 @@
 <metadata__cache__entry>
   <version>5.2.0.0</version>
   <connectorName>Generic_Database_Configuration</connectorName>
-  <metadataIo class="tree-map">
+  <metadataIo class="tree-map"/>
     <entry>
       <string>http://www.mulesoft.org/schema/mule/db/insert</string>
       <map>
