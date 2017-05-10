@@ -57,7 +57,7 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 			},
 			price: {
 				coin: "COP",
-				price: payload.valor
+				price: payload.valor + payload.valor * p('product.commission')
 			}
 		}
 	}
