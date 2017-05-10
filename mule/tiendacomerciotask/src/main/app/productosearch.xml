@@ -17,7 +17,7 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
         <foreach collection="#[flowVars.response.response.products]" doc:name="For Each">
             <set-variable variableName="producto" value="#[payload.product]" doc:name="Producto"/>
             <choice doc:name="Choice">
-                <when expression="#[flowVars.producto.price.price!=null]">
+                <when expression="#[flowVars.producto.price.price!=null&amp;&amp;flowVars.producto.description.description!=null&amp;&amp;flowVars.producto.description.title!=null&amp;&amp;flowVars.producto.description.brand!=null&amp;&amp;flowVars.producto.description.name!=null]">
                     <http:request config-ref="defaultZoho" path="tienda/moneda/convertir" method="GET" host="localhost" port="8090" doc:name="HTTP">
                         <http:request-builder>
                             <http:query-param paramName="dolares" value="#[flowVars.producto.price.price]"/>
@@ -47,7 +47,7 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 				},
 				price: {
 					coin: "COP",
-					price: payload.valor
+					price: payload.valor + payload.valor * p('product.commission')
 				}
 			}
 		}
@@ -92,10 +92,6 @@ flowVars.productos.put(item,item)
 		}]]></dw:set-payload>
                     </dw:transform-message>
                     <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" mimeType="application/java" doc:name="JSON to Object"/>
-                    <expression-component doc:name="Expression"><![CDATA[#[
-Object item=payload; 
-flowVars.productos.put(item,item)
-]]]></expression-component>
                 </otherwise>
             </choice>
         </foreach>
