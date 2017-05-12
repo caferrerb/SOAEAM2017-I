@@ -12,7 +12,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
         <apikit:flow-mapping resource="/cliente/create" action="post" content-type="application/json" flow-ref="clientecreateFlow"/>
         <apikit:flow-mapping resource="/cliente/edit" action="post" content-type="application/json" flow-ref="clienteeditFlow"/>
         <apikit:flow-mapping resource="/cliente/find/{user}" action="get" flow-ref="clientefindUserFlow"/>
-        <apikit:flow-mapping resource="/cliente/find" action="post" content-type="application/json" flow-ref="clienteloginFlow"/>
+        <apikit:flow-mapping resource="/cliente/find" action="post" content-type="application/json" flow-ref="clientelogin"/>
         <apikit:flow-mapping resource="/producto/search/{item}" action="get" flow-ref="productosearchFlow"/>
         <apikit:flow-mapping resource="/producto/find/{id}" action="get" flow-ref="productofindFlow"/>
         <apikit:flow-mapping resource="/buy/buy" action="post" content-type="application/json" flow-ref="compraFlow"/>
