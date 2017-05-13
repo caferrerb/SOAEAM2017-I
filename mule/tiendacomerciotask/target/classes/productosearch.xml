@@ -18,7 +18,7 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
             <set-variable variableName="producto" value="#[payload.product]" doc:name="Producto"/>
             <choice doc:name="Choice">
                 <when expression="#[flowVars.producto.price.price!=null&amp;&amp;flowVars.producto.description.description!=null&amp;&amp;flowVars.producto.description.title!=null&amp;&amp;flowVars.producto.description.brand!=null&amp;&amp;flowVars.producto.description.name!=null]">
-                    <http:request config-ref="defaultZoho" path="tienda/moneda/convertir" method="GET" host="localhost" port="8090" doc:name="HTTP">
+                    <http:request config-ref="defaultZoho" path="tienda/moneda/convertir" method="GET" host="localhost" port="${http.port}" doc:name="HTTP">
                         <http:request-builder>
                             <http:query-param paramName="dolares" value="#[flowVars.producto.price.price]"/>
                         </http:request-builder>

@@ -28,7 +28,7 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
                 </dw:transform-message>
             </when>
             <otherwise>
-                <http:request config-ref="defaultZoho" path="tienda/moneda/convertir" method="GET" host="localhost" port="8090" doc:name="HTTP">
+                <http:request config-ref="defaultZoho" path="tienda/moneda/convertir" method="GET" host="localhost" port="${http.port}" doc:name="HTTP">
                     <http:request-builder>
                         <http:query-param paramName="dolares" value="#[flowVars.responseAmazon.response.product.price.price]"/>
                     </http:request-builder>

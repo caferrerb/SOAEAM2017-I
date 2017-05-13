@@ -8,7 +8,7 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/apikit http://www.mulesoft.org/schema/mule/apikit/current/mule-apikit.xsd
 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-current.xsd">
-    <apikit:config name="Router" raml="tiendacomercioapi.raml" consoleEnabled="false" consolePath="console" doc:name="Router" keepRamlBaseUri="false">
+    <apikit:config name="Router" raml="tiendacomercioapi.raml" consoleEnabled="false" consolePath="console" doc:name="Router">
         <apikit:flow-mapping resource="/cliente/create" action="post" content-type="application/json" flow-ref="clientecreateFlow"/>
         <apikit:flow-mapping resource="/cliente/edit" action="post" content-type="application/json" flow-ref="clienteeditFlow"/>
         <apikit:flow-mapping resource="/cliente/find/{user}" action="get" flow-ref="clientefindUserFlow"/>
@@ -18,7 +18,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
         <apikit:flow-mapping resource="/buy/buy" action="post" content-type="application/json" flow-ref="compraFlow"/>
         <apikit:flow-mapping resource="/moneda/convertir" action="get" flow-ref="convertirmonedaFlow"/>
     </apikit:config>
-    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8090" doc:name="HTTP Listener Configuration" basePath="tienda"/>
+    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="${http.port}" doc:name="HTTP Listener Configuration" basePath="tienda"/>
     <context:property-placeholder location="mule-app.properties,mensajes.properties"/>
     <flow name="tiendacomerciotaskFlow">
         <http:listener config-ref="HTTP_Listener_Configuration" path="/*" doc:name="HTTP"/>

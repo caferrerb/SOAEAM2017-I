@@ -13,7 +13,7 @@ http://www.mulesoft.org/schema/mule/apikit http://www.mulesoft.org/schema/mule/a
 	
 	<context:property-placeholder location="mule-app.properties,mensajes.properties"/>
     <http:listener-config name="configuracion_http_general" host="0.0.0.0" port="${port}" basePath="${root.general}" doc:name="HTTP Listener Configuration"/>
-    <apikit:config name="Router" raml="tienda.raml" consoleEnabled="false" consolePath="console"  doc:name="Router" keepRamlBaseUri="false">
+    <apikit:config name="Router" raml="tienda.raml" consoleEnabled="false" consolePath="console"  doc:name="Router" >
         <apikit:flow-mapping resource="/espocrm/createCustomer" action="post" content-type="application/json" flow-ref="espo_create_customer"/>
         <apikit:flow-mapping resource="/espocrm/searchCustomer/{id}" action="get" flow-ref="espo_search_customer"/>
         <apikit:flow-mapping resource="/amazon/searchAll/{item}" action="get" flow-ref="amazon_search_all"/>
