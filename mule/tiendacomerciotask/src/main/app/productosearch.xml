@@ -10,7 +10,11 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
 http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
     <flow name="productosearchFlow">
-        <http:request config-ref="defaultZoho" path="tienda/amazon/searchAll/#[message.inboundProperties.'http.uri.params'.item]" method="GET" host="104.155.149.197" port="8090" doc:name="HTTP"/>
+        <http:request config-ref="defaultZoho" path="tienda/amazon/searchAll/#[message.inboundProperties.'http.uri.params'.item]" method="GET" host="104.155.149.197" port="8090" doc:name="HTTP">
+            <http:request-builder>
+                <http:query-param paramName="page" value="#[message.inboundProperties.'http.query.params'.page]"/>
+            </http:request-builder>
+        </http:request>
         <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" mimeType="application/java" doc:name="JSON to Object"/>
         <set-variable variableName="response" value="#[payload]" doc:name="Variable"/>
         <set-variable variableName="productos" value="#[new java.util.HashMap()]" doc:name="Variable"/>

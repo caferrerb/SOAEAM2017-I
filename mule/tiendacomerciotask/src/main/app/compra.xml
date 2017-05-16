@@ -12,7 +12,7 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
     <flow name="compraFlow">
         <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" mimeType="application/java" doc:name="Copy_of_JSON to Object"/>
         <set-variable variableName="compra" value="#[payload]" doc:name="Compra"/>
-        <http:request config-ref="defaultZoho" path="/tienda/cliente/find/#[payload.buy.customer.application.user]" method="GET" host="localhost" port="8090" doc:name="Copy_of_HTTP"/>
+        <http:request config-ref="defaultZoho" path="/tienda/cliente/find/#[payload.buy.customer.application.user]" method="GET" host="localhost" port="${http.port}" doc:name="Copy_of_HTTP"/>
         <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" mimeType="application/java" doc:name="Copy_of_JSON to Object"/>
         <logger message="#[payload]" level="INFO" doc:name="Copy_of_Logger"/>
         <set-variable variableName="cliente" value="#[payload]" doc:name="Cliente"/>
@@ -25,7 +25,7 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
             <set-variable variableName="productozoho" value="#[payload]" doc:name="Producto zoho"/>
             <logger message="#[payload.response.products.size()]" level="INFO" doc:name="Copy_of_Logger"/>
             <logger message="#[flowVars.producto.description.id]" level="INFO" doc:name="Copy_of_Logger"/>
-            <http:request config-ref="defaultZoho" path="/tienda/producto/find/#[flowVars.producto.description.id]" method="GET" host="localhost" port="8090" doc:name="Buscar Producto en Amazon por Id"/>
+            <http:request config-ref="defaultZoho" path="/tienda/producto/find/#[flowVars.producto.description.id]" method="GET" host="localhost" port="${http.port}" doc:name="Buscar Producto en Amazon por Id"/>
             <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" mimeType="application/java" doc:name="Copy_of_JSON to Object"/>
             <choice doc:name="Copy_of_Choice">
                 <when expression="#[flowVars.productozoho.response.products.size()==0]">
