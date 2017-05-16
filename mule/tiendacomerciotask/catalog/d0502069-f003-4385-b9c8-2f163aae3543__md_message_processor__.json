@@ -1,0 +1,16 @@
+{
+    "inputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "espoEditCustomerIn"
+        }
+    },
+    "outputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "EspoEditCustomer"
+        }
+    },
+    "id": "d0502069-f003-4385-b9c8-2f163aae3543",
+    "version": "5.2.0.0"
+}
