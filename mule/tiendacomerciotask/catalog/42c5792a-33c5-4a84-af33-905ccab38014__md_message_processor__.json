@@ -1,0 +1,16 @@
+{
+    "inputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "compraAddItemsToCart"
+        }
+    },
+    "outputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "zohoCreateInvoice"
+        }
+    },
+    "id": "42c5792a-33c5-4a84-af33-905ccab38014",
+    "version": "5.2.0.0"
+}

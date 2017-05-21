@@ -1,121 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+<mule xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
-http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
-http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
     <flow name="clienteeditFlow">
         <set-payload value="#[payload]" encoding="UTF-8" mimeType="application/json" doc:name="Set Payload"/>
         <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" doc:name="parametersToObject"/>
-
         <set-variable variableName="parameters" value="#[payload]" encoding="UTF-8" doc:name="parametersVariable"/>
-        <json:object-to-json-transformer doc:name="Object to JSON"/>
-        <dw:transform-message metadata:id="24ff2d33-8391-4b1b-b60c-93a889c4c82b" doc:name="Transform Message">
-            <dw:set-payload><![CDATA[%dw 1.0
-%output application/json
----
-{
-	customer: {
-		identification: {
-			number: payload.customer.identification.number,
-			type: payload.customer.identification.type
-		},
-		ids: {
-			id: payload.customer.ids.zohoId
-		},
-		localization: {
-			addressStreet: payload.customer.localization.addressStreet,
-			city: payload.customer.localization.city,
-			country: payload.customer.localization.country,
-			state: payload.customer.localization.state
-		},
-		personal: {
-			age: payload.customer.personal.age,
-			firstName: payload.customer.personal.firstName,
-			lastName: payload.customer.personal.lastName,
-			sex: payload.customer.personal.sex
-		},
-		social: {
-			cellNumber: payload.customer.social.cellNumber,
-			mail: payload.customer.social.mail
-		}
-	}
-}]]></dw:set-payload>
-        </dw:transform-message>
         <http:request config-ref="http_services_store" path="zoho/editCustomer" method="POST" doc:name="zohoEditCustomer"/>
-        <object-to-string-transformer encoding="UTF-8" doc:name="Object to String"/>
-        <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" doc:name="ZohoResp"/>
-        <set-variable variableName="zohoResp" value="#[payload]" doc:name="ZohoRespVar"/>
-
         <set-payload value="#[flowVars.parameters]" doc:name="payloadBackToParameters"/>
-        <json:object-to-json-transformer doc:name="Object to JSON"/>
-        <logger message="#[flowVars.zohoResp.response.customer.identification.number]" level="INFO" doc:name="Logger"/>
-        <dw:transform-message metadata:id="d0502069-f003-4385-b9c8-2f163aae3543" doc:name="Transform Message">
-            <dw:input-payload mimeType="application/json"/>
-            <dw:set-payload><![CDATA[%dw 1.0
-%output application/json
----
-{
-	customer: {
-		identification: {
-			number: payload.customer.identification.number,
-			type: payload.customer.identification.type
-		},
-		ids: {
-			id: payload.customer.ids.espoId
-		},
-		localization: {
-			addressStreet: payload.customer.localization.addressStreet,
-			city: payload.customer.localization.city,
-			country: payload.customer.localization.country,
-			state: payload.customer.localization.state
-		},
-		personal: {
-			age: payload.customer.personal.age,
-			firstName: payload.customer.personal.firstName,
-			lastName: payload.customer.personal.lastName,
-			sex: payload.customer.personal.sex
-		},
-		social: {
-			cellNumber: payload.customer.social.cellNumber,
-			mail: payload.customer.social.mail
-		}
-	}
-}]]></dw:set-payload>
-        </dw:transform-message>
         <http:request config-ref="http_services_store" path="espocrm/editCustomer" method="POST" doc:name="espoEditCustomer"/>
-        <object-to-string-transformer doc:name="Object to String"/>
-        <json:object-to-json-transformer doc:name="Object to JSON"/>
         <set-payload value="#[flowVars.parameters]" doc:name="preparationToEditInBD"/>
-        <json:object-to-json-transformer doc:name="Object to JSON"/>
-        <dw:transform-message doc:name="Transform Message">
-            <dw:set-payload><![CDATA[%dw 1.0
-%output application/json
----
-{
-	customer: {
-		identification: {
-			type: payload.customer.identification.type,
-			number: payload.customer.identification.number
-		},
-		personal: {
-			firstName: payload.customer.personal.firstName,
-			lastName: payload.customer.personal.lastName
-		},
-		aplicacion: {
-			user: payload.customer.application.user,
-			password: payload.customer.application.password
-		}
-	},
-	idcrm: payload.customer.ids.espoId,
-	idinvoice: payload.customer.ids.zohoId
-}]]></dw:set-payload>
-        </dw:transform-message>
-        <logger message="#[payload]" level="INFO" doc:name="Logger"/>
-        <http:request config-ref="http_services_store" path="db/editCurstomer" method="POST" doc:name="HTTP"/>
+        <http:request config-ref="http_services_store" path="db/editCustomer" method="POST" doc:name="HTTP"/>
     </flow>
 </mule>
