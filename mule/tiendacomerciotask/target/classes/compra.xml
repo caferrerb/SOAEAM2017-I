@@ -1,79 +1,299 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
-http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
-    <http:request-config name="HTTP_Compra_Request_Config" host="104.155.149.197" port="8090" doc:name="HTTP Request Configuration"/>
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
     <flow name="compraFlow">
-        <set-payload value="#[payload]" encoding="UTF-8" mimeType="application/json" doc:name="Set Payload"/>
-        <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" doc:name="JSON to Object"/>
-        <set-variable variableName="parameters" value="#[payload]" doc:name="parameters"/>
-        <http:request config-ref="HTTP_Compra_Request_Config" path="tienda/zoho/searchCustomer" method="GET" doc:name="getCustomer">
-            <http:request-builder>
-                <http:uri-param paramName="mail" value="#[flowVars.parameters.userMail]"/>
-            </http:request-builder>
-        </http:request>
-        <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" doc:name="customerMap"/>
-        <set-variable variableName="customerInformation" value="#[payload]" doc:name="customerInformation"/>
-        <set-payload value="#[flowVars.parameters.products]" encoding="UTF-8" mimeType="application/json" doc:name="Set Payload"/>
-        <set-variable variableName="products" value="#[new java.util.ArrayList()]" doc:name="Products" encoding="UTF-8" mimeType="application/java"/>
-        <json:json-to-object-transformer returnClass="java.util.ArrayList" doc:name="JSON to Object"/>
-        <foreach collection="#[payload]" doc:name="For Each">
-            <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" doc:name="Set Product"/>
-            <http:request config-ref="HTTP_Compra_Request_Config" path="tienda/amazon/searchProduct/" method="GET" doc:name="SearchProduct">
-                <http:request-builder>
-                    <http:uri-param paramName="id" value="#[payload.productSKU]"/>
-                </http:request-builder>
-            </http:request>
-            <expression-transformer doc:name="Agregar a la lista" expression="#[flowVars['products'].add(payload)]"/>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" mimeType="application/java" doc:name="Copy_of_JSON to Object"/>
+        <set-variable variableName="compra" value="#[payload]" doc:name="Compra"/>
+        <http:request config-ref="defaultZoho" path="/tienda/cliente/find/#[payload.buy.customer.application.user]" method="GET" host="localhost" port="${http.port}" doc:name="Copy_of_HTTP"/>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" mimeType="application/java" doc:name="Copy_of_JSON to Object"/>
+        <logger message="#[payload]" level="INFO" doc:name="Copy_of_Logger"/>
+        <set-variable variableName="cliente" value="#[payload]" doc:name="Cliente"/>
+        <set-variable variableName="listaproductos" value="#[new java.util.HashMap()]" doc:name="Lista de productos"/>
+        <foreach collection="#[flowVars.compra.buy.items]" doc:name="Copy_of_For Each">
+            <set-variable variableName="producto" value="#[payload.product]" doc:name="Producto"/>
+            <set-variable variableName="qty" value="#[payload.qty]" doc:name="Qty"/>
+            <http:request config-ref="defaultZoho" path="/tienda/zoho/searchProduct/#[flowVars.producto.description.id]" method="GET" host="104.155.149.197" port="8090" doc:name="Buscar Producto en zoho por sku"/>
+            <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" mimeType="application/java" doc:name="Copy_of_JSON to Object"/>
+            <set-variable variableName="productozoho" value="#[payload]" doc:name="Producto zoho"/>
+            <logger message="#[payload.response.products.size()]" level="INFO" doc:name="Copy_of_Logger"/>
+            <logger message="#[flowVars.producto.description.id]" level="INFO" doc:name="Copy_of_Logger"/>
+            <http:request config-ref="defaultZoho" path="/tienda/producto/find/#[flowVars.producto.description.id]" method="GET" host="localhost" port="${http.port}" doc:name="Buscar Producto en Amazon por Id"/>
+            <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" mimeType="application/java" doc:name="Copy_of_JSON to Object"/>
+            <choice doc:name="Copy_of_Choice">
+                <when expression="#[flowVars.productozoho.response.products.size()==0]">
+                    <logger message="#[payload]" level="INFO" doc:name="Copy_of_Logger"/>
+                    <dw:transform-message doc:name="Copy_of_Transform Message">
+                        <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+                    product: {
+                        description: {
+                            id: payload.response.product.description.id,
+                            name: payload.response.product.description.name,
+                            description:payload.response.product.description.description
+                        },
+                        price: {
+                        	price:payload.response.product.price.price as :string 
+						 }
+                    }
+                  }]]></dw:set-payload>
+                    </dw:transform-message>
+                    <http:request config-ref="defaultZoho" path="/tienda/zoho/createProduct" method="POST" host="104.155.149.197" port="8090" doc:name="Crear Producto"/>
+                    <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" mimeType="application/java" doc:name="Copy_of_JSON to Object"/>
+                    <dw:transform-message doc:name="Copy_of_Transform Message">
+                        <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	product:{  
+                                 description:{  
+                                    id:payload.response.product.description.id,
+                                    name:payload.response.product.description.name,
+                                    title:payload.response.product.description.brand,
+                                    description:payload.response.product.description.description
+                                 },
+                                 price:{  
+                                    price:payload.response.product.price.price
+                                 },
+                                 ids:{  
+                                    id:payload.response.product.ids.idzoho
+                                 },
+                                 "qty":{
+                                 	"qty":flowVars.qty
+                                 }
+                              }
+}]]></dw:set-payload>
+                    </dw:transform-message>
+                    <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" mimeType="application/java" doc:name="Copy_of_JSON to Object"/>
+                    <expression-component doc:name="Agregar producto a la lista de productos"><![CDATA[#[
+Object item=payload.product; 
+flowVars.listaproductos.put(item,item)
+]]]></expression-component>
+                    <logger message="#[payload]" level="INFO" doc:name="Copy_of_Logger"/>
+                </when>
+                <otherwise>
+                    <dw:transform-message doc:name="Copy_of_Transform Message">
+                        <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	product:{  
+                                 description:{  
+                                    id:flowVars.productozoho.response.products[0].product.description.id,
+                                    name:flowVars.productozoho.response.products[0].product.description.name,
+                                    title:flowVars.productozoho.response.products[0].product.description.brand,
+                                    description:flowVars.productozoho.response.products[0].product.description.description
+                                 },
+                                 price:{  
+                                    price:flowVars.productozoho.response.products[0].product.price.price
+                                 },
+                                 ids:{  
+                                    id:flowVars.productozoho.response.products[0].product.ids.id
+                                 },
+                                 "qty":{
+                                 	"qty":flowVars.qty
+                                 }
+                              }
+}]]></dw:set-payload>
+                    </dw:transform-message>
+                    <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" mimeType="application/java" doc:name="Copy_of_JSON to Object"/>
+                    <expression-component doc:name="Agregar Producto a la lista de productos"><![CDATA[#[
+Object item=payload.product; 
+flowVars.listaproductos.put(item,item)
+]]]></expression-component>
+                    <logger message="#[flowVars.productozoho.response.products[0].product]" level="INFO" doc:name="Copy_of_Logger"/>
+                </otherwise>
+            </choice>
         </foreach>
-        <set-payload value="#[flowVars.products]" encoding="UTF-8" mimeType="application/java" doc:name="Set Payload"/>
-        <json:object-to-json-transformer encoding="UTF-8" mimeType="application/json" doc:name="Object to JSON"/>
-        <dw:transform-message metadata:id="42c5792a-33c5-4a84-af33-905ccab38014" doc:name="setInvoiceInfo">
-            <dw:input-payload mimeType="application/json"/>
+        <logger message="#[flowVars.listaproductos]" level="INFO" doc:name="Copy_of_Logger"/>
+        <dw:transform-message doc:name="Copy_of_Transform Message">
             <dw:set-payload><![CDATA[%dw 1.0
 %output application/json
 ---
-{
-	customer_id: flowVars.customerInformation.response.customer.identification.number,
-	line_items: payload.products map ((product , indexOfProduct) -> {
-		item_id: product.response.product.description.id as :number,
-		name: product.response.product.description.name,
-		description: product.response.product.description.description,
-		item_order: 0,
-		rate: product.response.product.price.price as :number,
-		quantity: 1,
-		unit: " ",
-		discount: 0,
-		item_total: 1
-	})
-}]]></dw:set-payload>
+{  
+                     invoice:{  
+                        customer:{  
+                           ids:{  
+                              id:payload.response.customer.ids.idinvoice
+                           }
+                        },
+                        products:flowVars.listaproductos map {
+                              product:{  
+                                 description:{  
+                                    id:$.description.id,
+                                    name:$.description.name,
+                                    title:$.description.title,
+                                    description:$.description.description
+                                 },
+                                 price:{  
+                                    price:$.price.price
+                                 },
+                                 ids:{  
+                                    id:$.ids.id
+                                 },
+                                 "qty":{
+                                 	"qty":$.qty.qty
+                                 }
+                              }
+                          
+                        }
+                      
+                        
+                     }
+                  }]]></dw:set-payload>
         </dw:transform-message>
-        <http:request config-ref="HTTP_Compra_Request_Config" path="zoho/createInvoice" method="POST" doc:name="createInvoice"/>
-        <dw:transform-message metadata:id="12631c45-ac89-4d6b-a094-f0420c7db44e" doc:name="setNotificationInfo">
+        <logger message="#[payload]" level="INFO" doc:name="Copy_of_Logger"/>
+        <http:request config-ref="defaultZoho" path="/tienda/zoho/createInvoice" method="POST" host="104.155.149.197" port="8090" doc:name="Crear Factura"/>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" mimeType="application/java" doc:name="Copy_of_JSON to Object"/>
+        <set-variable variableName="invoice" value="#[payload]" doc:name="Response Invoice"/>
+        <logger message="#[payload]" level="INFO" doc:name="Copy_of_Logger"/>
+        <dw:transform-message doc:name="Transform Message">
             <dw:set-payload><![CDATA[%dw 1.0
 %output application/json
 ---
 {
-	notification: {
-		customer: {
-			social: {
-				mail: flowVars.customerInformation.response.customer.social.mail,
-				cellNumber: flowVars.customerInformation.response.customer.social.cellNumber
-			}
-		},
-		message: {
-			sender: "Tienda Comercio Team",
-			text: "La compra ha sido realizada satisfactoriamente"
-		}
+                    payment:{
+                      value:{
+                        value:payload.response.invoice.date.total as :number 
+                      },
+                      card:{
+                        number: flowVars.compra.buy.card.number,
+                            securityCode: flowVars.compra.buy.card.securityCode,
+                            expirationDate: flowVars.compra.buy.card.expirationDate,
+                            name: flowVars.compra.buy.card.name,
+                            paymentMethod: flowVars.compra.buy.card.paymentMethod,
+                            paymentCountry: flowVars.compra.buy.card.paymentCountry
+                      },
+                      customer:{
+                        identification:{
+                          type:flowVars.cliente.response.customer.identification.type,
+                          number:flowVars.cliente.response.customer.identification.number
+                        },
+                        personal:{
+                        firstName:flowVars.cliente.response.customer.personal.firstName,
+                          lastName:flowVars.cliente.response.customer.personal.lastName,
+                          sex:"M",
+                          age:"20"
+                        },
+                        social:{
+                        mail:flowVars.cliente.response.customer.social.mail[0],
+                        cellNumber:flowVars.cliente.response.customer.social.cellNumber[0]
+                        },
+                        localization:{
+                          country:flowVars.cliente.response.customer.localization.country,
+                          state:flowVars.cliente.response.customer.localization.state,
+                          city:flowVars.cliente.response.customer.localization.city,
+                          addressStreet:flowVars.cliente.response.customer.localization.addressStreet
+                        },
+                        ids:{
+                          id:flowVars.cliente.response.customer.ids.idinvoice
+                        }
+                      }
+                    }
+                  }      ]]></dw:set-payload>
+        </dw:transform-message>
+        <http:request config-ref="defaultZoho" path="/tienda/payu/payment" method="POST" host="104.155.149.197" port="8090" doc:name="Pagar"/>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" mimeType="application/java" doc:name="JSON to Object"/>
+        <logger message="#[payload]" level="INFO" doc:name="Logger"/>
+        <set-variable variableName="celular" value="#[flowVars.cliente.response.customer.social.cellNumber[0]]" doc:name="Variable"/>
+        <expression-component doc:name="Expression"><![CDATA[#[
+String cell=flowVars.cliente.response.customer.social.cellNumber[0];
+flowVars.celular="+57"+cell
+]]]></expression-component>
+        <choice doc:name="Choice">
+            <when expression="#[payload.response.payment.state==&quot;APPROVED&quot;]">
+                <set-payload value="{
+&quot;notification&quot;:{
+&quot;customer&quot;:{
+	&quot;social&quot;:{
+		&quot;mail&quot;:&quot;#[flowVars.cliente.response.customer.social.mail[0]]&quot;,
+       &quot;cellNumber&quot;:&quot;#[flowVars.celular]&quot;
 	}
+},
+&quot;message&quot;:{
+	&quot;sender&quot;:&quot;Su compra se ha realizado exitosamente&quot;,
+	&quot;text&quot;:&quot;felicidades #[flowVars.cliente.response.customer.personal.firstName] #[flowVars.cliente.response.customer.personal.lastName] Su compra se ha realizado satisfactoriamente&quot;
+}
+}
+} " encoding="UTF-8" mimeType="application/json" doc:name="Set Payload"/>
+                <http:request config-ref="defaultZoho" path="/tienda/notification/send" method="POST" host="104.155.149.197" port="8090" doc:name="Notificar"/>
+                <set-variable variableName="notificacion" value="#[payload]" doc:name="notificacion"/>
+                <dw:transform-message doc:name="Transform Message">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{ 
+                    notification:{
+                      invoice:{
+                        date:{
+                          id:flowVars.invoice.response.invoice.date.id
+                        },
+                        customer:{  
+                          social:{   
+                          mail:flowVars.cliente.response.customer.social.mail[0]
+                          } 
+                        
+                        } 
+                      },
+                      
+                      message:{  
+                        sender:"Su compra se ha realizado exitosamente",  
+                        text:"felicidades Kevin Cardenas Acevedo Su compra se ha realizado satisfactoriamente" 
+                        
+                      } } } ]]></dw:set-payload>
+                </dw:transform-message>
+                <http:request config-ref="defaultZoho" path="/tienda/zoho/sendInvoice" method="POST" host="104.155.149.197" port="8090" doc:name="HTTP"/>
+                <dw:transform-message doc:name="Transform Message">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	code:"200",
+	status:"OK"
 }]]></dw:set-payload>
-        </dw:transform-message>
-        <http:request config-ref="HTTP_Compra_Request_Config" path="/tienda/notification/send" method="POST" doc:name="notify"/>
+                </dw:transform-message>
+            </when>
+            <otherwise>
+                <dw:transform-message doc:name="Transform Message">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+notification:{
+customer:{
+	social:{
+		mail:flowVars.cliente.response.customer.social.mail[0],
+        cellNumber:flowVars.celular
+	}
+},
+message:{
+	sender:"Pago Rechazado",
+	text:"No se ha podido realizar el pago, compruebe que los datos de la tarjeta sean los correctos"
+}
+}
+} ]]></dw:set-payload>
+                </dw:transform-message>
+                <http:request config-ref="defaultZoho" path="/tienda/notification/send" method="POST" host="104.155.149.197" port="8090" doc:name="Notificar"/>
+                <logger level="INFO" doc:name="Logger"/>
+                <dw:transform-message doc:name="Transform Message">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	code:"-1",
+	status:"ERROR"
+}]]></dw:set-payload>
+                </dw:transform-message>
+            </otherwise>
+        </choice>
     </flow>
 </mule>
