@@ -14,21 +14,22 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
         <json:validate-schema schemaLocation="schemas/customerSchema.json" doc:name="Validate JSON Schema"/>
         <set-variable variableName="objeto" value="#[payload]" encoding="UTF-8" mimeType="application/json" doc:name="guardar objeto"/>
         <json:json-to-object-transformer returnClass="java.util.HashMap" mimeType="application/java" doc:name="JSON to Object"/>
-        <http:request config-ref="defaultZoho" path="/tienda/db/findCustomer" method="GET" host="104.155.149.197" port="8090" doc:name="buscar">
+        <http:request config-ref="defaultZoho" path="/tienda/db/findCustomer" method="GET" host="${create.host}" port="${create.port}" doc:name="buscar">
             <http:request-builder>
                 <http:query-param paramName="number" value="#[payload.customer.identification.number]"/>
                 <http:query-param paramName="type" value="#[payload.customer.identification.type]"/>
+
             </http:request-builder>
         </http:request>
         <json:json-to-object-transformer returnClass="java.util.HashMap" mimeType="application/java" doc:name="JSON to Object"/>
         <choice doc:name="Choice">
             <when expression="#[payload.response.customer.identification.number==null]">
                 <set-payload value="#[flowVars.objeto]" encoding="UTF-8" mimeType="application/json" doc:name="Set Payload"/>
-                <http:request config-ref="defaultZoho" path="/tienda/zoho/createCustomer" method="POST" host="104.155.149.197" port="8090" doc:name="invocar servicio zoho"/>
+                <http:request config-ref="defaultZoho" path="/tienda/zoho/createCustomer" method="POST" host="${create.host}" port="${create.port}" doc:name="invocar servicio zoho"/>
                 <json:json-to-object-transformer returnClass="java.util.HashMap" mimeType="application/java" doc:name="JSON to Object"/>
                 <set-variable variableName="idZoho" value="#[payload.response.customer.ids.idzoho]" encoding="UTF-8" mimeType="application/java" doc:name="guardar id zoho"/>
                 <set-payload value="#[flowVars.objeto]" encoding="UTF-8" mimeType="application/json" doc:name="Set Payload"/>
-                <http:request config-ref="defaultZoho" path="/tienda/espocrm/createCustomer" method="POST" host="104.155.149.197" port="8090" doc:name="registrar en crm"/>
+                <http:request config-ref="defaultZoho" path="/tienda/espocrm/createCustomer" method="POST" host="${create.host}" port="${create.port}" doc:name="registrar en crm"/>
                 <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" mimeType="application/java" doc:name="JSON to Object"/>
                 <set-variable variableName="idCrm" value="#[payload.response.customer.ids.id]" encoding="UTF-8" mimeType="application/java" doc:name="guardar id crm"/>
                 <set-payload value="#[flowVars.objeto]" encoding="UTF-8" mimeType="application/json" doc:name="Set Payload"/>
@@ -60,15 +61,11 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
                     idinvoice:flowVars.idZoho
                   }]]></dw:set-payload>
                 </dw:transform-message>
-                <http:request config-ref="defaultZoho" path="tienda/db/createCustomer" method="POST" host="104.155.149.197" port="8090" doc:name="insertar en db"/>
+                <http:request config-ref="defaultZoho" path="tienda/db/createCustomer" method="POST" host="${create.host}" port="${create.port}" doc:name="insertar en db"/>
                 <set-payload value="#[payload]" encoding="UTF-8" mimeType="application/json" doc:name="Set Payload"/>
             </when>
             <otherwise>
-                <set-payload value="{
-	 &quot;code&quot;: &quot;200&quot;,
-     &quot;status&quot;: &quot;el cliente ya se encuentra registrado&quot;,
-     &quot;response&quot;:{}
-}" encoding="UTF-8" mimeType="application/json" doc:name="Set Payload"/>
+                <set-payload value="{   &quot;code&quot;: &quot;404&quot;, &quot;status&quot;: &quot;The customer already exists&quot;,      &quot;response&quot;:{} }" encoding="UTF-8" mimeType="application/json" doc:name="Set Payload"/>
             </otherwise>
         </choice>
 
