@@ -316,29 +316,63 @@ version: 1.0
                       "buy":{
                               "items":[
                               
+                                      
                                       {
                                             "product": {
                                                         "description": {
-                                                        "id": "1"
+                                                        "id": "B00MTI4RVO"
                                                         }
                                              },
-                                             "qty":"1"
+                                             "qty":"2"
+                                      },
+                                      {
+                                      "product":{
+                                        "description":{
+                                          "id":"B01DK2WO1C"
+                                        }
+                                      },
+                                      "qty":"3"
                                       },
                                       {
                                             "product": {
                                                         "description": {
-                                                        "id": "2"
+                                                        "id": "B00BD45NEK"
                                                         }
                                              },
-                                             "qty":"3"
+                                             "qty":"2"
                                       },
-                                
+                                      {
+                                            "product": {
+                                                        "description": {
+                                                        "id": "B00EPGTKCO"
+                                                        }
+                                             },
+                                             "qty":"2"
+                                      },
+                                      {
+                                            "product": {
+                                                        "description": {
+                                                        "id": "B00PTUOSCW"
+                                                        }
+                                             },
+                                             "qty":"10"
+                                      }
+                                      
+                                      
                               ],
                               "customer":{
                                         "application":{
-                                                      "user":"8429038423"
+                                                      "user":"xluxod"
                                                       
-                                                     },
+                                                     }
+                                },
+                                "card":{
+                                  "number":"4097440000000004",
+                                  "securityCode":"321",
+                                  "expirationDate":"2017/12",
+                                  "name":"APPROVED",
+                                  "paymentMethod":"VISA",
+                                  "paymentCountry":"CO"
                                 }
                               
                       }
@@ -351,7 +385,23 @@ version: 1.0
               example: |
                          {
                           "code": "200",
-                          "status": "SUCCESS",
-                          "response": {}
+                          "status": "OK"
                           }
-                                                                                       
+     
+# Servicio para convertir dolares a pesos colombianos
+/moneda:
+  /convertir:
+    description: Servicio para convertir dolares a pesos colombianos
+    GET:    
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                        {
+                          "code": "200",
+                          "status": "Ok",
+                          "valor": 2000  
+                        }
+    
+                                                            

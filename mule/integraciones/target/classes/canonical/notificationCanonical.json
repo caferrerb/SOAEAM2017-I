@@ -1,0 +1,14 @@
+{  
+   "notification":{  
+      "customer":{  
+         "social":{  
+            "mail":"mail",
+            "cellNumber":"+1223433"
+         }
+      },
+      "message":{  
+         "sender":"sender",
+         "text":"message text"
+      }
+   }
+}

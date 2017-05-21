@@ -12,16 +12,18 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
         <apikit:flow-mapping resource="/cliente/create" action="post" content-type="application/json" flow-ref="clientecreateFlow"/>
         <apikit:flow-mapping resource="/cliente/edit" action="post" content-type="application/json" flow-ref="clienteeditFlow"/>
         <apikit:flow-mapping resource="/cliente/find/{user}" action="get" flow-ref="clientefindUserFlow"/>
-        <apikit:flow-mapping resource="/cliente/find" action="post" content-type="application/json" flow-ref="clienteloginFlow"/>
+        <apikit:flow-mapping resource="/cliente/find" action="post" content-type="application/json" flow-ref="clientelogin"/>
         <apikit:flow-mapping resource="/producto/search/{item}" action="get" flow-ref="productosearchFlow"/>
         <apikit:flow-mapping resource="/producto/find/{id}" action="get" flow-ref="productofindFlow"/>
         <apikit:flow-mapping resource="/buy/buy" action="post" content-type="application/json" flow-ref="compraFlow"/>
+        <apikit:flow-mapping resource="/moneda/convertir" action="get" flow-ref="convertirmonedaFlow"/>
     </apikit:config>
-    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8090" doc:name="HTTP Listener Configuration" basePath="tienda"/>
-    <context:property-placeholder location="mule-app.properties,mensajes.properties"/>
+    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="${http.port}" doc:name="HTTP Listener Configuration" basePath="tienda"/>
+    <context:property-placeholder location="mule-app.properties,mensajes.properties,clienteCreate.properties"/>
     <flow name="tiendacomerciotaskFlow">
         <http:listener config-ref="HTTP_Listener_Configuration" path="/*" doc:name="HTTP"/>
         <apikit:router config-ref="Router" doc:name="APIkit Router"/>
+        <exception-strategy ref="Copy_of_caths_exception" doc:name="Reference Exception Strategy"/>
     </flow>
     <choice-exception-strategy name="Copy_of_caths_exception">
         <catch-exception-strategy when="#[exception.causeMatches('*ResponseValidatorException')]" doc:name="Copy_of_ResponseValidatorException">

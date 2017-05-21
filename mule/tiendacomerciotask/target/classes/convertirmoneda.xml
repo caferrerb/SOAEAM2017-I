@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:ws="http://www.mulesoft.org/schema/mule/ws" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/current/mule-ws.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+    <ws:consumer-config name="Web_Service_Consumer" service="CurrencyConvertor" port="CurrencyConvertorSoap" serviceAddress="http://www.webservicex.net/CurrencyConvertor.asmx" wsdlLocation="CurrencyConvertor.wsdl" doc:name="Web Service Consumer"/>
+    <flow name="convertirmonedaFlow">
+        <set-variable variableName="valorDolares" value="#[Double.parseDouble(message.inboundProperties['http.query.params']['dolares'].substring(1))]" mimeType="application/java" doc:name="valorDolares"/>
+        <http:request config-ref="defaultZoho" path="api/v3/convert" method="GET" host="free.currencyconverterapi.com" port="80" doc:name="HTTP">
+            <http:request-builder>
+                <http:query-param paramName="q" value="USD_COP"/>
+                <http:query-param paramName="compact" value="y"/>
+            </http:request-builder>
+        </http:request>
+        <dw:transform-message doc:name="Transform Message" metadata:id="6cf79e8d-5468-43ed-935c-18eee84547d2">
+            <dw:input-payload mimeType="application/json"/>
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	code: "00",
+	mensaje: "El valor se convirtio con exito",
+	valor: flowVars.valorDolares * payload.USD_COP.val
+}]]></dw:set-payload>
+        </dw:transform-message>
+    </flow>
+</mule>

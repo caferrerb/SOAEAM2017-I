@@ -362,7 +362,8 @@ schemas:
                         "description": {
                             "id": "sku",
                             "name": "name",
-                            "description":"description"
+                            "description": "description",
+                            "brad": "brad"
                         },
                         "price": {
                             "price": "price"
@@ -760,4 +761,114 @@ schemas:
                               "idinvoice":"132123"
                             }}
                         }
-                                                                                
+
+#Método de base ded dato para buscar usuario por user                       
+/db/findCustomerUser:
+  GET:
+    queryParameters: 
+      user:
+        description: usuario
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+                      {
+                        "code": "200",
+                        "status": "The contact has been edited.",
+                        "response": {
+                        {
+                              "customer":{
+                                "identification":{
+                                  "type":"CC",
+                                  "number":"1096038302221"
+                                },
+                                "aplicacion":{
+                
+                                          "user":"8429038423",
+                                          "password":"209284302"
+                                        
+                                 },
+                                "personal":{
+                                  "firstName":"Cristian Camilo",
+                                  "lastName":"Zapata Torres",
+                                 },
+                               
+                               
+                              },
+                              "idcrm":"242342",
+                              "idinvoice":"132123"
+                            }}
+                        }                       
+
+#Servicio para enviar una notificación
+/notification/send:
+  POST:
+    body:
+      application/json:
+        example: |
+                  {  
+                     "notification":{  
+                        "customer":{  
+                           "social":{  
+                              "mail":"mail",
+                              "cellNumber":"+1223433"
+                           }
+                        },
+                        "message":{  
+                           "sender":"sender",
+                           "text":"message text"
+                        }
+                     }
+                  }
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+                      {
+                        "code":"200",
+                        "status":"ok"
+                      } 
+
+/db/findCustomerByUserPassword:
+  GET:
+    queryParameters: 
+      user:
+        description: nombre de usuario
+      password:
+        description: password de usuario  
+       
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+                      {
+                        "code": "200",
+                        "status": "el cliente ha sido encontrado",
+                        "response": {
+                        {
+                              "customer":{
+                                "identification":{
+                                  "type":"CC",
+                                  "number":"1094949889"
+                                },
+                                "aplicacion":{
+                
+                                          "user":"8429038423",
+                                          "password":"209284302"
+                                        
+                                 },
+                                "personal":{
+                                  "firstName":"Nestor Andres",
+                                  "lastName":"Franco Betancur",
+                                 },
+                               
+                               
+                              },
+                              "idcrm":"242342",
+                              "idinvoice":"132123"
+                            }}
+                        }
+                                                                               

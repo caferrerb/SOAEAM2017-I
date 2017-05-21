@@ -124,9 +124,12 @@ http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/
 }]]></dw:set-payload>
         </dw:transform-message>
         <http:request config-ref="http_payu" path="/payments-api/4.0/service.cgi" method="POST" doc:name="HTTP"/>
-        <dw:transform-message metadata:id="b3725282-55c6-46c6-8c2c-0a7d99bf2af4" doc:name="Transform Message">
-            <dw:input-payload mimeType="application/xml"/>
-            <dw:set-payload><![CDATA[%dw 1.0
+        <json:xml-to-json-transformer encoding="UTF-8" mimeType="application/json" doc:name="XML to JSON"/>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" mimeType="application/java" doc:name="JSON to Object"/>
+        <choice doc:name="Choice">
+            <when expression="#[payload.paymentResponse.transactionResponse.state.equals(&quot;DECLINED&quot;) || payload.paymentResponse.transactionResponse.state.equals(&quot;APPROVED&quot;)]">
+                <dw:transform-message doc:name="Transform Message">
+                    <dw:set-payload><![CDATA[%dw 1.0
 %output application/json
 ---
 {
@@ -139,6 +142,26 @@ http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/
 		}
 	}
 }]]></dw:set-payload>
-        </dw:transform-message>
+                </dw:transform-message>
+            </when>
+            <otherwise>
+                <dw:transform-message doc:name="Transform Message">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	code: '200',
+	status: payload.paymentResponse.code,
+	response: {
+		payment: {
+			operacionId: payload.paymentResponse.transactionResponse.responseMessage as :string,
+			state: payload.paymentResponse.transactionResponse.state
+		}
+	}
+}]]></dw:set-payload>
+                </dw:transform-message>
+            </otherwise>
+        </choice>
+
     </flow>
 </mule>
