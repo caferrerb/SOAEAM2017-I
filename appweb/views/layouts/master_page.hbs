@@ -1,1 +1,67 @@
-assadas
+<head>
+  <meta charset="utf-8">
+  <title>Store</title>
+  <!--JQuery-->
+  <script src="maqueta/Resources/libs/js/jquery.min.js" charset="utf-8"></script>
+  <!--Bootstrap-->
+  <script src="maqueta/Resources/libs/js/bootstrap.min.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="maqueta/Resources/libs/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <!--AngularJS-->
+  <script src="maqueta/Resources/libs/js/angular.min.js" charset="utf-8"></script>
+  <!--Route-->
+  <script src="maqueta/Resources/libs/js/route.min.js" charset="utf-8"></script>
+  <!--CSS Propio-->
+  <link rel="stylesheet" href="maqueta/Resources/css/style.css">
+  <!--App-->
+  <script src="maqueta/Resources/js/app.js" charset="utf-8"></script>
+  <script src="maqueta/Resources/js/general/user/userCtl.js" charset="utf-8"></script>
+  <script src="maqueta/Resources/js/general/user/userSer.js" charset="utf-8"></script>
+</head>
+<body ng-app="Store">
+
+
+</body>
+<body ng-app="Store">
+      <header class="header-fixed">
+        <div class="header-content header-logo">
+          <img src="maqueta/Resources/img/logo.png" alt="Logo">
+        </div>
+        <div class="header-content header-search">
+          <form class="row">
+              <input type="text" class="form-control input-search">
+              <buttom type="submit" class="btn btn-search-input">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </button>
+          </form>
+        </div>
+        <div class="header-content header-menu">
+          <ul>
+            <li>
+              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+            </li>
+            <li>
+              <i class="fa fa-info-circle" aria-hidden="true"></i>
+            </li>
+          </ul>
+        </div>
+      </header>
+      <br>
+      <br>
+      <br>
+
+
+    <section>
+      {{{body}}}
+    </section>
+    <footer>
+      <div ng-controller="CtlUser">
+      <input type="button" name="logOut-submit"
+             id="logOut-submit"
+             class="btn btn-primary"
+             value="Log Out" ng-click="logOut()">
+</div>
+    </footer>
+  </body>

@@ -1,9 +1,9 @@
 <section ng-controller="" class="login-section">
   <div class="login-header">
-    <img src="Resources/img/140.png" alt="">
+    <img src="maqueta/Resources/img/140.png" alt="">
   </div>
   <div class="login-content">
-    <form class="login-form" ng-submit="login();">
+    <form class="login-form" >
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
@@ -22,7 +22,7 @@
         <div class="col-md-6">
           </div>
         <div class="col-md-6">
-            <button class="btn btn-default btn-block btn-flat" type="submit" style="background: #f2f2f2;">
+            <button class="btn btn-default btn-block btn-flat" type="button" style="background: #f2f2f2;" ng-click(login(formUser.$valid))>
                 Entrar
             </button>
         </div>

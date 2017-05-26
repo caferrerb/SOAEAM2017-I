@@ -1,2 +1,56 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<head>
+  <meta charset="utf-8">
+  <title>Store</title>
+  <!--JQuery-->
+  <script src="maqueta/Resources/libs/js/jquery.min.js" charset="utf-8"></script>
+  <!--Bootstrap-->
+  <script src="maqueta/Resources/libs/js/bootstrap.min.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="maqueta/Resources/libs/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <!--AngularJS-->
+  <script src="maqueta/Resources/libs/js/angular.min.js" charset="utf-8"></script>
+  <!--Route-->
+  <script src="maqueta/Resources/libs/js/route.min.js" charset="utf-8"></script>
+  <!--CSS Propio-->
+  <link rel="stylesheet" href="maqueta/Resources/css/style.css">
+  <!--App-->
+  <script src="maqueta/Resources/js/app.js" charset="utf-8"></script>
+  <script src="maqueta/Resources/js/general/user/userCtl.js" charset="utf-8"></script>
+  <script src="maqueta/Resources/js/general/user/userSer.js" charset="utf-8"></script>
+
+</head>
+<body ng-app="Store">
+<section class="login-section">
+  <div class="login-header">
+    <img src="maqueta/Resources/img/140.png" alt="">
+  </div>
+  <div class="login-content">
+    <form class="login-form" name="formUser" ng-controller="CtlUser" >
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="usuario">Usuario</label>
+            <input class="form-control" id="usuario" type="text" required
+            placeholder="Usuario" ng-model="user.user">
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="contrasenia">Contraseña</label>
+            <input class="form-control" id="contrasenia" type="password" required
+            placeholder="contraseña" ng-model="user.password">
+          </div>
+        </div>
+        <div class="col-md-6">
+          </div>
+        <div class="col-md-6">
+            <input class="btn btn-default btn-block btn-flat" type="button" style="background: #f2f2f2;" value="Login" ng-click="login(formUser.$valid)">
+
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+</body>
