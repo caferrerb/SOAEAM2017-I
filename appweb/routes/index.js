@@ -28,6 +28,11 @@ router.post('/crearUsuario', function(req, res, next) {
   dao.crearUsuario(req,res);
 });
 
+router.get('/logout', function(req, res, next) {
+    req.session.destroy();
+    res.end();
+});
+
 router.get('/productGrid', function(req, res, next) {
   if(req.session.user){
     res.render('Templates/productGrid', { title: 'productGrid',layout: "master_page"});
