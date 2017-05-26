@@ -24,6 +24,9 @@ dao.login(req,res);
 router.get('/productDetail', function(req, res, next) {
   res.render('productDetail', { title: 'Login' ,layout:false});
 });
+router.post('/crearUsuario', function(req, res, next) {
+  dao.crearUsuario(req,res);
+});
 
 router.get('/productGrid', function(req, res, next) {
   if(req.session.user){
@@ -56,14 +59,9 @@ router.get('/detalle', function(req, res, next) {
   }
 });
 router.get('/registro', function(req, res, next) {
-  if(req.session.user){
-    res.render('registro', { title: 'registro',layout: "master_page"});
-  }else{
-    var pagina='<!doctype html><html><head></head><body>'+
-    '<p>No tiene permitido ingresar sin login</p>'+
-    '<br><a href="/">Retornar</a></body></html>';
-    res.send(pagina);
-  }
+
+    res.render('registro', { title: 'registro',layout: false});
+
 });
 router.get('/productList', function(req, res, next) {
   res.render('productList', { title: 'Login' ,layout:false});

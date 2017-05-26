@@ -48,20 +48,34 @@ app.controller('CtlUser', function ($scope,$window, userService) {
     };
 
 
+    $scope.crearUsuario = function (form) {
+           if (form) {
 
-    //  $scope.redireccionar = function (pagina) {
-    //     alert(pagina);
-    //           loginService.redireccionar(pagina).then(function (response) {
-     //
-    //           });
-     //
-    //   };
+               if($scope.user.password===$scope.user.password1){
+                 userService.crearUsuario($scope.user).then(function (response) {
+
+                     if (response.code==='200') {
+                         alert("Se ha registrado con exito");
+                         $window.location.href="/";
+
+                         $scope.user = "";
+                     } else if(response.code==='404') {
+                         alert("Ya existe un usuario registrado con el mismo numero de documento");
+
+                     }else if(response.code==='-1'){
+                       alert("Nombre de usuario ya existe");
+                     }
+                 });
+               }else{
+                 alert("el password no coincide");
+               }
 
 
 
-
-
-
+           } else {
+               alert("Verifique los datos ingresados");
+           }
+       };
 
 
 });

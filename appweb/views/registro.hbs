@@ -1,2 +1,196 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<head>
+  <script src="maqueta/Resources/libs/js/jquery.min.js" charset="utf-8"></script>
+  <!--Bootstrap-->
+  <script src="maqueta/Resources/libs/js/bootstrap.min.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="maqueta/Resources/libs/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+
+		<!-- Website CSS style -->
+		<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+
+		<!-- Website Font style -->
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+<script type="text/javascript" src="assets/js/bootstrap.js"></script>
+		<!-- Google Fonts -->
+		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <!--AngularJS-->
+  <script src="maqueta/Resources/libs/js/angular.min.js" charset="utf-8"></script>
+  <!--Route-->
+  <script src="maqueta/Resources/libs/js/route.min.js" charset="utf-8"></script>
+  <!--CSS Propio-->
+  <link rel="stylesheet" href="maqueta/Resources/css/style.css">
+  <!--App-->
+  <script src="maqueta/Resources/js/app.js" charset="utf-8"></script>
+  <script src="maqueta/Resources/js/general/user/userCtl.js" charset="utf-8"></script>
+  <script src="maqueta/Resources/js/general/user/userSer.js" charset="utf-8"></script>
+</head>
+
+<body ng-app="Store">
+  <section>
+
+		<div class="container">
+			<div class="row main">
+				<div class="panel-heading">
+	               <div class="panel-title text-center">
+	               		<h1 class="title">Registro de Usuario</h1>
+	               		<hr />
+	               	</div>
+	            </div>
+				<div class="main-login main-center">
+					<form class="form-vertical" name="formUser" ng-controller="CtlUser">
+
+						<div class="form-group">
+							<label for="name" class="cols-sm-2 control-label">Nombres</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" name="name" id="name"  placeholder="Nombres." ng-model="user.nombre" required/>
+								</div>
+							</div>
+						</div>
+
+            <div class="form-group">
+							<label for="name" class="cols-sm-2 control-label">Apellidos</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" name="name" id="name"  placeholder="Apellidos." ng-model="user.apellido" required/>
+								</div>
+							</div>
+						</div>
+
+            <div class="form-group">
+							<label for="name" class="cols-sm-2 control-label">Tipo Documento</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-download fa" aria-hidden="true"></i></span>
+                  <select class="form-control" id="selTipoDocumento" ng-model="user.tipo" required>
+                                  <option value="" disabled selected>Seleccione una Opcion</option>
+                                  <option value="CC" >CC</option>
+                                  </select>
+								</div>
+							</div>
+						</div>
+
+            <div class="form-group">
+							<label for="name" class="cols-sm-2 control-label">Documento</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+									<input type="number" class="form-control" name="name" id="name"  placeholder="Apellidos." ng-model="user.documento" required/>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="email" class="cols-sm-2 control-label">E-mail</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+									<input type="email" class="form-control" name="email" id="email"  placeholder="Apellido." ng-model="user.email" required/>
+								</div>
+							</div>
+						</div>
+
+            <div class="form-group">
+							<label for="telefono" class="cols-sm-2 control-label">Telefono Movil</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-phone fa-lg" aria-hidden="true"></i></span>
+									<input type="number" class="form-control" name="telefono" id="telefono"  ng-model="user.telefono" required/>
+								</div>
+							</div>
+						</div>
+
+
+            <div class="form-group">
+							<label for="email" class="cols-sm-2 control-label">Pais</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-globe fa" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" name="email" id="email"  placeholder="Apellido." ng-model="user.pais" required/>
+								</div>
+							</div>
+						</div>
+
+            <div class="form-group">
+              <label for="email" class="cols-sm-2 control-label">Estado</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                  <input type="text" class="form-control" name="email" id="email"  placeholder="Apellido." ng-model="user.estado" required/>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="cols-sm-2 control-label">Ciudad</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                  <input type="text" class="form-control" name="email" id="email"  placeholder="Apellido." ng-model="user.ciudad" required/>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="cols-sm-2 control-label">Direccion</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                  <input type="text" class="form-control" name="email" id="email"  placeholder="Apellido." ng-model="user.direccion" required/>
+                </div>
+              </div>
+            </div>
+
+						<div class="form-group">
+							<label for="username" class="cols-sm-2 control-label">Nombre de usuario</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" name="user" id="user"  placeholder="Usuario." ng-model="user.usuario" required/>
+								</div>
+							</div>
+						</div>
+
+
+
+						<div class="form-group">
+							<label for="confirm" class="cols-sm-2 control-label">Password</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+									<input type="password" class="form-control" name="password" id="password"  placeholder="Ingrese el password." ng-model="user.password" required/>
+								</div>
+							</div>
+						</div>
+
+            <div class="form-group">
+							<label for="confirm" class="cols-sm-2 control-label">Confirmar password</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+									<input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirmar password." ng-model="user.password1" required/>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group ">
+							<input type="button" class="btn btn-primary btn-lg btn-block login-button" ng-click="crearUsuario(formUser.$valid)" value="Registrarse">
+						</div>
+            <div class="form-group ">
+						<label>Ya tienes una cuenta? <a href="/">Sign In</a></label>
+						</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+
+
+
+	</body>

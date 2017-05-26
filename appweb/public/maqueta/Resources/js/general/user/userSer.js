@@ -39,19 +39,32 @@ app.service('userService', function ($http, $httpParamSerializerJQLike) {
         return promise;
     };
 
-    // this.redireccionar = function (pagina) {
-    //     var promise = $http({
-    //         method: "GE",
-    //         url: "/inicio"
-    //     }).then(function mySucces(response) {
-    //         return response.data;
-    //     }, function myError(response) {
-    //         alert("Error");
-    //         alert(response.statusText);
-    //     });
-    //     return promise;
-    // };
-
+    this.crearUsuario = function (user) {
+        var promise = $http({
+            method: "POST",
+            url: "/crearUsuario",
+            data: $httpParamSerializerJQLike({
+                nombre: user.nombre,
+                apellido: user.apellido,
+                tipo: user.tipo,
+                documento: user.documento,
+                email: user.email,
+                telefono: user.telefono,
+                pais: user.pais,
+                estado: user.estado,
+                ciudad: user.ciudad,
+                direccion: user.direccion,
+                user: user.usuario,
+                password:user.password}),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function mySucces(response) {
+            return response.data;
+        }, function myError(response) {
+            alert("Error");
+            alert(response.statusText);
+        });
+        return promise;
+    };
 
     this.logOut = function () {
         var promise = $http({
