@@ -8,7 +8,7 @@
     </a>
   </div>
   <div class="panel-body product-section-list">
-    <article class="product-item-list" ng-repeat="number in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]">
+    <article class="product-item-list" ng-repeat="obj in productos">
       <div class="product-item-hidden-list">
         <a class="separator" href="/detalle">
           <i class="fa fa-eye" aria-hidden="true"></i>
@@ -18,15 +18,15 @@
         </a>
       </div>
       <div class="product-item-header-list">
-        <img src="maqueta/Resources/img/logo.png" alt="">
+        <img src="{[{obj.product.image.large}]}" alt="">
       </div>
       <div class="product-item-price-list">
-        <strong>3.000.000</strong>
+        <strong>{[{obj.product.price.price}]}</strong>
       </div>
       <div class="product-item-content-list">
-        <h1>Nombre producto</h1>
-        <span>Marca producto</span>
-        <p style="width: 75%;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <h5>{[{obj.product.description.title}]}</h5>
+        <span>{[{obj.product.description.name}]}</</span>
+        <p style="width: 75%;">{[{obj.product.description.description}]}</p>
       </div>
     </article>
   </div>

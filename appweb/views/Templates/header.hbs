@@ -3,9 +3,9 @@
     <img src="maqueta/Resources/img/logo.png" alt="Logo">
   </div>
   <div class="header-content header-search">
-    <form class="row">
-        <input type="text" class="form-control input-search">
-        <buttom type="submit" class="btn btn-search-input">
+    <form class="row" ng-controller="CtlProducto">
+        <input type="text" class="form-control input-search" ng-model="palabraClave">
+        <buttom type="submit" class="btn btn-search-input" ng-click="listarProductosPorNombre()">
           <i class="fa fa-search" aria-hidden="true"></i>
         </button>
     </form>

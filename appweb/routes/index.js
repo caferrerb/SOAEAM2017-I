@@ -18,7 +18,7 @@ router.get('/login', function(req, res, next) {
 });
 
 router.post('/login', function(req, res, next) {
-dao.login(req,res);
+  dao.login(req,res);
 });
 
 router.get('/productDetail', function(req, res, next) {
@@ -29,8 +29,8 @@ router.post('/crearUsuario', function(req, res, next) {
 });
 
 router.get('/logout', function(req, res, next) {
-    req.session.destroy();
-    res.end();
+  req.session.destroy();
+  res.end();
 });
 
 router.get('/productGrid', function(req, res, next) {
@@ -45,7 +45,7 @@ router.get('/productGrid', function(req, res, next) {
 });
 router.get('/productList', function(req, res, next) {
   if(req.session.user){
-    res.render('Templates/productList', { title: 'productList',layout: "master_page"});
+    res.render('Templates/productList', { title: 'productList'});
   }else{
     var pagina='<!doctype html><html><head></head><body>'+
     '<p>No tiene permitido ingresar sin login</p>'+
@@ -65,11 +65,15 @@ router.get('/detalle', function(req, res, next) {
 });
 router.get('/registro', function(req, res, next) {
 
-    res.render('registro', { title: 'registro',layout: false});
+  res.render('registro', { title: 'registro',layout: false});
 
 });
 router.get('/productList', function(req, res, next) {
   res.render('productList', { title: 'Login' ,layout:false});
+});
+
+router.get('/listarProductosPorNombre', function(req, res, next) {
+  dao.listarProductosPorNombre(req, res);
 });
 
 module.exports = router;
