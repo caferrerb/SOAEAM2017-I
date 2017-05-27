@@ -70,7 +70,11 @@
 									<span class="input-group-addon"><i class="fa fa-download fa" aria-hidden="true"></i></span>
                   <select class="form-control" id="selTipoDocumento" ng-model="user.tipo" required>
                                   <option value="" disabled selected>Seleccione una Opcion</option>
-                                  <option value="CC" >CC</option>
+                                  <option value="CC" >Cedula de Ciudadania</option>
+                                  <option value="CE" >Cedula de Extranjeria</option>
+                                  <option value="NIT" >Numero de Identificacion Tributaria</option>
+
+
                                   </select>
 								</div>
 							</div>
@@ -81,7 +85,7 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="number" class="form-control" name="name" id="name"  placeholder="Apellidos." ng-model="user.documento" required/>
+									<input type="number" class="form-control" name="name" id="name"  placeholder="Documento." ng-model="user.documento" required/>
 								</div>
 							</div>
 						</div>
@@ -91,7 +95,7 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-									<input type="email" class="form-control" name="email" id="email"  placeholder="Apellido." ng-model="user.email" required/>
+									<input type="email" class="form-control" name="email" id="email"  placeholder="Email." ng-model="user.email" required/>
 								</div>
 							</div>
 						</div>
@@ -112,7 +116,7 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-globe fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="email" id="email"  placeholder="Apellido." ng-model="user.pais" required/>
+									<input type="text" class="form-control" name="email" id="email"  placeholder="Pais." ng-model="user.pais" required/>
 								</div>
 							</div>
 						</div>
@@ -122,7 +126,7 @@
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
-                  <input type="text" class="form-control" name="email" id="email"  placeholder="Apellido." ng-model="user.estado" required/>
+                  <input type="text" class="form-control" name="email" id="email"  placeholder="Estado." ng-model="user.estado" required/>
                 </div>
               </div>
             </div>
@@ -132,7 +136,7 @@
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
-                  <input type="text" class="form-control" name="email" id="email"  placeholder="Apellido." ng-model="user.ciudad" required/>
+                  <input type="text" class="form-control" name="email" id="email"  placeholder="Ciudad." ng-model="user.ciudad" required/>
                 </div>
               </div>
             </div>
@@ -142,7 +146,7 @@
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
-                  <input type="text" class="form-control" name="email" id="email"  placeholder="Apellido." ng-model="user.direccion" required/>
+                  <input type="text" class="form-control" name="email" id="email"  placeholder="Direccion." ng-model="user.direccion" required/>
                 </div>
               </div>
             </div>
