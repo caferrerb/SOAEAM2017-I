@@ -40,5 +40,22 @@
         });
         return promise;
     }
+    
+    
+    this.buy = function (json) {
+        var promise = $http({
+            method: "POST",
+            url: "/buy",
+            data: $httpParamSerializerJQLike({
+               json:json}),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function mySucces(response) {
+            return response.data;
+        }, function myError(response) {
+            alert("Error");
+            alert(response.statusText);
+        });
+        return promise;
+    };
 
  });

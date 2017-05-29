@@ -148,7 +148,52 @@ function listarProductosPorNombre(pedido, respuesta){
   req.end();
 }
 
+
+function buy(pedido,respuesta){
+    
+    
+    var json = JSON.parse(pedido.body.json);
+    json.buy.customer.application.user=pedido.session.user;
+    json = JSON.stringify(json);
+    
+    console.log(json);
+    
+    var data=json;
+    
+    var options = {
+  "method": "POST",
+  "hostname": "104.155.149.197",
+  "port": "8091",
+  "path": "/tienda/buy/buy",
+  "headers": {
+    "content-type": "application/json"
+  }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on("data", function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on("end", function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+    respuesta.end(body.toString());
+  });
+});
+
+req.write(data);
+ req.end();
+  
+    
+}
+
+
+
 exports.login = login;
 exports.crearUsuario = crearUsuario;
 exports.listarProductosPorNombre = listarProductosPorNombre;
 exports.getProduct = getProduct;
+exports.buy=buy;

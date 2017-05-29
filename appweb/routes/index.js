@@ -101,4 +101,10 @@ router.get('/productTrolley', function(req, res, next) {
   }
 });
 
+
+router.post('/buy',function(req,res,next){
+    
+    dao.buy(req,res);
+});
+
 module.exports = router;
