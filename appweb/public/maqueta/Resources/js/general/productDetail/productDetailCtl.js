@@ -22,7 +22,7 @@ app.controller('CtlProductDetail', function ($scope,$window,$cookies, productDet
 
     /*Se define una funcion en el controlador*/
     $scope.getProduct = function () {
-      $cookies.remove('sku');
+      //$cookies.remove('sku');
             productDetailService.getProduct($scope.productSKU).then(function (response) {
                 if (response.code===200) {
                   $scope.data = JSON.parse(response.body);
