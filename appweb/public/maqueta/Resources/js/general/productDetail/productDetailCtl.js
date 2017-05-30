@@ -17,7 +17,7 @@ app.controller('CtlProductDetail', function ($scope,$window,$cookies, productDet
     /*Se inicializa el modelo*/
     $scope.productSKU = $cookies.get('sku');
     $scope.data = "";
-    alert($scope.productSKU);
+    //alert($scope.productSKU);
 
 
     /*Se define una funcion en el controlador*/
