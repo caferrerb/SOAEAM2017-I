@@ -16,7 +16,6 @@
   <!--CSS Propio-->
   <link rel="stylesheet" href="maqueta/Resources/css/style.css">
   <!--App-->
-  <script src="maqueta/Resources/libs/js/angular-cookies.js" charset="utf-8"></script>
   <script src="maqueta/Resources/js/app.js" charset="utf-8"></script>
   <script src="maqueta/Resources/js/general/user/userCtl.js" charset="utf-8"></script>
   <script src="maqueta/Resources/js/general/user/userSer.js" charset="utf-8"></script>
@@ -45,14 +44,10 @@
           </div>
         </div>
         <div class="col-md-6">
-          </div>
-        <div class="col-md-6">
-            <input class="btn btn-default btn-block btn-flat" type="button" style="background: #f2f2f2;" value="Sign In" ng-click="login(formUser.$valid)">
-
+          <input style="margin-top: 8px; margin-left: 45px;"class="btn btn-flat btn-block btn-link" type="button"value="Registrarme" ng-click="registro()">
         </div>
         <div class="col-md-6">
-            <input class="btn btn-default btn-block btn-flat" type="button" style="background: #f2f2f2;" value="Registro" ng-click="registro()">
-
+            <input class="btn btn-flat btn-block" type="button" value="Sign In" ng-click="login(formUser.$valid)">
         </div>
       </div>
     </form>
