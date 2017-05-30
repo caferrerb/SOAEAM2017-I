@@ -16,7 +16,9 @@ router.get('/header', function(req, res, next) {
 router.get('/login', function(req, res, next) {
   res.render('login', { title: 'Login' ,layout:false});
 });
-
+router.post('/getProduct', function(req,res,next){
+  dao.getProduct(req, res);
+});
 router.post('/login', function(req, res, next) {
 dao.login(req,res);
 });
@@ -46,6 +48,18 @@ router.get('/productGrid', function(req, res, next) {
 router.get('/productList', function(req, res, next) {
   if(req.session.user){
     res.render('Templates/productList', { title: 'productList',layout: "master_page"});
+  }else{
+    var pagina='<!doctype html><html><head></head><body>'+
+    '<p>No tiene permitido ingresar sin login</p>'+
+    '<br><a href="/">Retornar</a></body></html>';
+    res.send(pagina);
+  }
+});
+router.get('/detalle/:productSKU', function(req, res, next) {
+  if(req.session.user){
+    var sku = req.params.productSKU;
+    res.cookie('sku', sku);
+    res.redirect('/detalle');
   }else{
     var pagina='<!doctype html><html><head></head><body>'+
     '<p>No tiene permitido ingresar sin login</p>'+

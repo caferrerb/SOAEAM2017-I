@@ -1,6 +1,6 @@
 var http=require('http');
 var querystring = require('querystring');
-
+var requestify = require('requestify');
 
 
 function login(pedido,respuesta){
@@ -98,5 +98,21 @@ req.write(data);
 req.end();
 }
 
+
+function getProduct(pedido,respuesta){
+  var sku = pedido.body['productSKU'];
+  console.log(sku);
+  var options={
+    host:'104.155.149.197',
+    port:'8091',
+    path:'/tienda/producto/find/' + sku,
+    method:'GET'
+  };
+  requestify.get('http://104.155.149.197:8091/tienda/producto/find/'+ sku).then(function(res) {
+    respuesta.send(res);
+  });
+}
+
 exports.login = login;
 exports.crearUsuario = crearUsuario;
+exports.getProduct = getProduct;
