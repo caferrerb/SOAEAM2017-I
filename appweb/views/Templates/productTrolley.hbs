@@ -1,0 +1,38 @@
+<section class="panel product-section">
+    <div class="panel-heading heading-position-right">
+        <a class="btn btn-default options-btn" href="/ProductGrid">
+            <i class="fa fa-th-large" aria-hidden="true"></i>
+        </a>
+        <a class="btn btn-default options-btn options-btn-active" href="/ProductList">
+            <i class="fa fa-th-list" aria-hidden="true"></i>
+        </a>
+    </div>
+    <!--cual es el que rtecorre el carrito?-->
+    <div  class="panel-body product-section-list"  ng-controller="CtlProducto">
+        <div  class="product-section-list">
+            <article class="product-item-list" ng-repeat="obj in carrito" ng-model="carrito">
+                <div class="product-item-hidden-list">
+                    <a class="separator" href="/detalle">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>                    
+                </div>
+                <button class="btn btn-warning"  ng-click="deleteTrolley(obj)">quitar</button>
+                <div class="product-item-header-list" style="width: 45%;">
+                    <img src="{[{obj.obj.product.image.large}]}" alt="">                    
+                </div>                
+                <div class="product-item-header">
+                    <h4 >{[{obj.obj.product.description.title}]}</h4>
+                </div>
+
+                <div class="product-item-price">
+                    <strong style="width: 55px">{[{obj.obj.product.price.price}]}</strong>
+                </div>
+                <div class="product-item-content">                    
+                    <label>{[{obj.obj.product.description.name}]}</</label>
+                    <p>{[{obj.obj.product.description.description}]}</p>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+

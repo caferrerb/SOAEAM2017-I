@@ -76,4 +76,15 @@ router.get('/listarProductosPorNombre', function(req, res, next) {
   dao.listarProductosPorNombre(req, res);
 });
 
+router.get('/productTrolley', function(req, res, next) {
+  if(req.session.user){
+    res.render('Templates/productTrolley', { title: 'productTrolley',layout: "master_page"});
+  }else{
+    var pagina='<!doctype html><html><head></head><body>'+
+    '<p>No tiene permitido ingresar sin antes logearse</p>'+
+    '<br><a href="/">Retornar</a></body></html>';
+    res.send(pagina);
+  }
+});
+
 module.exports = router;
