@@ -124,7 +124,12 @@ app.controller('CtlProducto', function ($scope, $window, productoService) {
         
         
         productoService.buy(json).then(function (response) {
-            console.log(JSON.stringify(response));
+            console.log(response);
+            if(response.code==="200"){
+                alert("Successful payment!");
+            }else{
+                alert("Error processing your payment");
+            }
         
         });
      
