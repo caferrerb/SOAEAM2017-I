@@ -22,14 +22,10 @@ app.controller('CtlProductDetail', function ($scope,$window,$cookies, productDet
 
     /*Se define una funcion en el controlador*/
     $scope.getProduct = function () {
+      $cookies.remove('sku');
             productDetailService.getProduct($scope.productSKU).then(function (response) {
                 if (response.code===200) {
                   $scope.data = JSON.parse(response.body);
-                  $("#img").attr('src', $scope.data.response.product.image.large);
-                  $("#title").html($scope.data.response.product.description.title);
-                  $("#brand").html($scope.data.response.product.description.brand);
-                  $("#description").html($scope.data.response.product.description.description);
-                  $("#price").html($scope.data.response.product.price.price);
                 }else{
                   alert("No fue encontrado el producto");
                 }

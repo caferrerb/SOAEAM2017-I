@@ -1,4 +1,4 @@
-<section class="panel product-section">  
+<section class="panel product-section">
   <div class="panel-heading heading-position-right">
     <a class="btn btn-default options-btn options-btn-active" href="/ProductGrid">
       <i class="fa fa-th-large" aria-hidden="true"></i>
@@ -10,7 +10,7 @@
   <div class="panel-body product-section-grid">
     <article class="product-item" ng-repeat="obj in productos">
       <div class="product-item-hidden">
-        <a class="separator" href="/detalle">
+        <a class="separator" href="/detalle/{[{obj.product.description.id}]}">
           <i class="fa fa-eye" aria-hidden="true"></i>
         </a>
         <a class="" ng-click="addTrolley()">

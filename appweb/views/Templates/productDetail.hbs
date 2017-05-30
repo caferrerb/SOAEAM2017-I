@@ -2,25 +2,25 @@
   <form class="login-form" name="formUser" ng-controller="CtlProductDetail" >
   <div class="row" style="margin: 10px; background: #fff; padding: 2%; border-radius: 5px;">
     <div class="col-md-5 flex-centered">
-      <img id="img">
+      <img id="img" src="{[{data.response.product.image.large}]}">
     </div>
     <div class="col-md-7 row" >
 
-      <input name="productSKU" ng-model="productSKU" style="display:none" type="text">{{sku}}</input>
+      <input name="productSKU" ng-model="productSKU" style="display:none" type="text">{[{sku}]}</input>
       <input name="productSKU" ng-model="data" style="display:none" type="text">
       <div class="col-md-12" ng-init="getProduct">
-        <h1 id="title">{{data.response.product.description.title}}</h1>
+        <h1 id="title">{[{data.response.product.description.title}]}</h1>
       </div>
       <div class="col-md-12">
-        <h2 id="brand">{{data.response.product.description.brand}}</h2>
-      </div>
-      <div class="col-md-12">
-        <br>
-        <p id="description">{{data.response.product.description.description}}.</p>
+        <h2 id="brand">{[{data.response.product.description.brand}]}</h2>
       </div>
       <div class="col-md-12">
         <br>
-        <strong id="price" style="font-size:2.5em;">{{data.response.product.price.price}}</strong>
+        <p id="description">{[{data.response.product.description.description}]}.</p>
+      </div>
+      <div class="col-md-12">
+        <br>
+        <strong id="price" style="font-size:2.5em;">{[{data.response.product.price.price}]}</strong>
       </div>
       <div class="col-md-4">
         <br>
@@ -28,12 +28,6 @@
           <i class="fa fa-cart-plus" aria-hidden="true"></i>
           Añadir al carrito
         </button>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group">
-            <label for="cantidad" style="margin-bottom: 0px;">Cantidad</label>
-            <input class="form-control" type="number" min="1" value="1" required>
-        </div>
       </div>
     </div>
   </div>
