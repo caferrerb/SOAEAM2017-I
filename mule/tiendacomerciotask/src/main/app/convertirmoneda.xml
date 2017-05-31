@@ -12,12 +12,6 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
     <ws:consumer-config name="Web_Service_Consumer" service="CurrencyConvertor" port="CurrencyConvertorSoap" serviceAddress="http://www.webservicex.net/CurrencyConvertor.asmx" wsdlLocation="CurrencyConvertor.wsdl" doc:name="Web Service Consumer"/>
     <flow name="convertirmonedaFlow">
         <set-variable variableName="valorDolares" value="#[Double.parseDouble(message.inboundProperties['http.query.params']['dolares'].substring(1))]" mimeType="application/java" doc:name="valorDolares"/>
-        <http:request config-ref="defaultZoho" path="api/v3/convert" method="GET" host="free.currencyconverterapi.com" port="80" doc:name="HTTP">
-            <http:request-builder>
-                <http:query-param paramName="q" value="USD_COP"/>
-                <http:query-param paramName="compact" value="y"/>
-            </http:request-builder>
-        </http:request>
         <dw:transform-message doc:name="Transform Message" metadata:id="6cf79e8d-5468-43ed-935c-18eee84547d2">
             <dw:input-payload mimeType="application/json"/>
             <dw:set-payload><![CDATA[%dw 1.0
@@ -26,7 +20,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 {
 	code: "00",
 	mensaje: "El valor se convirtio con exito",
-	valor: flowVars.valorDolares * payload.USD_COP.val
+	valor: flowVars.valorDolares * 2917
 }]]></dw:set-payload>
         </dw:transform-message>
     </flow>
