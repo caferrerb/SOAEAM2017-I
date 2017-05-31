@@ -17,6 +17,7 @@ app.controller('CtlProductDetail', function ($scope,$window,$cookies, productDet
     /*Se inicializa el modelo*/
     $scope.productSKU = $cookies.get('sku');
     $scope.data = "";
+    $scope.carrito = [];
     //alert($scope.productSKU);
 
 
@@ -33,4 +34,22 @@ app.controller('CtlProductDetail', function ($scope,$window,$cookies, productDet
     };
 
     $scope.getProduct();
+
+
+    $scope.addTrolley = function () {
+        var obj = $scope.data.response;
+        alert("El producto se añadio al carrito");
+        if (sessionStorage.getItem("carrito")) {
+            $scope.carrito = JSON.parse(sessionStorage.getItem("carrito"));
+            $scope.carrito.push({obj});
+            sessionStorage.clear();
+            sessionStorage.setItem("carrito", JSON.stringify($scope.carrito));
+        } else {
+            sessionStorage.clear();
+            $scope.carrito.push({obj});
+            sessionStorage.setItem("carrito", JSON.stringify($scope.carrito));
+        }
+        console.log($scope.carrito);
+
+    };
 });

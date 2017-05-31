@@ -23,7 +23,6 @@ app.controller('CtlProducto', function ($scope, $window, productoService) {
     $scope.franquicias=["VISA"];
     $scope.countries=["CO","ARS","CLP","MXN","PEN"];
     $scope.pago="";
-    
     var obj = sessionStorage.getItem("carrito");
     if (obj) {
         $scope.carrito = JSON.parse(obj);
@@ -39,7 +38,7 @@ app.controller('CtlProducto', function ($scope, $window, productoService) {
         });
     };
 /***
- * Funcion añadir productos al carrito 
+ * Funcion añadir productos al carrito
  * @param {type} obj producto a añadir
  * @returns {el producto agregado al carrito}
  */
@@ -78,10 +77,10 @@ app.controller('CtlProducto', function ($scope, $window, productoService) {
             }
         }
     };
-    
-    
+
+
     $scope.buy = function(){
-        
+
         var json = {
             buy:{
                items:[],
@@ -89,28 +88,28 @@ app.controller('CtlProducto', function ($scope, $window, productoService) {
                    application:{}
                },
                card:{}
-                
+
             }
         };
-        
+
         $scope.carrito.push({
            product:{
                description:{
                    id:"B00PTUOSCW"
                }
-           } 
-            
+           }
+
         });
-        
+
         for(var i=0;i<$scope.carrito.length;i++){
             var aux = $scope.carrito[i];
-            
+
             json.buy.items.push({product:{description:{id:aux.product.description.id}},qty:"1"});
         }
-        
+
         var fecha = new Date($scope.pago.fecha);
         var fecha_expiracion = fecha.getUTCFullYear()+"/"+(fecha.getMonth()+1);
-        
+
         /*datos de la targeta de credito*/
         json.buy.card.number=$scope.pago.number.toString();
         json.buy.card.securityCode=$scope.pago.password.toString();
@@ -118,11 +117,11 @@ app.controller('CtlProducto', function ($scope, $window, productoService) {
         json.buy.card.name="APPROVED";
         json.buy.card.paymentMethod=$scope.pago.metodo.toString();
         json.buy.card.paymentCountry=$scope.pago.pais.toString();
-        
-        
+
+
         json = JSON.stringify(json);
-        
-        
+
+
         productoService.buy(json).then(function (response) {
             console.log(response);
             if(response.code==="200"){
@@ -130,14 +129,14 @@ app.controller('CtlProducto', function ($scope, $window, productoService) {
             }else{
                 alert("Error processing your payment");
             }
-        
+
         });
-     
-        
-        
-        
-        
-        
+
+
+
+
+
+
     };
-    
+
 });

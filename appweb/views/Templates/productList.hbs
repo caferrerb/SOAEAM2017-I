@@ -10,7 +10,7 @@
   <div class="panel-body product-section-list">
     <article class="product-item-list" ng-repeat="obj in productos">
       <div class="product-item-hidden-list">
-        <a class="separator" href="/detalle">
+        <a class="separator" href="/detalle/{[{obj.product.description.id}]}">
           <i class="fa fa-eye" aria-hidden="true"></i>
         </a>
         <a class="separator" ng-click="addTrolley(obj)">
