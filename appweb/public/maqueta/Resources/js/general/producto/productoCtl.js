@@ -92,19 +92,13 @@ app.controller('CtlProducto', function ($scope, $window, productoService) {
             }
         };
 
-        $scope.carrito.push({
-           product:{
-               description:{
-                   id:"B00PTUOSCW"
-               }
-           }
-
-        });
+        console.log($scope.carrito);
+        $scope.carrito = JSON.parse(sessionStorage.getItem("carrito"));
 
         for(var i=0;i<$scope.carrito.length;i++){
             var aux = $scope.carrito[i];
 
-            json.buy.items.push({product:{description:{id:aux.product.description.id}},qty:"1"});
+            json.buy.items.push({product:{description:{id:aux.obj.product.description.id}},qty:"1"});
         }
 
         var fecha = new Date($scope.pago.fecha);

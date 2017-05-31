@@ -36,8 +36,9 @@ app.controller('CtlUser', function ($scope,$window, userService) {
     $scope.logOut = function () {
 
             userService.logOut().then(function (response) {
-              $window.location.href="/";
               sessionStorage.clear();
+              $window.location.href="/";
+              
             });
 
     };
