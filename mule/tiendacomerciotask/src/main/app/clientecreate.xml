@@ -9,7 +9,7 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
 http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
-    <http:request-config name="defaultZoho" doc:name="HTTP Request Configuration"/>
+    <http:request-config name="defaultZoho" doc:name="HTTP Request Configuration" responseTimeout="10000"/>
     <flow name="clientecreateFlow">
         <json:validate-schema schemaLocation="schemas/customerSchema.json" doc:name="Validate JSON Schema"/>
         <set-variable variableName="objeto" value="#[payload]" encoding="UTF-8" mimeType="application/json" doc:name="guardar objeto"/>
