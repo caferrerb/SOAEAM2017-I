@@ -20,7 +20,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 {
 	code: "00",
 	mensaje: "El valor se convirtio con exito",
-	valor: flowVars.valorDolares * 2917
+	valor: flowVars.valorDolares * 2917.0
 }]]></dw:set-payload>
         </dw:transform-message>
     </flow>
